@@ -1,7 +1,7 @@
 package dssb.cryptography.cipher;
 
 import dssb.cryptography.Data;
-import dssb.cryptography.DataType;
+import dssb.cryptography.Type;
 
 
 
@@ -11,7 +11,7 @@ public interface Decryptor {
     
     public byte[] decrypt(SecretData secret);
     
-    public <_Type_> Data<_Type_> decrypt(SecretData content, DataType<_Type_> dataType);
+    public <_Type_> Data<_Type_> decrypt(SecretData content, Type<_Type_> dataType);
     
     public byte[] decrypt(byte[] secret);
     
@@ -41,7 +41,7 @@ public interface Decryptor {
         }
         
         @Override
-        public <_Type_> Data<_Type_> decrypt(SecretData secret, DataType<_Type_> dataType) {
+        public <_Type_> Data<_Type_> decrypt(SecretData secret, Type<_Type_> dataType) {
             final byte[] bytes = this.decrypt(secret);
             final Data<_Type_> clearData = dataType.toClearData(bytes);
             return clearData;

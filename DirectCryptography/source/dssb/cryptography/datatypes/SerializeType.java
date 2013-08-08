@@ -11,9 +11,9 @@ import java.util.Arrays;
 import dssb.cryptography.ConvertFromBytesException;
 import dssb.cryptography.ConvertToBytesException;
 import dssb.cryptography.Data;
-import dssb.cryptography.DataType;
+import dssb.cryptography.Type;
 
-public class SerializeType<_Type_ extends Serializable> extends DataType.Simple<_Type_> {
+public class SerializeType<_Type_ extends Serializable> extends Type.Simple<_Type_> {
     
     private final Class<_Type_> type;
     
@@ -85,9 +85,9 @@ public class SerializeType<_Type_ extends Serializable> extends DataType.Simple<
         final Data<byte[]> clearData = new Data.Simple<byte[]>(new SerializeType<byte[]>(byte[].class), data);
         System.out.println(Arrays.toString(data));
         System.out.println(Arrays.toString(clearData.getData()));
-        System.out.println(clearData.getDataType());
+        System.out.println(clearData.getType());
         final byte[] bytes = clearData.toBytes();
-        System.out.println(Arrays.toString(clearData.getDataType().fromBytes(bytes)));
+        System.out.println(Arrays.toString(clearData.getType().fromBytes(bytes)));
     }
     
 }

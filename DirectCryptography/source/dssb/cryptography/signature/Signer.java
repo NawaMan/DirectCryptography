@@ -1,7 +1,7 @@
 package dssb.cryptography.signature;
 
 import dssb.cryptography.Data;
-import dssb.cryptography.DataType;
+import dssb.cryptography.Type;
 
 public interface Signer {
     
@@ -40,7 +40,7 @@ public interface Signer {
         public <_Type_> byte[] signToBytes(
                 Data<_Type_> data)
                 throws SignException {
-            final DataType<_Type_> type = data.getDataType();
+            final Type<_Type_> type = data.getType();
             final byte[] bytes = type.toBytes(data);
             final byte[] fingerprint = this.signToBytes(bytes);
             return fingerprint;

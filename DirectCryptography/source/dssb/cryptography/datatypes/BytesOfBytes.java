@@ -9,11 +9,10 @@ import java.nio.ByteOrder;
 import dssb.cryptography.ConvertFromBytesException;
 import dssb.cryptography.ConvertToBytesException;
 import dssb.cryptography.Data;
-import dssb.cryptography.DataType;
 
 public class BytesOfBytes extends Data.Simple<byte[][]> {
     
-    static public class Type extends DataType.Simple<byte[][]> {
+    static public class Type extends dssb.cryptography.Type.Simple<byte[][]> {
         
         @Override
         public Class<byte[][]> getDataClass() {

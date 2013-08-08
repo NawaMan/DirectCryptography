@@ -1,7 +1,7 @@
 package dssb.cryptography;
 
 
-public interface DataType<_Type_> {
+public interface Type<_Type_> {
     
     public Class<_Type_> getDataClass();
     
@@ -15,7 +15,7 @@ public interface DataType<_Type_> {
     
     public Data<_Type_> toClearData(byte[] bytes);
     
-    static abstract public class Simple<_Type_> implements DataType<_Type_> {
+    static abstract public class Simple<_Type_> implements Type<_Type_> {
         
         public byte[] toBytes(Data<_Type_> data) {
             final _Type_ raw = data.getData();

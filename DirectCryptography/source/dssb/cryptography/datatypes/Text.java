@@ -4,11 +4,10 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import dssb.cryptography.Data;
-import dssb.cryptography.DataType;
 
 public class Text extends Data.Simple<String> {
     
-    static public class Type extends DataType.Simple<String> {
+    static public class Type extends dssb.cryptography.Type.Simple<String> {
         
         static public final Charset UTF8_CHARSET = Charset.forName("UTF-8");
         
@@ -88,10 +87,10 @@ public class Text extends Data.Simple<String> {
         final Text text = new Text(data);
         System.out.println(data);
         System.out.println(text.getData());
-        System.out.println(text.getDataType());
-        final byte[] bytes = text.getDataType().toBytes(data);
+        System.out.println(text.getType());
+        final byte[] bytes = text.getType().toBytes(data);
         System.out.println(Arrays.toString(bytes));
-        System.out.println(text.getDataType().fromBytes(bytes));
+        System.out.println(text.getType().fromBytes(bytes));
     }
     
 }

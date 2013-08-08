@@ -1,36 +1,82 @@
 package dssb.cryptography;
 
+/**
+ * Data wrapper. This wrapper enable the actual data to be convert back and fort to bytes which are often used in
+ * cryptography.
+ * 
+ * @param <_Type_>
+ *            the data type.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
 public interface Data<_Type_> {
     
-    public DataType<_Type_> getDataType();
+    /**
+     * The type of data.
+     * 
+     * @return the type.
+     */
+    public Type<_Type_> getType();
     
+    /**
+     * Returns the wrapped data (the actual data).
+     * 
+     * @return the wrapped data (the actual data).
+     */
     public _Type_ getData();
     
+    /**
+     * Returns the byte array equivalent of the data.
+     * 
+     * @return the bytes.
+     */
     public byte[] toBytes();
     
-    static public class Simple<_Type_> implements Data<_Type_> {
+    /**
+     * Simple implementation of {@link Data}.
+     * 
+     * @param <_Type_>
+     *            the data type.
+     */
+    public static class Simple<_Type_> implements Data<_Type_> {
         
-        private DataType<_Type_> dataType;
+        /** The type. */
+        private Type<_Type_> type;
         
+        /** The data. */
         private _Type_ data;
         
+        /**
+         * Constructor.
+         * 
+         * @param dataType
+         *            the data type.
+         * @param data
+         *            the data.
+         */
         public Simple(
-                final DataType<_Type_> dataType,
+                final Type<_Type_> dataType,
                 final _Type_ data) {
-            this.dataType = dataType;
+            this.type = dataType;
             this.data = data;
         }
         
-        public DataType<_Type_> getDataType() {
-            return this.dataType;
+        /** {@inheritDoc} **/
+        @Override
+        public final Type<_Type_> getType() {
+            return this.type;
         }
         
-        public _Type_ getData() {
+        /** {@inheritDoc} **/
+        @Override
+        public final _Type_ getData() {
             return this.data;
         }
         
-        public byte[] toBytes() {
-            return this.getDataType().toBytes(this);
+        /** {@inheritDoc} **/
+        @Override
+        public final byte[] toBytes() {
+            return this.getType().toBytes(this);
         }
         
     }
