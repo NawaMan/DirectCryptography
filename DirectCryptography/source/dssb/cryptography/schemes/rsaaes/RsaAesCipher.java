@@ -13,7 +13,6 @@ import dssb.cryptography.cipher.Cipher;
 import dssb.cryptography.cipher.EncyptionException;
 import dssb.cryptography.datatypes.BytesOfBytes;
 import dssb.cryptography.schemes.aes.AesCryptographyBuilder;
-import dssb.cryptography.schemes.aes.AesScheme;
 import dssb.cryptography.schemes.rsa.RsaCipher;
 
 public class RsaAesCipher extends RsaCipher {
@@ -65,7 +64,7 @@ public class RsaAesCipher extends RsaCipher {
     }
     
     protected AesCryptographyBuilder newAesCryptBuilder() {
-        final AesCryptographyBuilder aesCryptBuilder = AesScheme.INSTANCE.createCryptographyBuilder();
+        final AesCryptographyBuilder aesCryptBuilder = new AesCryptographyBuilder();
         try {
             aesCryptBuilder.useNewKey();
         } catch (final NoSuchAlgorithmException problem) {
