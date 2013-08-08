@@ -43,7 +43,7 @@ public interface Decryptor {
         @Override
         public <_Type_> Data<_Type_> decrypt(SecretData secret, Type<_Type_> dataType) {
             final byte[] bytes = this.decrypt(secret);
-            final Data<_Type_> clearData = dataType.toClearData(bytes);
+            final Data<_Type_> clearData = dataType.toDataFromByte(bytes);
             return clearData;
         }
         

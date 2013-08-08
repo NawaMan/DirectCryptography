@@ -50,7 +50,7 @@ public class Text extends Data.Simple<String> {
         }
         
         @Override
-        public Text toClearData(
+        public Text toData(
                 final String data) {
             return new Text(data);
         }

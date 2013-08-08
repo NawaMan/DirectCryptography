@@ -51,31 +51,31 @@ public interface Data<_Type_> {
          * 
          * @param dataType
          *            the data type.
-         * @param data
+         * @param actualData
          *            the data.
          */
         public Simple(
                 final Type<_Type_> dataType,
-                final _Type_ data) {
+                final _Type_ actualData) {
             this.type = dataType;
-            this.data = data;
+            this.data = actualData;
         }
         
         /** {@inheritDoc} **/
         @Override
-        public final Type<_Type_> getType() {
+        public Type<_Type_> getType() {
             return this.type;
         }
         
         /** {@inheritDoc} **/
         @Override
-        public final _Type_ getData() {
+        public _Type_ getData() {
             return this.data;
         }
         
         /** {@inheritDoc} **/
         @Override
-        public final byte[] toBytes() {
+        public byte[] toBytes() {
             return this.getType().toBytes(this);
         }
         

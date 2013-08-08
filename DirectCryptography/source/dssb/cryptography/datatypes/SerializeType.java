@@ -74,7 +74,7 @@ public class SerializeType<_Type_ extends Serializable> extends Type.Simple<_Typ
     }
     
     @Override
-    public Data<_Type_> toClearData(
+    public Data<_Type_> toData(
             _Type_ data) {
         return new Data.Simple<_Type_>(this, data);
     }

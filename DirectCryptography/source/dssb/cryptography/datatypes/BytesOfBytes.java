@@ -67,7 +67,7 @@ public class BytesOfBytes extends Data.Simple<byte[][]> {
         }
         
         @Override
-        public BytesOfBytes toClearData(
+        public BytesOfBytes toData(
                 final byte[][] data) {
             return new BytesOfBytes(data);
         }
