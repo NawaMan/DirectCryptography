@@ -36,10 +36,10 @@ public interface Cryptography {
     /**
      * {@link Cryptography} that implements this interface can create a {@link Cipher}.
      */
-    static public interface WithCipher extends Cryptography {
+    public static interface WithCipher extends Cryptography {
         
         /**
-         * Returns a newly created {@link Cipher} that use the cryptography information from this {@link Cryptography}.
+         * Returns a newly created {@link Cipher} that uses the information from this {@link Cryptography}.
          * 
          * @return a newly created {@link Cipher}.
          */
@@ -50,10 +50,10 @@ public interface Cryptography {
     /**
      * {@link Cryptography} that implements this interface can create a {@link Signature}.
      */
-    static public interface WithSignature extends Cryptography {
+    public static interface WithSignature extends Cryptography {
 
         /**
-         * Returns a newly created {@link Signature} that use the cryptography information from this {@link Cryptography}.
+         * Returns a newly created {@link Signature} that uses the information from this {@link Cryptography}.
          * 
          * @return a newly created {@link Signature}.
          */

@@ -19,8 +19,8 @@ public class ConvertToBytesException extends DataConversionException {
      *            the cause.
      */
     public ConvertToBytesException(
-            String message,
-            Throwable cause) {
+            final String message,
+            final Throwable cause) {
         super(message, cause);
     }
     
@@ -31,7 +31,7 @@ public class ConvertToBytesException extends DataConversionException {
      *            the detail message.
      */
     public ConvertToBytesException(
-            String message) {
+            final String message) {
         super(message, null);
     }
     
@@ -42,7 +42,7 @@ public class ConvertToBytesException extends DataConversionException {
      *            the cause.
      */
     public ConvertToBytesException(
-            Throwable cause) {
+            final Throwable cause) {
         super(null, cause);
     }
     
