@@ -35,6 +35,8 @@ public interface Data<_Type_> {
     public byte[] toBytes()
             throws ConvertToBytesException;
     
+    //== Sub classes ===================================================================================================
+    
     /**
      * Simple implementation of {@link Data}.
      * 

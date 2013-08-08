@@ -82,6 +82,8 @@ public interface Type<_Type_> {
             final byte[] bytes)
                     throws ConvertFromBytesException;
     
+    //== Sub classes ===================================================================================================
+    
     /**
      * Simple implementation for {@link Type}.
      * 
