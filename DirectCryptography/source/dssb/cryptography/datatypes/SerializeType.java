@@ -43,10 +43,12 @@ public class SerializeType<_Type_ extends Serializable> extends Type.Simple<_Typ
         } catch (final IOException problem) {
             throw new ConvertToBytesException(problem);
         } finally {
-            try {
-                outStream.close();
-            } catch (final IOException problem) {
-                throw new ConvertToBytesException(problem);
+            if (outStream != null) {
+                try {
+                    outStream.close();
+                } catch (final IOException problem) {
+                    throw new ConvertToBytesException(problem);
+                }
             }
         }
     }
@@ -65,10 +67,12 @@ public class SerializeType<_Type_ extends Serializable> extends Type.Simple<_Typ
         } catch (final IOException problem) {
             throw new ConvertFromBytesException(problem);
         } finally {
-            try {
-                inStream.close();
-            } catch (final IOException problem) {
-                throw new ConvertFromBytesException(problem);
+            if (inStream != null) {
+                try {
+                    inStream.close();
+                } catch (final IOException problem) {
+                    throw new ConvertFromBytesException(problem);
+                }
             }
         }
     }

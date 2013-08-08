@@ -81,6 +81,14 @@ public interface KeyPairGenerator {
             }
         }
         
+        protected void setRandomeAlgorithm(final String randomAlgorithm) {
+            this.randomAlgorithm = randomAlgorithm;
+        }
+        
+        protected void setRandomProvider(final String randomProvider) {
+            this.randomProvider = randomProvider;
+        }
+        
         protected SecureRandom prepareSecureRandom() {
             try {
                 final byte[] seed = ((this.seed != null) ? this.seed : DEFAULT_SEED.getBytes()).clone();

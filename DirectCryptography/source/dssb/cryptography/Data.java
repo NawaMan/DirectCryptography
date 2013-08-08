@@ -29,8 +29,11 @@ public interface Data<_Type_> {
      * Returns the byte array equivalent of the data.
      * 
      * @return the bytes.
+     * @throws ConvertToBytesException
+     *             when the conversion failed.
      */
-    public byte[] toBytes();
+    public byte[] toBytes()
+            throws ConvertToBytesException;
     
     /**
      * Simple implementation of {@link Data}.
@@ -75,7 +78,8 @@ public interface Data<_Type_> {
         
         /** {@inheritDoc} **/
         @Override
-        public byte[] toBytes() {
+        public byte[] toBytes()
+                throws ConvertToBytesException {
             return this.getType().toBytes(this);
         }
         

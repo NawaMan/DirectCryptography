@@ -23,9 +23,12 @@ public interface Type<_Type_> {
      * @param actualData
      *            the actual data.
      * @return the byte array equivalent of the data.
+     * @throws ConvertToBytesException
+     *             when the conversion failed.
      */
     public byte[] toBytes(
-            _Type_ actualData);
+            final _Type_ actualData)
+            throws ConvertToBytesException;
     
     /**
      * Convert the given data to byte array.
@@ -33,9 +36,12 @@ public interface Type<_Type_> {
      * @param data
      *            the data.
      * @return the byte array equivalent of the actual data wrapped by the given data.
+     * @throws ConvertToBytesException
+     *             when the conversion failed.
      */
     public byte[] toBytes(
-            Data<_Type_> data);
+            final Data<_Type_> data)
+            throws ConvertToBytesException;
     
     /**
      * Constructs the actual data from the given bytes.
@@ -43,9 +49,12 @@ public interface Type<_Type_> {
      * @param bytes
      *            the byte array representation of the actual data.
      * @return the actual data constructed from the byte array.
+     * @throws ConvertFromBytesException
+     *             when the conversion failed.
      */
     public _Type_ fromBytes(
-            byte[] bytes);
+            final byte[] bytes)
+            throws ConvertFromBytesException;
     
     /**
      * Converts the given actual data to the data.
@@ -53,9 +62,12 @@ public interface Type<_Type_> {
      * @param actualData
      *            the given actual data.
      * @return the wrapped data.
+     * @throws DataConversionException
+     *             when the conversion failed.
      */
     public Data<_Type_> toData(
-            _Type_ actualData);
+            final _Type_ actualData)
+            throws DataConversionException;
     
     /**
      * Converts the given byte array from the actual data to the data.
@@ -63,9 +75,12 @@ public interface Type<_Type_> {
      * @param bytes
      *            the byte array.
      * @return the wrapped data.
+     * @throws ConvertFromBytesException
+     *             when the conversion failed.
      */
     public Data<_Type_> toDataFromByte(
-            byte[] bytes);
+            final byte[] bytes)
+                    throws ConvertFromBytesException;
     
     /**
      * Simple implementation for {@link Type}.
