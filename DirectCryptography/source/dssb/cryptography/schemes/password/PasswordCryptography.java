@@ -26,7 +26,7 @@ public class PasswordCryptography implements Cryptography, Cryptography.WithCiph
     }
     
     @Override
-    public WithSignature withSigner() {
+    public WithSignature withSignature() {
         return null;
     }
     

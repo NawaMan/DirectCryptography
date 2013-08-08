@@ -18,7 +18,7 @@ public class TestSha1Rsa {
         final Sha1RsaCryptographyBuilder cryptBuilder = Sha1RsaScheme.INSTANCE.createCryptographyBuilder();
         cryptBuilder.useNewKeyPair();
         
-        final Signature signature = cryptBuilder.newCryptography().withSigner().newSignature();
+        final Signature signature = cryptBuilder.newCryptography().withSignature().newSignature();
         final Signer signer = signature.getSigner();
         final Verifier verifier = signature.getVerifier();
         

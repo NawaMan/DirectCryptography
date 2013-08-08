@@ -25,7 +25,7 @@ public class Sha1RsaCryptography extends RsaCryptography implements WithSignatur
     }
     
     @Override
-    public WithSignature withSigner() {
+    public WithSignature withSignature() {
         return (WithSignature)this;
     }
     
