@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="source"/>
 	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="src" path="source/core"/>
+	<classpathentry kind="src" path="source/aes"/>
+	<classpathentry kind="src" path="source/password"/>
+	<classpathentry kind="src" path="source/rsa"/>
+	<classpathentry kind="src" path="source/rsaaes"/>
+	<classpathentry kind="src" path="source/schemes"/>
+	<classpathentry kind="src" path="source/sha1rsa"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="classes"/>
