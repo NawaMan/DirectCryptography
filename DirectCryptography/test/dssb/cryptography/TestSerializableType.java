@@ -51,7 +51,8 @@ public class TestSerializableType {
         final byte[] data1 = ("" + a).getBytes();
         final byte[] data2 = ("" + b).getBytes();
         final byte[] data = ArrayOfBytesType.TYPE.toBytes(data1, data2);
-        Assert.assertEquals("[0, 0, 0, 2, 0, 0, 0, 1, 65, 0, 0, 0, 1, 66]", Arrays.toString(data));
+        final byte[][] datas = ArrayOfBytesType.TYPE.fromBytes(data);
+        Assert.assertArrayEquals(datas, new byte[][] { data1, data2 });
     }
     
     /** Try to used it to store a serializable array. */

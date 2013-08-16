@@ -34,6 +34,7 @@ public enum UBytes {
      * 
      * @param serializable
      *            the serializable.
+     * @param <T> the desired serializable class.
      * @return the byte array.
      */
     public <T extends Serializable> byte[] serializableToBytes(
@@ -65,6 +66,7 @@ public enum UBytes {
      *            the byte array.
      * @param clazz
      *            the serializable class for the data.
+     * @param <T> the desired serializable class.
      * @return the serializable read from the byte array.
      */
     public <T extends Serializable> T bytesToSerializable(
@@ -233,6 +235,7 @@ public enum UBytes {
      *            the bytes.
      * @param clazz
      *            the data class.
+     * @param <T> the desired serializable class.
      * @return the array of serializables.
      */
     @SuppressWarnings("unchecked")
@@ -240,9 +243,9 @@ public enum UBytes {
             final byte[] bytes,
             final Class<T> clazz) {
         final Serializable[] serializables = bytesToSerializables(bytes);
-        final T[] data = (T[])Array.newInstance(clazz, serializables.length);
+        final T[] data = (T[]) Array.newInstance(clazz, serializables.length);
         for (int i = 0; i < serializables.length; i++) {
-            data[i] = (T)serializables[i];
+            data[i] = (T) serializables[i];
         }
         return data;
     }
