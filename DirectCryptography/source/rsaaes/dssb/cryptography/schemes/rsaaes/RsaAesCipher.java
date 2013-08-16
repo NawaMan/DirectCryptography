@@ -11,7 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 import dssb.cryptography.Cryptography;
 import dssb.cryptography.cipher.Cipher;
 import dssb.cryptography.cipher.EncyptionException;
-import dssb.cryptography.datatypes.BytesOfBytes;
+import dssb.cryptography.datatypes.ArrayOfBytesType;
 import dssb.cryptography.schemes.aes.AesCryptographyBuilder;
 import dssb.cryptography.schemes.rsa.RsaCipher;
 
@@ -43,14 +43,14 @@ public class RsaAesCipher extends RsaCipher {
         final dssb.cryptography.cipher.Encryptor encryptor = cipher.getEncryptor();
         final byte[] dataBytes = encryptor.encrypt(bytes);
         
-        final byte[] secret = BytesOfBytes.TYPE.toBytes(keyBytes, dataBytes);
+        final byte[] secret = ArrayOfBytesType.TYPE.toBytes(keyBytes, dataBytes);
         return secret;
     }
     
     @Override
     public byte[] decrypt(
             final byte[] bytes) {
-        final byte[][] allBytes = BytesOfBytes.TYPE.fromBytes(bytes);
+        final byte[][] allBytes = ArrayOfBytesType.TYPE.fromBytes(bytes);
         final byte[] keyBytes = allBytes[0];
         final byte[] dataBytes = allBytes[1];
         

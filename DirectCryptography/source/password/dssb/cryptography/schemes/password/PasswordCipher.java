@@ -15,7 +15,7 @@ import javax.crypto.spec.IvParameterSpec;
 import dssb.cryptography.Cryptography;
 import dssb.cryptography.cipher.Cipher;
 import dssb.cryptography.cipher.EncyptionException;
-import dssb.cryptography.datatypes.BytesOfBytes;
+import dssb.cryptography.datatypes.ArrayOfBytesType;
 
 public class PasswordCipher extends Cipher.Simple {
     
@@ -39,7 +39,7 @@ public class PasswordCipher extends Cipher.Simple {
             final AlgorithmParameters params = cipher.getParameters();
             final byte[] ivBytes = params.getParameterSpec(IvParameterSpec.class).getIV();
             final byte[] dataBytes = cipher.doFinal(bytes);
-            final byte[] secret = BytesOfBytes.TYPE.toBytes(ivBytes, dataBytes);
+            final byte[] secret = ArrayOfBytesType.TYPE.toBytes(ivBytes, dataBytes);
             return secret;
         } catch (final NoSuchAlgorithmException problem) {
             throw new EncyptionException(problem);
@@ -59,7 +59,7 @@ public class PasswordCipher extends Cipher.Simple {
     @Override
     public byte[] decrypt(
             final byte[] bytes) {
-        final byte[][] secret = BytesOfBytes.TYPE.fromBytes(bytes);
+        final byte[][] secret = ArrayOfBytesType.TYPE.fromBytes(bytes);
         final byte[] ivBytes = secret[0];
         final byte[] dataBytes = secret[1];
         

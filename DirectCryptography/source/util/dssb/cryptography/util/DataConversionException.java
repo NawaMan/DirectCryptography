@@ -1,4 +1,4 @@
-package dssb.cryptography;
+package dssb.cryptography.util;
 
 /**
  * This exception is thrown when there is a problem converting data from one form to anther.

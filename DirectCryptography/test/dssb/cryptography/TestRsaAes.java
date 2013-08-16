@@ -7,8 +7,8 @@ import org.junit.Test;
 import dssb.cryptography.cipher.Cipher;
 import dssb.cryptography.cipher.Decryptor;
 import dssb.cryptography.cipher.Encryptor;
-import dssb.cryptography.datatypes.SerializeType;
-import dssb.cryptography.datatypes.Text;
+import dssb.cryptography.datatypes.SerializableType;
+import dssb.cryptography.datatypes.TextType;
 import dssb.cryptography.schemes.rsaaes.RsaAesCryptographyBuilder;
 import dssb.cryptography.schemes.rsaaes.RsaAesScheme;
 
@@ -24,9 +24,9 @@ public class TestRsaAes {
         final Encryptor encryptor = cipher.getEncryptor();
         final Decryptor decryptor = cipher.getDecryptor();
         
-        final SerializeType<Integer> INT = new SerializeType<Integer>(Integer.class);
+        final SerializableType<Integer> INT = new SerializableType<Integer>(Integer.class);
         
-        System.out.println(decryptor.decrypt(encryptor.encrypt(new Text("Some text here.")), Text.TYPE));
+        System.out.println(decryptor.decrypt(encryptor.encrypt(new TextType.Data("Some text here.")), TextType.TYPE));
         System.out.println(decryptor.decrypt(encryptor.encrypt(new Data.Simple<Integer>(INT, 5)), INT).getData());
         
         System.out.println(Arrays.toString("Some text here.".getBytes()));

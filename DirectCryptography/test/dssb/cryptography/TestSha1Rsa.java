@@ -2,8 +2,8 @@ package dssb.cryptography;
 
 import org.junit.Test;
 
-import dssb.cryptography.datatypes.SerializeType;
-import dssb.cryptography.datatypes.Text;
+import dssb.cryptography.datatypes.SerializableType;
+import dssb.cryptography.datatypes.TextType;
 import dssb.cryptography.schemes.sha1rsa.Sha1RsaCryptographyBuilder;
 import dssb.cryptography.schemes.sha1rsa.Sha1RsaScheme;
 import dssb.cryptography.signature.Fingerprint;
@@ -22,9 +22,9 @@ public class TestSha1Rsa {
         final Signer signer = signature.getSigner();
         final Verifier verifier = signature.getVerifier();
         
-        final SerializeType<Integer> INT = new SerializeType<Integer>(Integer.class);
+        final SerializableType<Integer> INT = new SerializableType<Integer>(Integer.class);
         
-        final Text data1 = new Text("Some text here.");
+        final TextType.Data data1 = new TextType.Data("Some text here.");
         final Fingerprint fingerprint1 = signer.sign(data1);
         final Data<Integer> data2 = new Data.Simple<Integer>(INT, 5);
         final Fingerprint fingerprint2 = signer.sign(data2);

@@ -1,5 +1,9 @@
 package dssb.cryptography;
 
+import dssb.cryptography.util.ConvertFromBytesException;
+import dssb.cryptography.util.ConvertToBytesException;
+import dssb.cryptography.util.DataConversionException;
+
 /**
  * The type of data involving in the cryptography. A type can convert the data from and to byte array.
  * 

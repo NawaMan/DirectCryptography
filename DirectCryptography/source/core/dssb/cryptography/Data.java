@@ -1,5 +1,8 @@
 package dssb.cryptography;
 
+import dssb.cryptography.datatypes.SerializableType;
+import dssb.cryptography.util.ConvertToBytesException;
+
 /**
  * Data wrapper. This wrapper enable the actual data to be convert back and fort to bytes which are often used in
  * cryptography.
@@ -64,6 +67,21 @@ public interface Data<_Type_> {
                 final _Type_ actualData) {
             this.type = dataType;
             this.data = actualData;
+        }
+        
+        /**
+         * Constructor.
+         * 
+         * @param dataClass
+         *            the data class.
+         * @param actualData
+         *            the data.
+         */
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        public Simple(
+                final Class<_Type_> dataClass,
+                final _Type_ actualData) {
+            this(new SerializableType(dataClass), actualData);
         }
         
         /** {@inheritDoc} **/
