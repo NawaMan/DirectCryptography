@@ -10,16 +10,16 @@ import java.nio.charset.Charset;
 public class TextType extends dssb.cryptography.Type.Simple<String> {
     
     /** The charset for UTF8. */
-    static public final Charset UTF8_CHARSET = Charset.forName("UTF-8");
+    public static final Charset UTF8_CHARSET = Charset.forName("UTF-8");
     
     /** The separater between the charset name and the text. */
-    static public final String SEPARATOR = "\n";
+    public static final String SEPARATOR = "\n";
     
     /** The type instance. */
-    public static TextType TYPE = new TextType();
+    public static final TextType TYPE = new TextType();
     
     /** The type instance for UTF8. */
-    public static TextType UTF8 = new TextType(TextType.UTF8_CHARSET);
+    public static final TextType UTF8 = new TextType(TextType.UTF8_CHARSET);
     
     /** The char set. */
     private final Charset charset;

@@ -13,7 +13,7 @@ import dssb.cryptography.util.UBytes;
 public class ArrayOfBytesType extends dssb.cryptography.Type.Simple<byte[][]> {
     
     /** The type instance. */
-    public static ArrayOfBytesType TYPE = new ArrayOfBytesType();
+    public static final ArrayOfBytesType TYPE = new ArrayOfBytesType();
     
     /** {@inheritDoc} */
     @Override

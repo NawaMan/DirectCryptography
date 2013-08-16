@@ -20,7 +20,7 @@ public enum UBytes {
     /** The instance (short hand). */
     _,
     
-    /** The instance (static import) */
+    /** The instance (static import). */
     UBytes,
     
     /** The instance (proper way). */
@@ -179,13 +179,13 @@ public enum UBytes {
             final byte[] bytes) {
         try {
             final ByteArrayInputStream buffer = new ByteArrayInputStream(bytes);
-            final byte[] countBytes = new byte[4];
+            final byte[] countBytes = new byte[BYTES_FOR_INT];
             buffer.read(countBytes);
             final int count = ByteBuffer.wrap(countBytes).getInt();
             
             final byte[][] data = new byte[count][];
             for (int i = 0; i < count; i++) {
-                final byte[] lengthBytes = new byte[4];
+                final byte[] lengthBytes = new byte[BYTES_FOR_INT];
                 buffer.read(lengthBytes);
                 final int length = ByteBuffer.wrap(lengthBytes).getInt();
                 
