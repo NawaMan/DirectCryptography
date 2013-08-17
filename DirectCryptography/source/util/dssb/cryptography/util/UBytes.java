@@ -29,69 +29,7 @@ public enum UBytes {
     /** The number of bytes to contains an interger. */
     public static final int BYTES_FOR_INT = 4;
     
-    /**
-     * Converts a serializable to byte array.
-     * 
-     * @param serializable
-     *            the serializable.
-     * @param <T> the desired serializable class.
-     * @return the byte array.
-     */
-    public <T extends Serializable> byte[] serializableToBytes(
-            final T serializable) {
-        ByteArrayOutputStream outStream = null;
-        try {
-            outStream = new ByteArrayOutputStream();
-            final ObjectOutputStream objStream = new ObjectOutputStream(outStream);
-            objStream.writeObject(serializable);
-            final byte[] bytes = outStream.toByteArray();
-            return bytes;
-        } catch (final IOException problem) {
-            throw new ConvertToBytesException(problem);
-        } finally {
-            if (outStream != null) {
-                try {
-                    outStream.close();
-                } catch (final IOException problem) {
-                    throw new ConvertToBytesException(problem);
-                }
-            }
-        }
-    }
-    
-    /**
-     * Convert bytes to a serializable.
-     * 
-     * @param bytes
-     *            the byte array.
-     * @param clazz
-     *            the serializable class for the data.
-     * @param <T> the desired serializable class.
-     * @return the serializable read from the byte array.
-     */
-    public <T extends Serializable> T bytesToSerializable(
-            final byte[] bytes,
-            final Class<T> clazz) {
-        ByteArrayInputStream inStream = null;
-        try {
-            inStream = new ByteArrayInputStream(bytes);
-            final ObjectInputStream objStream = new ObjectInputStream(inStream);
-            final T data = clazz.cast(objStream.readObject());
-            return data;
-        } catch (final ClassNotFoundException problem) {
-            throw new ConvertFromBytesException(problem);
-        } catch (final IOException problem) {
-            throw new ConvertFromBytesException(problem);
-        } finally {
-            if (inStream != null) {
-                try {
-                    inStream.close();
-                } catch (final IOException problem) {
-                    throw new ConvertFromBytesException(problem);
-                }
-            }
-        }
-    }
+    // == Integer ======================================================================================================
     
     /**
      * Convert an integer to be a byte array.
@@ -100,7 +38,7 @@ public enum UBytes {
      *            the integer value.
      * @return the byte array representing the integer.
      */
-    public byte[] intToByteArray(
+    public byte[] intToBytes(
             final int intValue) {
         final byte[] bytes = ByteBuffer.allocate(BYTES_FOR_INT).order(ByteOrder.BIG_ENDIAN).putInt(intValue).array();
         return bytes;
@@ -113,13 +51,13 @@ public enum UBytes {
      *            the bytes of data.
      * @return the read integer.
      * @throws IOException
-     *             if reading fail.
+     *             when reading fail for example when there is not enough bytes to read from.
      */
-    public int readInt(
+    public int bytesToInt(
             final byte[] bytes)
             throws IOException {
         final ByteArrayInputStream buffer = new ByteArrayInputStream(bytes);
-        final int count = readInt(buffer);
+        final int count = bytesToInt(buffer);
         return count;
     }
     
@@ -130,9 +68,9 @@ public enum UBytes {
      *            the buffer.
      * @return the read integer.
      * @throws IOException
-     *             if reading fail.
+     *             when reading fail for example when there is not enough bytes to read from.
      */
-    public int readInt(
+    public int bytesToInt(
             final ByteArrayInputStream buffer)
             throws IOException {
         final byte[] countBytes = new byte[BYTES_FOR_INT];
@@ -140,6 +78,8 @@ public enum UBytes {
         final int count = ByteBuffer.wrap(countBytes).getInt();
         return count;
     }
+    
+    // == Bytes array ==================================================================================================
     
     /**
      * Convert array of bytes to bytes.
@@ -153,12 +93,12 @@ public enum UBytes {
         try {
             final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
             final int dataLength = data.length;
-            final byte[] countBytes = intToByteArray(dataLength);
+            final byte[] countBytes = intToBytes(dataLength);
             buffer.write(countBytes);
             
             for (final byte[] bytes : data) {
                 final int length = bytes.length;
-                final byte[] lengthBytes = intToByteArray(length);
+                final byte[] lengthBytes = intToBytes(length);
                 buffer.write(lengthBytes);
                 buffer.write(bytes);
             }
@@ -202,6 +142,76 @@ public enum UBytes {
         }
     }
     
+    // == Serializable =================================================================================================
+    
+    /**
+     * Converts a serializable to byte array.
+     * 
+     * @param serializable
+     *            the serializable.
+     * @param <T>
+     *            the desired serializable class.
+     * @return the byte array.
+     */
+    public <T extends Serializable> byte[] serializableToBytes(
+            final T serializable) {
+        ByteArrayOutputStream outStream = null;
+        try {
+            outStream = new ByteArrayOutputStream();
+            final ObjectOutputStream objStream = new ObjectOutputStream(outStream);
+            objStream.writeObject(serializable);
+            final byte[] bytes = outStream.toByteArray();
+            return bytes;
+        } catch (final IOException problem) {
+            throw new ConvertToBytesException(problem);
+        } finally {
+            if (outStream != null) {
+                try {
+                    outStream.close();
+                } catch (final IOException problem) {
+                    throw new ConvertToBytesException(problem);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Convert bytes to a serializable.
+     * 
+     * @param bytes
+     *            the byte array.
+     * @param clazz
+     *            the serializable class for the data.
+     * @param <T>
+     *            the desired serializable class.
+     * @return the serializable read from the byte array.
+     */
+    public <T extends Serializable> T bytesToSerializable(
+            final byte[] bytes,
+            final Class<T> clazz) {
+        ByteArrayInputStream inStream = null;
+        try {
+            inStream = new ByteArrayInputStream(bytes);
+            final ObjectInputStream objStream = new ObjectInputStream(inStream);
+            final T data = clazz.cast(objStream.readObject());
+            return data;
+        } catch (final ClassNotFoundException problem) {
+            throw new ConvertFromBytesException(problem);
+        } catch (final IOException problem) {
+            throw new ConvertFromBytesException(problem);
+        } finally {
+            if (inStream != null) {
+                try {
+                    inStream.close();
+                } catch (final IOException problem) {
+                    throw new ConvertFromBytesException(problem);
+                }
+            }
+        }
+    }
+    
+    // == Serializables ================================================================================================
+    
     /**
      * Convert serializables to bytes.
      * 
@@ -210,7 +220,7 @@ public enum UBytes {
      * @return the result bytes.
      */
     public byte[] serializablesToBytes(
-            final Serializable ... data) {
+            final Serializable... data) {
         final byte[] bytes = serializableToBytes(data);
         return bytes;
     }
@@ -235,7 +245,8 @@ public enum UBytes {
      *            the bytes.
      * @param clazz
      *            the data class.
-     * @param <T> the desired serializable class.
+     * @param <T>
+     *            the desired serializable class.
      * @return the array of serializables.
      */
     @SuppressWarnings("unchecked")
