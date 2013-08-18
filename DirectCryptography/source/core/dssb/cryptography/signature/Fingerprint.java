@@ -53,7 +53,6 @@ public interface Fingerprint {
         /** {@inheritDoc} */
         @Override
         public final Signature getSignature() {
-            // TODO Auto-generated method stub
             return this.signature;
         }
         
