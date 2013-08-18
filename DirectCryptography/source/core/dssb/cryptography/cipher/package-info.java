@@ -1,8 +1,6 @@
 /**
+ * Classes in this package involve encrypting and decrypting data.
  * 
- */
-/**
- * @author dssb
- *
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
 package dssb.cryptography.cipher;
