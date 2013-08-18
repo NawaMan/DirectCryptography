@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 
 public enum Base64 implements Encoder {
     
+    _,
+    Base64,
     INSTANCE;
     
     // BASE 64 ENCODING -- Taken from --http://www.wikihow.com/Encode-a-String-to-Base64-With-Java

@@ -8,6 +8,8 @@ import dssb.cryptography.encoder.Hex;
 
 public enum SHA512 implements Hasher {
     
+    _,
+    SHA512,
     INSTANCE;
 
     @Override

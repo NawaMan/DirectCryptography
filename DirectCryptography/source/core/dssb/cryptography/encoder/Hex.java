@@ -4,6 +4,8 @@ import java.util.Formatter;
 
 public enum Hex implements Encoder {
     
+    _,
+    Hex,
     INSTANCE;
     
     public String encode(
