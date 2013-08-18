@@ -2,59 +2,107 @@ package dssb.cryptography.signature;
 
 import dssb.cryptography.Cryptography;
 
+/**
+ * Classes implementing this interface can create a signer and associated verifier.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
 public interface Signature {
     
+    /**
+     * Returns the {@link Cryptography} used by this signature.
+     * 
+     * @return the {@link Cryptography}.
+     */
     public Cryptography.WithSignature getCryptography();
     
+    /**
+     * Returns the {@link Signer}.
+     * 
+     * @return the {@link Signer}.
+     */
     public Signer getSigner();
     
+    /**
+     * Returns the {@link Verifier}.
+     * 
+     * @return the {@link Verifier}.
+     */
     public Verifier getVerifier();
     
-    static abstract public class Simple implements Signature {
+    // == Sub classes ==================================================================================================
+    
+    /** This class provide a simple implementation common to most {@code Signature}. */
+    public abstract static class Simple implements Signature {
         
-        static public class Signer extends dssb.cryptography.signature.Signer.Simple {
+        /** This {@link Signer} implementation is used with {@code Signature.Simple}. */
+        public static class Signer extends dssb.cryptography.signature.Signer.Simple {
             
+            /**
+             * Constructs.
+             * 
+             * @param signature
+             *            the signature.
+             */
             public Signer(
                     final Signature.Simple signature) {
                 super(signature);
             }
             
+            /** {@inheritDoc} */
             @Override
             public byte[] signToBytes(
                     final byte[] data)
                     throws SignException {
-                final Signature.Simple signature = ((Signature.Simple)this.getSignature());
+                final Signature.Simple signature = ((Signature.Simple) this.getSignature());
                 final byte[] fingerprint = signature.sign(data);
                 return fingerprint;
             }
             
         }
         
-        static public class Verifier extends dssb.cryptography.signature.Verifier.Simple {
+        /** This {@link Verifier} implementation is used with {@code Signature.Simple}. */
+        public static class Verifier extends dssb.cryptography.signature.Verifier.Simple {
             
+            /**
+             * Constructs.
+             * 
+             * @param signature
+             *            the signature.
+             */
             public Verifier(
                     final Signature.Simple signature) {
                 super(signature);
             }
             
+            /** {@inheritDoc} */
             @Override
             public boolean verify(
-                    byte[] dataBytes,
-                    byte[] fingerprintBytes)
+                    final byte[] dataBytes,
+                    final byte[] fingerprintBytes)
                     throws VerifyException {
-                final Signature.Simple signature = ((Signature.Simple)this.getSignature());
+                final Signature.Simple signature = ((Signature.Simple) this.getSignature());
                 final boolean isVerified = signature.verify(dataBytes, fingerprintBytes);
                 return isVerified;
             }
             
         }
         
+        /** The {@link Cryptography} used. */
         private final Cryptography.WithSignature cryptography;
         
-        volatile private Signer signer = null;
+        /** Cache of the {@link Signer}. */
+        private volatile Signer signer = null;
         
-        volatile private Verifier verifier = null;
+        /** Cache of the {@link Verifier}. */
+        private volatile Verifier verifier = null;
         
+        /**
+         * Constructor.
+         * 
+         * @param cryptography
+         *            the {@link Cryptography} used.
+         */
         public Simple(
                 final Cryptography.WithSignature cryptography) {
             if (cryptography == null) {
@@ -63,11 +111,13 @@ public interface Signature {
             this.cryptography = cryptography;
         }
         
+        /** {@inheritDoc} */
         @Override
         public Cryptography.WithSignature getCryptography() {
             return this.cryptography;
         }
         
+        /** {@inheritDoc} */
         @Override
         public Signer getSigner() {
             if (this.signer != null) {
@@ -84,6 +134,7 @@ public interface Signature {
             }
         }
         
+        /** {@inheritDoc} */
         @Override
         public Verifier getVerifier() {
             if (this.verifier != null) {
@@ -100,15 +151,45 @@ public interface Signature {
             }
         }
         
-        abstract public Signer newSigner();
+        /**
+         * Create a new {@link Signer}.
+         * 
+         * @return a new {@link Signer}.
+         */
+        public abstract Signer newSigner();
         
-        abstract public Verifier newVerifier();
+        /**
+         * Create a new {@link Verifier}.
+         * 
+         * @return a new {@link Verifier}.
+         */
+        public abstract Verifier newVerifier();
         
-        abstract public byte[] sign(
+        /**
+         * Sign the given data.
+         * 
+         * @param data
+         *            the input data.
+         * @return the fingerprint in bytes.
+         * @throws SignException
+         *             any problem found while signing.
+         */
+        public abstract byte[] sign(
                 final byte[] data)
                 throws SignException;
         
-        abstract public boolean verify(
+        /**
+         * Verify the given data and finger print.
+         * 
+         * @param data
+         *            the input data.
+         * @param fingerprint
+         *            the fingerprint.
+         * @return {@code true} if the fingerprint is confirm the integrity of the input data.
+         * @throws VerifyException
+         *             any problem found while verifying.
+         */
+        public abstract boolean verify(
                 final byte[] data,
                 final byte[] fingerprint)
                 throws VerifyException;

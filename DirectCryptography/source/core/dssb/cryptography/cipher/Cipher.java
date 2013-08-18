@@ -30,8 +30,7 @@ public interface Cipher {
      */
     public Decryptor getDecryptor();
     
-    // == Sub classes
-    // ===================================================================================================
+    // == Sub classes ==================================================================================================
     
     /** This class provide a simple implementation common to most {@code Cipher}. */
     public abstract static class Simple implements Cipher {
