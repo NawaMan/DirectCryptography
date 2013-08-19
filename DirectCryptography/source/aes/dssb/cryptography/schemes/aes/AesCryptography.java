@@ -25,9 +25,17 @@ public class AesCryptography implements Cryptography, Cryptography.WithCipher {
         return (WithCipher)this;
     }
     
+    public boolean hasCipher() {
+        return true;
+    }
+    
     @Override
     public WithSignature withSignature() {
         return null;
+    }
+    
+    public boolean hasSignature() {
+        return false;
     }
     
     @Override

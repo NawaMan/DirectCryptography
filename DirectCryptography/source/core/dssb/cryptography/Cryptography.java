@@ -25,11 +25,25 @@ public interface Cryptography {
     public WithCipher withCipher();
     
     /**
+     * Checks if this {@link Cryptography} has a {@link Cipher}.
+     * 
+     * @return {@code true} if it does.
+     **/
+    public boolean hasCipher();
+    
+    /**
      * Returns {@link WithSignature} object if this {@code Cryptography} can be used to create a {@code Signature}.
      * 
      * @return the {@link WithSignature} object or {@code null}.
      */
     public WithSignature withSignature();
+    
+    /**
+     * Checks if this {@link Cryptography} has a {@link Signature}.
+     * 
+     * @return {@code true} if it does.
+     **/
+    public boolean hasSignature();
     
     //== Sub classes ===================================================================================================
     
