@@ -26,6 +26,8 @@ public interface Cryptography {
     /**
      * Returns a feature of the given class.
      * 
+     * @param <_Feature_>
+     *            the feature.
      * @param featureClass
      *            the feature class.
      * @return the feature.
