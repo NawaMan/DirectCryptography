@@ -22,7 +22,7 @@ public class PasswordCipher extends Cipher.Simple {
     private SecretKey secretKey;
     
     public PasswordCipher(
-            final Cryptography.WithCipher cryptography,
+            final Cryptography cryptography,
             final SecretKey secretKey) {
         super(cryptography);
         this.secretKey = secretKey;

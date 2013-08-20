@@ -1,20 +1,14 @@
 package dssb.cryptography.cipher;
 
 import dssb.cryptography.Cryptography;
+import dssb.cryptography.Cryptography.Feature;
 
 /**
  * Cipher is a feature of a {@code Cryptography} that can provide {@code Encryptor} and {@code Decryptor}.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public interface Cipher {
-    
-    /**
-     * Returns the {@link Cryptography} used by this cipher.
-     * 
-     * @return the {@link Cryptography}.
-     */
-    public Cryptography getCryptography();
+public interface Cipher extends Feature<Cipher> {
     
     /**
      * Returns an {@code Encryptor}.
@@ -88,7 +82,7 @@ public interface Cipher {
         }
         
         /** The {@code Cryptography}. */
-        private final Cryptography.WithCipher cryptography;
+        private final Cryptography cryptography;
         
         /** The {@code Encryptor}. */
         private volatile Encryptor encryptor = null;
@@ -103,13 +97,13 @@ public interface Cipher {
          *            the {@code Cryptography} used by this {@code Cipher}.
          */
         public Simple(
-                final Cryptography.WithCipher cryptography) {
+                final Cryptography cryptography) {
             this.cryptography = cryptography;
         }
         
         /** {@inheritDoc} **/
         @Override
-        public Cryptography.WithCipher getCryptography() {
+        public Cryptography getCryptography() {
             return this.cryptography;
         }
         

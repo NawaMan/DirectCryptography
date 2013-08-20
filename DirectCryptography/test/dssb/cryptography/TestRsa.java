@@ -19,7 +19,7 @@ public class TestRsa {
         final RsaCryptographyBuilder cryptBuilder = RsaScheme.INSTANCE.createCryptographyBuilder();
         cryptBuilder.useNewKeyPair();
         
-        final Cipher cipher = cryptBuilder.newCryptography().withCipher().newCipher();
+        final Cipher cipher = cryptBuilder.newCryptography().getFeature(Cipher.class);
         final Encryptor encryptor = cipher.getEncryptor();
         final Decryptor decryptor = cipher.getDecryptor();
         

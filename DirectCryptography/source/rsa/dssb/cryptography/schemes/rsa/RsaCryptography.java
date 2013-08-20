@@ -3,12 +3,16 @@ package dssb.cryptography.schemes.rsa;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import dssb.cryptography.Cryptography;
 import dssb.cryptography.Scheme;
+import dssb.cryptography.cipher.Cipher;
 import dssb.cryptography.schemes.aes.AesScheme;
 
-public class RsaCryptography implements Cryptography, Cryptography.WithCipher {
+public class RsaCryptography implements Cryptography {
     
     private final Scheme scheme;
     
@@ -28,30 +32,37 @@ public class RsaCryptography implements Cryptography, Cryptography.WithCipher {
         this.privateKey = privateKey;
         this.publicKey = publicKey;
     }
+    
     @Override
     public Scheme getScheme() {
         return this.scheme;
     }
     
-    public WithCipher withCipher() {
-        return (WithCipher)this;
-    }
-    
-    public boolean hasCipher() {
-        return true;
-    }
-    
     @Override
-    public WithSignature withSignature() {
+    public Collection<Feature<?>> getFeatures() {
+        final RsaCipher cipher = this.newCipher();
+        final List<Feature<?>> list = new ArrayList<Feature<?>>();
+        list.add(cipher);
+        return list;
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Override
+    public <_Feature_ extends Feature<_Feature_>> _Feature_ getFeature(
+            final Class<_Feature_> featureClass) {
+        if (Cipher.class.isAssignableFrom(featureClass)) {
+            return (_Feature_) this.newCipher();
+        }
+        
         return null;
     }
     
-    public boolean hasSignature() {
-        return false;
-    }
-    
-    @Override
-    public RsaCipher newCipher() {
+    /**
+     * Creates a new cipher.
+     * 
+     * @return a newly created {@link Cipher}.
+     */
+    protected RsaCipher newCipher() {
         return new RsaCipher(this, this.privateKey, this.publicKey);
     }
     

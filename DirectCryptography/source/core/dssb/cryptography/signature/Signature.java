@@ -1,20 +1,21 @@
 package dssb.cryptography.signature;
 
 import dssb.cryptography.Cryptography;
+import dssb.cryptography.Cryptography.Feature;
 
 /**
  * Classes implementing this interface can create a signer and associated verifier.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public interface Signature {
+public interface Signature extends Feature<Signature> {
     
     /**
      * Returns the {@link Cryptography} used by this signature.
      * 
      * @return the {@link Cryptography}.
      */
-    public Cryptography.WithSignature getCryptography();
+    public Cryptography getCryptography();
     
     /**
      * Returns the {@link Signer}.
@@ -89,7 +90,7 @@ public interface Signature {
         }
         
         /** The {@link Cryptography} used. */
-        private final Cryptography.WithSignature cryptography;
+        private final Cryptography cryptography;
         
         /** Cache of the {@link Signer}. */
         private volatile Signer signer = null;
@@ -104,7 +105,7 @@ public interface Signature {
          *            the {@link Cryptography} used.
          */
         public Simple(
-                final Cryptography.WithSignature cryptography) {
+                final Cryptography cryptography) {
             if (cryptography == null) {
                 throw new NullPointerException();
             }
@@ -113,7 +114,7 @@ public interface Signature {
         
         /** {@inheritDoc} */
         @Override
-        public Cryptography.WithSignature getCryptography() {
+        public Cryptography getCryptography() {
             return this.cryptography;
         }
         

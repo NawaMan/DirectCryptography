@@ -23,9 +23,11 @@ public class RsaAesCryptography extends RsaCryptography {
         this.publicKey = publicKey;
     }
     
+    /** {@inheritDoc} */
     @Override
-    public RsaAesCipher newCipher() {
+    protected RsaAesCipher newCipher() {
         return new RsaAesCipher(this, this.privateKey, this.publicKey);
     }
+    
     
 }

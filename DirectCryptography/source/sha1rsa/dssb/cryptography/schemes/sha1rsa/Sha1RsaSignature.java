@@ -18,7 +18,7 @@ public class Sha1RsaSignature extends Signature.Simple {
     private PublicKey publicKey = null;
     
     public Sha1RsaSignature(
-            final Cryptography.WithSignature cryptography,
+            final Cryptography cryptography,
             final PrivateKey privateKey,
             final PublicKey publicKey) {
         super(cryptography);

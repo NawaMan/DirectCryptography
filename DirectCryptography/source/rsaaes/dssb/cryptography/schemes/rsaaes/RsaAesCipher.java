@@ -22,7 +22,7 @@ public class RsaAesCipher extends RsaCipher {
     private final PublicKey publicKey;
     
     public RsaAesCipher(
-            final Cryptography.WithCipher cryptography,
+            final Cryptography cryptography,
             final PrivateKey privateKey,
             final PublicKey publicKey) {
         super(cryptography, privateKey, publicKey);
@@ -32,14 +32,15 @@ public class RsaAesCipher extends RsaCipher {
     
     @Override
     public byte[] encrypt(
-            final byte[] bytes) throws EncyptionException {
+            final byte[] bytes)
+            throws EncyptionException {
         final AesCryptographyBuilder aesCryptBuilder = this.newAesCryptBuilder();
         
         final SecretKey dataKey = aesCryptBuilder.getSecretKey();
         final byte[] dataKeyBytes = dataKey.getEncoded();
         final byte[] keyBytes = super.encrypt(dataKeyBytes);
         
-        final Cipher cipher = aesCryptBuilder.newCryptography().withCipher().newCipher();
+        final Cipher cipher = aesCryptBuilder.newCryptography().getFeature(Cipher.class);
         final dssb.cryptography.cipher.Encryptor encryptor = cipher.getEncryptor();
         final byte[] dataBytes = encryptor.encrypt(bytes);
         
@@ -59,7 +60,8 @@ public class RsaAesCipher extends RsaCipher {
         
         final AesCryptographyBuilder aesCryptBuilder = newAesCryptBuilder();
         aesCryptBuilder.setSecretKey(dataKey);
-        final byte[] clearDataBytes = aesCryptBuilder.newCryptography().newCipher().decrypt(dataBytes);
+        final Cipher cipher = aesCryptBuilder.newCryptography().getFeature(Cipher.class);
+        final byte[] clearDataBytes = cipher.getDecryptor().decrypt(dataBytes);
         return clearDataBytes;
     }
     

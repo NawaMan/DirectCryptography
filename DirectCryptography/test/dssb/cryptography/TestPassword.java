@@ -21,7 +21,7 @@ public class TestPassword {
         final PasswordCryptographyBuilder cryptBuilder1 = PasswordScheme.INSTANCE.createCryptographyBuilder();
         cryptBuilder1.setPassword("mypassword");
         
-        final Cipher cipher1 = cryptBuilder1.newCryptography().withCipher().newCipher();
+        final Cipher cipher1 = cryptBuilder1.newCryptography().getFeature(Cipher.class);
         final Encryptor encryptor1 = cipher1.getEncryptor();
         final Decryptor decryptor1 = cipher1.getDecryptor();
         
@@ -35,7 +35,7 @@ public class TestPassword {
         
         final PasswordCryptographyBuilder cryptBuilder2 = new PasswordCryptographyBuilder();
         cryptBuilder2.setPassword("yourpassword");
-        final Cipher cipher2 = cryptBuilder2.newCryptography().withCipher().newCipher();
+        final Cipher cipher2 = cryptBuilder2.newCryptography().getFeature(Cipher.class);
         final Decryptor decryptor2 = cipher2.getDecryptor();
         
         try {

@@ -20,7 +20,7 @@ public class AesCipher extends Cipher.Simple {
     private SecretKey secretKey;
     
     public AesCipher(
-            final Cryptography.WithCipher cryptography,
+            final Cryptography cryptography,
             final SecretKey secretKey) {
         super(cryptography);
         this.secretKey = secretKey;

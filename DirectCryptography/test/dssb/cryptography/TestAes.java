@@ -19,7 +19,7 @@ public class TestAes {
         final AesCryptographyBuilder cryptBuilder = AesScheme.INSTANCE.createCryptographyBuilder();
         cryptBuilder.useNewKey();
         
-        final Cipher cipher = cryptBuilder.newCryptography().withCipher().newCipher();
+        final Cipher cipher = cryptBuilder.newCryptography().getFeature(Cipher.class);
         final Encryptor encryptor = cipher.getEncryptor();
         final Decryptor decryptor = cipher.getDecryptor();
         

@@ -1,7 +1,6 @@
 package dssb.cryptography;
 
-import dssb.cryptography.cipher.Cipher;
-import dssb.cryptography.signature.Signature;
+import java.util.Collection;
 
 /**
  * Classes implement this class represent cryptography information needed to do cryptography operations.
@@ -18,60 +17,38 @@ public interface Cryptography {
     public Scheme getScheme();
     
     /**
-     * Returns {@link WithCipher} object if this {@code Cryptography} can be used to create a {@code Cipher}.
+     * Returns all features for this {@link Cryptography}.
      * 
-     * @return the {@link WithCipher} object or {@code null}.
+     * @return all the available features.
      */
-    public WithCipher withCipher();
+    public Collection<Feature<?>> getFeatures();
     
     /**
-     * Checks if this {@link Cryptography} has a {@link Cipher}.
+     * Returns a feature of the given class.
      * 
-     * @return {@code true} if it does.
+     * @param featureClass
+     *            the feature class.
+     * @return the feature.
+     */
+    public <_Feature_ extends Feature<_Feature_>> _Feature_ getFeature(
+            Class<_Feature_> featureClass);
+    
+    // == Sub classes ==================================================================================================
+    
+    /**
+     * Feature for {@link Cryptography}.
+     * 
+     * @param <_Feature_>
+     *            the feature class.
      **/
-    public boolean hasCipher();
-    
-    /**
-     * Returns {@link WithSignature} object if this {@code Cryptography} can be used to create a {@code Signature}.
-     * 
-     * @return the {@link WithSignature} object or {@code null}.
-     */
-    public WithSignature withSignature();
-    
-    /**
-     * Checks if this {@link Cryptography} has a {@link Signature}.
-     * 
-     * @return {@code true} if it does.
-     **/
-    public boolean hasSignature();
-    
-    //== Sub classes ===================================================================================================
-    
-    /**
-     * {@link Cryptography} that implements this interface can create a {@link Cipher}.
-     */
-    public static interface WithCipher extends Cryptography {
+    public static interface Feature<_Feature_ extends Feature<_Feature_>> {
         
         /**
-         * Returns a newly created {@link Cipher} that uses the information from this {@link Cryptography}.
+         * Returns the {@link Cryptography}.
          * 
-         * @return a newly created {@link Cipher}.
+         * @return the {@link Cryptography}.
          */
-        public Cipher newCipher();
-        
-    }
-    
-    /**
-     * {@link Cryptography} that implements this interface can create a {@link Signature}.
-     */
-    public static interface WithSignature extends Cryptography {
-
-        /**
-         * Returns a newly created {@link Signature} that uses the information from this {@link Cryptography}.
-         * 
-         * @return a newly created {@link Signature}.
-         */
-        public Signature newSignature();
+        public Cryptography getCryptography();
         
     }
     

@@ -20,7 +20,7 @@ public class RsaCipher extends Cipher.Simple {
     private final PublicKey publicKey;
     
     public RsaCipher(
-            final Cryptography.WithCipher cryptography,
+            final Cryptography cryptography,
             final PrivateKey privateKey,
             final PublicKey publicKey) {
         super(cryptography);
