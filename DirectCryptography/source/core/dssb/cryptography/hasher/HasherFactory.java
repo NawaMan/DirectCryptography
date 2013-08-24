@@ -19,7 +19,7 @@ public interface HasherFactory extends Feature<HasherFactory> {
     
     // == Sub classes ==================================================================================================
     
-    /** This class provide a simple implementation common to most {@code Cipher}. */
+    /** This class provide a simple implementation common to most {@code Hasher}. */
     public abstract static class Simple implements HasherFactory {
         
         /** This {@link Hasher} implementation is used with {@code HasherFactory.Simple}. */
@@ -48,7 +48,7 @@ public interface HasherFactory extends Feature<HasherFactory> {
         /** The {@code Cryptography}. */
         private final Cryptography cryptography;
         
-        /** The {@code Encryptor}. */
+        /** The {@code Hasher}. */
         private volatile Hasher hasher = null;
         
         /**

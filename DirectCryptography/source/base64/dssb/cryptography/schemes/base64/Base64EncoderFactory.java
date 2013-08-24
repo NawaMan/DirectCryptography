@@ -1,13 +1,57 @@
-package dssb.cryptography.encoder;
+package dssb.cryptography.schemes.base64;
 
 import java.io.ByteArrayOutputStream;
 
-public enum Base64 implements Encoder {
+import dssb.cryptography.encoder.Encoder;
+import dssb.cryptography.encoder.EncoderFactory;
+
+/**
+ * Hasher factory for message digest.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
+public class Base64EncoderFactory extends EncoderFactory.Simple {
     
-    _,
-    Base64,
-    INSTANCE;
+    /**
+     * Constructor.
+     * 
+     * @param cryptography
+     *            the cryptography;
+     */
+    public Base64EncoderFactory(
+            final Base64Cryptography cryptography) {
+        super(cryptography);
+    }
     
+    /** {@inheritDoc} */
+    @Override
+    public Base64Cryptography getCryptography() {
+        return (Base64Cryptography) this.getCryptography();
+    }
+
+    @Override
+    public Encoder newEncoder() {
+        return new Encoder() {
+            
+            @Override
+            public EncoderFactory getEncoderFactory() {
+                return Base64EncoderFactory.this;
+            }
+            
+            @Override
+            public String encode(
+                    final byte[] data) {
+                return Base64EncoderFactory.this.encode(data);
+            }
+            
+            @Override
+            public byte[] decode(
+                    final String encodedString) {
+                return Base64EncoderFactory.this.decode(encodedString);
+            }
+        };
+    }
+
     // BASE 64 ENCODING -- Taken from --http://www.wikihow.com/Encode-a-String-to-Base64-With-Java
     // Change from (String):String to (byte[]):String
     // The decoding is all my code (reverse from the one taken, anyway)
@@ -145,10 +189,6 @@ public enum Base64 implements Encoder {
         }
         
         return Bs;
-    }
-    
-    static public void main(final String ... args) {
-        System.out.println(Base64.INSTANCE.encode("Hello world. Hello world. Hello world. Hello world. ".getBytes()));
     }
     
 }

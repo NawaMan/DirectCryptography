@@ -11,12 +11,15 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-    TestSerializableType.class,
     TestAes.class,
+    TestBase64.class,
+    TestHex.class,
     TestPassword.class,
     TestRsa.class,
     TestRsaAes.class,
-    TestSha1Rsa.class
+    TestSerializableType.class,
+    TestSha1Rsa.class,
+    TestUBytes.class
 })
 public class AllTests {
     
