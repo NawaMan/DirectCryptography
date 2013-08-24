@@ -55,12 +55,13 @@ public class HexEncoderFactory extends EncoderFactory.Simple {
     public String encode(
             final byte[] hash) {
         final int byteForColumn = this.getCryptography().getBytePerColumn();
+        final int devider = byteForColumn - 1;
         Formatter formatter = new Formatter();
         int i = 0;
         for (byte b : hash) {
             formatter.format("%02x", b);
-            if (byteForColumn >= 1) {
-                if ((i % 4) == 3)
+            if (byteForColumn > 1) {
+                if ((i % byteForColumn) == devider)
                     formatter.format(" ");
                 i++;
             }
