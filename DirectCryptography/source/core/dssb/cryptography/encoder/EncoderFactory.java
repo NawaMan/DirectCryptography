@@ -19,14 +19,40 @@ public interface EncoderFactory extends Feature<EncoderFactory> {
     
     // == Sub classes ==================================================================================================
     
-    /** This class provide a simple implementation common to most {@code Encoder}. */
+    /**
+     * This class provide a simple implementation common to most {@code Encoder}.
+     * 
+     * @param <_Cryptography_>
+     *            the cryptography.
+     **/
     public abstract static class Simple<_Cryptography_ extends Cryptography> implements EncoderFactory {
+        
+        /**
+         * This {@link Encoder} implementation is used with {@code EncoderFactory.Simple}.
+         * 
+         * @param <_Cryptography_>
+         *            the cryptography.
+         **/
+        abstract public static class Encoder<_Cryptography_ extends Cryptography> extends dssb.cryptography.encoder.Encoder.Simple {
+            
+            /**
+             * Constructs an encryptor for the given {@code HasherFactory}.
+             * 
+             * @param encoderFactory
+             *            factory the encoder factory.
+             */
+            public Encoder(
+                    final EncoderFactory.Simple<_Cryptography_> encoderFactory) {
+                super(encoderFactory);
+            }
+            
+        }
         
         /** The {@code Cryptography}. */
         private final _Cryptography_ cryptography;
         
         /** The {@code Encoder}. */
-        private volatile Encoder encoder = null;
+        private volatile Encoder<_Cryptography_> encoder = null;
         
         /**
          * Constructor.
@@ -47,7 +73,7 @@ public interface EncoderFactory extends Feature<EncoderFactory> {
         
         /** {@inheritDoc} **/
         @Override
-        public Encoder getEncoder() {
+        public Encoder<_Cryptography_> getEncoder() {
             if (this.encoder != null) {
                 return this.encoder;
             }
@@ -67,24 +93,21 @@ public interface EncoderFactory extends Feature<EncoderFactory> {
          * 
          * @return a new {@code Encoder}.
          */
-        public Encoder newEncoder() {
-            return new Encoder() {
-                
-                @Override
-                public EncoderFactory getEncoderFactory() {
-                    return EncoderFactory.Simple.this;
-                }
-                
+        public Encoder<_Cryptography_> newEncoder() {
+            return new Simple.Encoder<_Cryptography_>(this) {
                 @Override
                 public String encode(
-                        final byte[] data) {
-                    return EncoderFactory.Simple.this.encode(data);
+                        final byte[] data)
+                        throws EncodeException {
+                    final String encStr = EncoderFactory.Simple.this.encode(data);
+                    return encStr;
                 }
-                
                 @Override
                 public byte[] decode(
-                        final String encodedString) {
-                    return EncoderFactory.Simple.this.decode(encodedString);
+                        final String encodedString)
+                        throws DecodeException {
+                    final byte[] bytes = EncoderFactory.Simple.this.decode(encodedString);
+                    return bytes;
                 }
             };
         }
@@ -104,7 +127,7 @@ public interface EncoderFactory extends Feature<EncoderFactory> {
          * 
          * @param encodedString
          *            the encoded string.
-         * @return the encoded bytes        .
+         * @return the encoded bytes.
          */
         public abstract byte[] decode(
                 String encodedString);

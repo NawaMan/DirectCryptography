@@ -7,6 +7,15 @@ import java.util.List;
 import dssb.cryptography.Cryptography;
 import dssb.cryptography.Scheme;
 
+/**
+ * This encoder cryptography implementation contains common functionalities.
+ * 
+ * NOTE: For now it contains functionality for providing features.
+ * 
+ * @param <_Scheme_> the cryptography scheme.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
 abstract public class AbstractEncoderCryptography<_Scheme_ extends Scheme> implements Cryptography {
     
     abstract public _Scheme_ getScheme();
