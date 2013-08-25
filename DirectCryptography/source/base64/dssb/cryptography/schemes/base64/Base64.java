@@ -2,70 +2,58 @@ package dssb.cryptography.schemes.base64;
 
 import java.io.ByteArrayOutputStream;
 
-import dssb.cryptography.encoder.Encoder;
+import dssb.cryptography.CryptographyBuilder;
+import dssb.cryptography.Scheme;
+import dssb.cryptography.encoder.AbstractEncoderCryptography;
 import dssb.cryptography.encoder.EncoderFactory;
+import dssb.cryptography.hasher.HasherFactory;
 
 /**
- * Hasher factory for message digest.
+ * Cryptography scheme for message digest.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public class Base64EncoderFactory extends EncoderFactory.Simple {
+public enum Base64 implements Scheme {
     
-    /**
-     * Constructor.
-     * 
-     * @param cryptography
-     *            the cryptography;
-     */
-    public Base64EncoderFactory(
-            final Base64Cryptography cryptography) {
-        super(cryptography);
+    /** Shorthand instance. */
+    _,
+    
+    /** Static import instance. */
+    Base64,
+    
+    /** Semantic instance. */
+    Scheme,
+    
+    /** Conventional instance. */
+    INSTANCE;
+    
+    @Override
+    public Cryptography.Builder createCryptographyBuilder() {
+        return new Cryptography.Builder();
     }
     
-    /** {@inheritDoc} */
-    @Override
-    public Base64Cryptography getCryptography() {
-        return (Base64Cryptography) this.getCryptography();
-    }
-
-    @Override
-    public Encoder newEncoder() {
-        return new Encoder() {
-            
-            @Override
-            public EncoderFactory getEncoderFactory() {
-                return Base64EncoderFactory.this;
-            }
-            
-            @Override
-            public String encode(
-                    final byte[] data) {
-                return Base64EncoderFactory.this.encode(data);
-            }
-            
-            @Override
-            public byte[] decode(
-                    final String encodedString) {
-                return Base64EncoderFactory.this.decode(encodedString);
-            }
-        };
-    }
-
     // BASE 64 ENCODING -- Taken from --http://www.wikihow.com/Encode-a-String-to-Base64-With-Java
     // Change from (String):String to (byte[]):String
     // The decoding is all my code (reverse from the one taken, anyway)
     
+    /** The included BASE64. */
     public static String BASE64CODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    
+    /** The splite lines */
     public static int SPLITE_LINES_AT = 19 - 1; // 76/4 - 1;
     
-    /** Encode the given byte[] with BASE64 ENCODING String */
-    @Override
+    /**
+     * Encode the given byte[] with BASE64 ENCODING String
+     * 
+     * @param data the data in byte.
+     * @return the encoded string.
+     **/
     public String encode(
-            byte[] bytes) {     // TODO - Make it final
-        if (bytes == null)
+            final byte[] data) {
+        if (data == null)
             return "";
         
+        byte[] bytes = data;
         final StringBuilder encoded = new StringBuilder();
         
         // Determine how many padding bytes to add to the output
@@ -106,9 +94,9 @@ public class Base64EncoderFactory extends EncoderFactory.Simple {
             final int b3 = (i2 & 0x3F);
             
             encoded.append(BASE64CODE.charAt(b0))
-                   .append(BASE64CODE.charAt(b1))
-                   .append(BASE64CODE.charAt(b2))
-                   .append(BASE64CODE.charAt(b3));
+                    .append(BASE64CODE.charAt(b1))
+                    .append(BASE64CODE.charAt(b2))
+                    .append(BASE64CODE.charAt(b3));
             
             if (c == SPLITE_LINES_AT) {
                 encoded.append("\n");
@@ -118,17 +106,24 @@ public class Base64EncoderFactory extends EncoderFactory.Simple {
         }
         
         // replace encoded padding nulls with "="
-        final String result = encoded.substring(0, encoded.length() - paddingCount) + "==".substring(0, paddingCount);
+        final String result = encoded.substring(0, encoded.length() - paddingCount)
+                + "==".substring(0, paddingCount);
         return result;
     }
     
-    /** Decode the given BASE64-ENCODING String to byte[] */
-    @Override
+    /**
+     * Decode the given BASE64-ENCODING String to byte[].
+     * 
+     * @param base64String
+     *            the base64 string.
+     * @return the decoded data.
+     **/
     public byte[] decode(
-            String base64) {
-        if ((base64 == null) || (base64.length() == 0))
+            final String base64String) {
+        if ((base64String == null) || (base64String.length() == 0))
             return new byte[0];
-        base64 = base64.trim(); // TODO - MAke it final
+        
+        String base64 = base64String.trim();
         
         // Remove padding
         int PaddingCount = 0;
@@ -191,4 +186,74 @@ public class Base64EncoderFactory extends EncoderFactory.Simple {
         return Bs;
     }
     
+    // == Cryptography =================================================================================================
+    
+    /** Cryptography. */
+    public static class Cryptography extends AbstractEncoderCryptography<Base64> {
+        
+        /** {@inheritDoc} */
+        @Override
+        public final Base64 getScheme() {
+            return Scheme;
+        }
+        
+        /**
+         * Creates a new {@link HasherFactory}.
+         * 
+         * @return a newly created {@link HasherFactory}.
+         */
+        protected EncoderFactory newEncoderFactory() {
+            final EncoderFactory encoderFactory = new Factory(this);
+            return encoderFactory;
+        }
+        
+        // == Builder ==================================================================================================
+        
+        /**
+         * Builder for {@link Cryptography}.
+         * 
+         * This builder will take an algorithm name.
+         */
+        public static class Builder implements CryptographyBuilder {
+            
+            /** {@inheritDoc} */
+            @Override
+            public Cryptography newCryptography() {
+                return new Cryptography();
+            }
+            
+        }
+        
+        // == Factory ==================================================================================================
+        
+        /** Encoder factory. */
+        public static class Factory extends EncoderFactory.Simple<Cryptography> {
+            
+            /**
+             * Constructor.
+             * 
+             * @param cryptography
+             *            the cryptography;
+             */
+            public Factory(
+                    final Cryptography cryptography) {
+                super(cryptography);
+            }
+            
+            /** {@inheritDoc} */
+            @Override
+            public String encode(
+                    final byte[] data) {
+                return Base64.encode(data);
+            }
+            
+            /** {@inheritDoc} */
+            @Override
+            public byte[] decode(
+                    final String encodedString) {
+                return Base64.decode(encodedString);
+            }
+            
+        }
+    }
 }

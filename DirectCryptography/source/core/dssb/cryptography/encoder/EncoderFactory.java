@@ -20,10 +20,10 @@ public interface EncoderFactory extends Feature<EncoderFactory> {
     // == Sub classes ==================================================================================================
     
     /** This class provide a simple implementation common to most {@code Encoder}. */
-    public abstract static class Simple implements EncoderFactory {
+    public abstract static class Simple<_Cryptography_ extends Cryptography> implements EncoderFactory {
         
         /** The {@code Cryptography}. */
-        private final Cryptography cryptography;
+        private final _Cryptography_ cryptography;
         
         /** The {@code Encoder}. */
         private volatile Encoder encoder = null;
@@ -35,13 +35,13 @@ public interface EncoderFactory extends Feature<EncoderFactory> {
          *            the {@code Cryptography} used by this {@code Cipher}.
          */
         public Simple(
-                final Cryptography cryptography) {
+                final _Cryptography_ cryptography) {
             this.cryptography = cryptography;
         }
         
         /** {@inheritDoc} **/
         @Override
-        public Cryptography getCryptography() {
+        public _Cryptography_ getCryptography() {
             return this.cryptography;
         }
         
@@ -67,7 +67,27 @@ public interface EncoderFactory extends Feature<EncoderFactory> {
          * 
          * @return a new {@code Encoder}.
          */
-        public abstract Encoder newEncoder();
+        public Encoder newEncoder() {
+            return new Encoder() {
+                
+                @Override
+                public EncoderFactory getEncoderFactory() {
+                    return EncoderFactory.Simple.this;
+                }
+                
+                @Override
+                public String encode(
+                        final byte[] data) {
+                    return EncoderFactory.Simple.this.encode(data);
+                }
+                
+                @Override
+                public byte[] decode(
+                        final String encodedString) {
+                    return EncoderFactory.Simple.this.decode(encodedString);
+                }
+            };
+        }
         
         /**
          * Encode the given data in bytes.

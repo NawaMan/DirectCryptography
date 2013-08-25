@@ -1,4 +1,4 @@
-package dssb.cryptography.schemes.base64;
+package dssb.cryptography.encoder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,21 +6,10 @@ import java.util.List;
 
 import dssb.cryptography.Cryptography;
 import dssb.cryptography.Scheme;
-import dssb.cryptography.encoder.EncoderFactory;
-import dssb.cryptography.hasher.HasherFactory;
 
-/**
- * Cryptography for Base64.
- * 
- * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
- */
-public class Base64Cryptography implements Cryptography {
+abstract public class AbstractEncoderCryptography<_Scheme_ extends Scheme> implements Cryptography {
     
-    /** {@inheritDoc} */
-    @Override
-    public Scheme getScheme() {
-        return Base64Scheme.INSTANCE;
-    }
+    abstract public _Scheme_ getScheme();
     
     /** {@inheritDoc} */
     @Override
@@ -45,14 +34,6 @@ public class Base64Cryptography implements Cryptography {
         return null;
     }
     
-    /**
-     * Creates a new {@link HasherFactory}.
-     * 
-     * @return a newly created {@link HasherFactory}.
-     */
-    protected EncoderFactory newEncoderFactory() {
-        final EncoderFactory encoderFactory = new Base64EncoderFactory(this);
-        return encoderFactory;
-    }
+    abstract protected EncoderFactory newEncoderFactory();
     
 }

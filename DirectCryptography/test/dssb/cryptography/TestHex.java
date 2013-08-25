@@ -6,14 +6,13 @@ import org.junit.Test;
 
 import dssb.cryptography.encoder.Encoder;
 import dssb.cryptography.encoder.EncoderFactory;
-import dssb.cryptography.schemes.hex.HexCryptographyBuilder;
-import dssb.cryptography.schemes.hex.HexScheme;
+import dssb.cryptography.schemes.hex.Hex;
 
 public class TestHex {
 
     @Test
     public void testFourBytesPerColumn() {
-        final HexCryptographyBuilder builder = HexScheme._.createCryptographyBuilder();
+        final Hex.Cryptography.Builder builder = Hex.Scheme.createCryptographyBuilder();
         builder.setBytePerColumn(4);
         final Cryptography cryptography = builder.newCryptography();
         final EncoderFactory encoderFactory = cryptography.getFeature(EncoderFactory.class);
@@ -24,7 +23,7 @@ public class TestHex {
     
     @Test
     public void testEightBytesPerColumn() {
-        final HexCryptographyBuilder builder = HexScheme._.createCryptographyBuilder();
+        final Hex.Cryptography.Builder builder = Hex._.createCryptographyBuilder();
         builder.setBytePerColumn(8);
         final Cryptography cryptography = builder.newCryptography();
         final EncoderFactory encoderFactory = cryptography.getFeature(EncoderFactory.class);
