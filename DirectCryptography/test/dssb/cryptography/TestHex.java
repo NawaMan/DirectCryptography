@@ -8,8 +8,14 @@ import dssb.cryptography.encoder.Encoder;
 import dssb.cryptography.encoder.EncoderFactory;
 import dssb.cryptography.schemes.hex.Hex;
 
+/**
+ * Test cases for Hex encoding.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
 public class TestHex {
-
+    
+    /** Encoding with four bytes per column. */
     @Test
     public void testFourBytesPerColumn() {
         final Hex.Cryptography.Builder builder = Hex.Scheme.createCryptographyBuilder();
@@ -21,6 +27,7 @@ public class TestHex {
         Assert.assertEquals("48656c6c 6f20776f 726c642e 2048656c 6c6f2077 6f726c64 2e204865 6c6c6f20 776f726c 642e2048 656c6c6f 20776f72 6c642e20 ", encoder.encode(bytes));
     }
     
+    /** Encoding with eight bytes per column. */
     @Test
     public void testEightBytesPerColumn() {
         final Hex.Cryptography.Builder builder = Hex._.createCryptographyBuilder();

@@ -103,6 +103,7 @@ public interface Data<_Type_> {
             return this.getType().toBytes(this);
         }
         
+        /** {@inheritDoc} */
         @Override
         public boolean equals(
                 Object obj) {
@@ -129,6 +130,7 @@ public interface Data<_Type_> {
             return equals;
         }
         
+        /** {@inheritDoc} */
         @Override
         public int hashCode() {
             final _Type_ thisObj = this.getData();
@@ -139,6 +141,7 @@ public interface Data<_Type_> {
             return hash;
         }
         
+        /** {@inheritDoc} */
         @Override
         public String toString() {
             final _Type_ thisObj = this.getData();

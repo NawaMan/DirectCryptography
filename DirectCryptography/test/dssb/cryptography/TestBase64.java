@@ -9,10 +9,17 @@ import dssb.cryptography.encoder.Encoder;
 import dssb.cryptography.encoder.EncoderFactory;
 import dssb.cryptography.schemes.base64.Base64;
 
+/**
+ * Test cases for Base64 encoder.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
 public class TestBase64 {
     
+    /** The encoder. */
     private Encoder encoder;
     
+    /** Initialize the encode for each test. */
     @Before
     public void init() {
         final CryptographyBuilder builder = Base64._.createCryptographyBuilder();
@@ -21,12 +28,14 @@ public class TestBase64 {
         this.encoder = encoderFactory.getEncoder();
     }
     
+    /** Test encoding from bytes. */
     @Test
     public void testWithBytes() {
         final byte[] bytes = "Hello world. Hello world. Hello world. Hello world. ".getBytes();
         Assert.assertEquals("SGVsbG8gd29ybGQuIEhlbGxvIHdvcmxkLiBIZWxsbyB3b3JsZC4gSGVsbG8gd29ybGQuIA==", encoder.encode(bytes));
     }
     
+    /** Test encoding from data. */
     @Test
     public void testWithData() {
         final SerializableType<String> type = new SerializableType<String>(String.class);
@@ -37,6 +46,7 @@ public class TestBase64 {
               + "LiA=", encoder.encode(data));
     }
     
+    /** Test decoding to bytes. */
     @Test
     public void testToBytes() {
         final String encStr = "SGVsbG8gd29ybGQuIEhlbGxvIHdvcmxkLiBIZWxsbyB3b3JsZC4gSGVsbG8gd29ybGQuIA==";
@@ -44,6 +54,7 @@ public class TestBase64 {
         Assert.assertArrayEquals(bytes, encoder.decode(encStr));
     }
     
+    /** Test decoding to data. */
     @Test
     public void testToData() {
         final String encStr = "rO0ABXQANEhlbGxvIHdvcmxkLiBIZWxsbyB3b3JsZC4gSGVsbG8gd29ybGQuIEhlbGxvIHdvcmxk\nLiA=";
