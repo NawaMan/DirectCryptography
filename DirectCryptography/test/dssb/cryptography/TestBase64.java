@@ -1,7 +1,6 @@
 package dssb.cryptography;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,5 +37,19 @@ public class TestBase64 {
               + "LiA=", encoder.encode(data));
     }
     
-    // TODO - Add decoder.
+    @Test
+    public void testToBytes() {
+        final String encStr = "SGVsbG8gd29ybGQuIEhlbGxvIHdvcmxkLiBIZWxsbyB3b3JsZC4gSGVsbG8gd29ybGQuIA==";
+        final byte[] bytes = "Hello world. Hello world. Hello world. Hello world. ".getBytes();
+        Assert.assertArrayEquals(bytes, encoder.decode(encStr));
+    }
+    
+    @Test
+    public void testToData() {
+        final String encStr = "rO0ABXQANEhlbGxvIHdvcmxkLiBIZWxsbyB3b3JsZC4gSGVsbG8gd29ybGQuIEhlbGxvIHdvcmxk\nLiA=";
+        final String str = "Hello world. Hello world. Hello world. Hello world. ";
+        final SerializableType<String> type = new SerializableType<String>(String.class);
+        final Data<String> data = type.toData(str);
+        Assert.assertEquals(data, encoder.decode(encStr, type));
+    }
 }

@@ -49,10 +49,10 @@ public interface Data<_Type_> {
     public static class Simple<_Type_> implements Data<_Type_> {
         
         /** The type. */
-        private Type<_Type_> type;
+        private final Type<_Type_> type;
         
         /** The data. */
-        private _Type_ data;
+        private final _Type_ data;
         
         /**
          * Constructor.
@@ -101,6 +101,49 @@ public interface Data<_Type_> {
         public byte[] toBytes()
                 throws ConvertToBytesException {
             return this.getType().toBytes(this);
+        }
+        
+        @Override
+        public boolean equals(
+                Object obj) {
+            if (!(obj instanceof Data)) {
+                return false;
+            }
+            @SuppressWarnings("rawtypes")
+            final Data thatData = (Data)obj;
+            @SuppressWarnings("rawtypes")
+            final Type thatType = thatData.getType();
+            if (!thatType.equals(this.getType())) {
+                return false;
+            }
+            @SuppressWarnings("unchecked")
+            final _Type_ thatObj = (_Type_) thatData.getData();
+            final _Type_ thisObj = this.getData();
+            if (thisObj == thatObj) {
+                return true;
+            }
+            if (thatObj == null) {
+                return false;
+            }
+            final boolean equals = thisObj.equals(thatObj);
+            return equals;
+        }
+        
+        @Override
+        public int hashCode() {
+            final _Type_ thisObj = this.getData();
+            if (thisObj == null) {
+                return 0;
+            }
+            final int hash = thisObj.hashCode();
+            return hash;
+        }
+        
+        @Override
+        public String toString() {
+            final _Type_ thisObj = this.getData();
+            final String str = String.valueOf(thisObj);
+            return str;
         }
         
     }
