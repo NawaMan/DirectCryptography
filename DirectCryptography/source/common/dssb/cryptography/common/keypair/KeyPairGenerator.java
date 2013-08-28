@@ -1,4 +1,4 @@
-package dssb.cryptography.schemes.keypair;
+package dssb.cryptography.common.keypair;
 
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;

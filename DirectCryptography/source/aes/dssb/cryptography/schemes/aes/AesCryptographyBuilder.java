@@ -6,9 +6,9 @@ import java.security.NoSuchProviderException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
-import dssb.cryptography.CryptographyBuilder;
+import dssb.cryptography.common.secretkey.AbstractSecretKeyCryptographyBuilder;
 
-public class AesCryptographyBuilder implements CryptographyBuilder {
+public class AesCryptographyBuilder extends AbstractSecretKeyCryptographyBuilder {
     
     static public enum KeySize {
         
@@ -43,12 +43,6 @@ public class AesCryptographyBuilder implements CryptographyBuilder {
     
     static public final KeySize DEFAULT_KEYSIZE = KeySize._256;
     
-    private SecretKey secretKey;
-    
-    public void setSecretKey(final SecretKey secretKey) {
-        this.secretKey = secretKey;
-    }
-    
     public void useNewKey() throws NoSuchAlgorithmException, NoSuchProviderException{
         this.setSecretKey(generateSecretKey());
     }
@@ -57,12 +51,14 @@ public class AesCryptographyBuilder implements CryptographyBuilder {
         this.setSecretKey(generateSecretKey(keysize));
     }
     
-    public SecretKey getSecretKey() {
-        return this.secretKey;
+    public void setSecretKey(final SecretKey secretKey) {
+        super.setSecretKey(secretKey);
     }
-
+    
     @Override
     public AesCryptography newCryptography() {
-        return new AesCryptography(this.secretKey);
+        final SecretKey secretKey = this.getSecretKey();
+        final AesCryptography cryptography = new AesCryptography(secretKey);
+        return cryptography;
     }
 }

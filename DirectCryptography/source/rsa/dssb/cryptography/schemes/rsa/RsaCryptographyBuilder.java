@@ -3,9 +3,9 @@ package dssb.cryptography.schemes.rsa;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
-import dssb.cryptography.schemes.keypair.KeyPairCryptographyBuilder;
+import dssb.cryptography.common.keypair.AbstractKeyPairCryptographyBuilder;
 
-public class RsaCryptographyBuilder extends KeyPairCryptographyBuilder {
+public class RsaCryptographyBuilder extends AbstractKeyPairCryptographyBuilder {
     
     public static final int DEFAULT_KEYSIZE = 1024;
     public static final String DEFAULT_ALGORITHM = "RSA";

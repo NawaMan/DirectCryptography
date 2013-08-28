@@ -33,7 +33,7 @@ public class RsaCipher extends Cipher.Simple {
         if (this.publicKey == null) {
             return null;
         } else {
-            return new Encryptor(this);
+            return super.newEncryptor();
         }
     }
     
@@ -42,7 +42,7 @@ public class RsaCipher extends Cipher.Simple {
         if (this.privateKey == null) {
             return null;
         } else {
-            return new Decryptor(this);
+            return super.newDecryptor();
         }
     }
     // TODOD - bytes limits.

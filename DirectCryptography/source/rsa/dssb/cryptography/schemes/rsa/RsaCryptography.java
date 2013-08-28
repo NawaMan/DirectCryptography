@@ -3,22 +3,11 @@ package dssb.cryptography.schemes.rsa;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
-import dssb.cryptography.Cryptography;
-import dssb.cryptography.Scheme;
 import dssb.cryptography.cipher.Cipher;
-import dssb.cryptography.schemes.aes.AesScheme;
+import dssb.cryptography.common.keypair.AbstractKeyPairCryptography;
 
-public class RsaCryptography implements Cryptography {
-    
-    private final Scheme scheme;
-    
-    private PrivateKey privateKey = null;
-    
-    private PublicKey publicKey = null;
+public class RsaCryptography extends AbstractKeyPairCryptography {
     
     public RsaCryptography(
             final KeyPair keyPair) {
@@ -28,33 +17,7 @@ public class RsaCryptography implements Cryptography {
     public RsaCryptography(
             final PrivateKey privateKey,
             final PublicKey publicKey) {
-        this.scheme = AesScheme.INSTANCE;
-        this.privateKey = privateKey;
-        this.publicKey = publicKey;
-    }
-    
-    @Override
-    public Scheme getScheme() {
-        return this.scheme;
-    }
-    
-    @Override
-    public Collection<Feature<?>> getFeatures() {
-        final RsaCipher cipher = this.newCipher();
-        final List<Feature<?>> list = new ArrayList<Feature<?>>();
-        list.add(cipher);
-        return list;
-    }
-    
-    @SuppressWarnings("unchecked")
-    @Override
-    public <_Feature_ extends Feature<_Feature_>> _Feature_ getFeature(
-            final Class<_Feature_> featureClass) {
-        if (Cipher.class.isAssignableFrom(featureClass)) {
-            return (_Feature_) this.newCipher();
-        }
-        
-        return null;
+        super(RsaScheme.INSTANCE, privateKey, publicKey);
     }
     
     /**
@@ -63,7 +26,10 @@ public class RsaCryptography implements Cryptography {
      * @return a newly created {@link Cipher}.
      */
     protected RsaCipher newCipher() {
-        return new RsaCipher(this, this.privateKey, this.publicKey);
+        final PrivateKey privateKey = this.getPrivateKey();
+        final PublicKey publicKey = this.getPublicKey();
+        final RsaCipher cipher = new RsaCipher(this, privateKey, publicKey);
+        return cipher;
     }
     
 }

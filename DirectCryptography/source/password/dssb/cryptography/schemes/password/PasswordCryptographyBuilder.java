@@ -7,11 +7,9 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import dssb.cryptography.CryptographyBuilder;
+import dssb.cryptography.common.secretkey.AbstractSecretKeyCryptographyBuilder;
 
-public class PasswordCryptographyBuilder implements CryptographyBuilder {
-    
-    private SecretKey secretKey;
+public class PasswordCryptographyBuilder extends AbstractSecretKeyCryptographyBuilder {
     
     private byte[] salt = new byte[] { (byte)0x70, (byte)0x61, (byte)0x73, (byte)0x73, (byte)0x77, (byte)0x6f,
         (byte)0x72, (byte)0x64 };
@@ -24,19 +22,20 @@ public class PasswordCryptographyBuilder implements CryptographyBuilder {
             KeySpec spec = new PBEKeySpec(pwChars, this.salt, 65536, 256);
             
             final byte[] tmpSecret = factory.generateSecret(spec).getEncoded();
-            this.secretKey = new SecretKeySpec(tmpSecret, "AES");
+            final SecretKey secretKey = new SecretKeySpec(tmpSecret, "AES");
+            this.setSecretKey(secretKey);
+            
         } catch (final Exception problem) {
             // TODO - Do thing about this.
             throw new RuntimeException(problem);
         }
     }
     
-    public SecretKey getSecretKey() {
-        return this.secretKey;
-    }
-    
     @Override
     public PasswordCryptography newCryptography() {
-        return new PasswordCryptography(this.secretKey);
+        final SecretKey secretKey = this.getSecretKey();
+        final PasswordCryptography cryptography = new PasswordCryptography(secretKey);
+        return cryptography;
     }
+    
 }

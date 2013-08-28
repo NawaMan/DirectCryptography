@@ -1,4 +1,4 @@
-package dssb.cryptography.schemes.keypair;
+package dssb.cryptography.common.keypair;
 
 import java.security.KeyPair;
 import java.security.PrivateKey;
@@ -6,7 +6,7 @@ import java.security.PublicKey;
 
 import dssb.cryptography.CryptographyBuilder;
 
-abstract public class KeyPairCryptographyBuilder implements CryptographyBuilder {
+abstract public class AbstractKeyPairCryptographyBuilder implements CryptographyBuilder {
     
     private PublicKey publicKey = null;
     private PrivateKey privateKey = null;

@@ -5,4 +5,4 @@
  * @author dssb
  *
  */
-package dssb.cryptography.schemes;
+package dssb.cryptography.common;

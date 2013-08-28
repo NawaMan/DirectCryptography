@@ -75,14 +75,4 @@ public class AesCipher extends Cipher.Simple {
         }
     }
     
-    @Override
-    public Encryptor newEncryptor() {
-        return new Encryptor(this);
-    }
-
-    @Override
-    public Decryptor newDecryptor() {
-        return new Decryptor(this);
-    }
-    
 }

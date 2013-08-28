@@ -146,14 +146,18 @@ public interface Cipher extends Feature<Cipher> {
          * 
          * @return a new {@code Encryptor}.
          */
-        public abstract Encryptor newEncryptor();
+        public Encryptor newEncryptor() {
+            return new Encryptor(this);
+        }
         
         /**
          * Create a new {@code Decryptor}.
          * 
          * @return a new {@code Decryptor}.
          */
-        public abstract Decryptor newDecryptor();
+        public Decryptor newDecryptor() {
+            return new Decryptor(this);
+        }
         
         /**
          * Encrypt the given bytes.
