@@ -11,7 +11,7 @@ public class UnknownMessageDigestAlgorithmException extends CryptographyConfigur
     
     /** The version unique ID for serialization. */
     private static final long serialVersionUID = -6041527887172720074L;
-
+    
     /**
      * Constructs the exception.
      * 

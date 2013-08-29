@@ -3,10 +3,9 @@ package dssb.cryptography.schemes.aes;
 import javax.crypto.SecretKey;
 
 import dssb.cryptography.cipher.Cipher;
-import dssb.cryptography.common.secretkey.AbstractSecretKeyCryptography;
+import dssb.cryptography.common.secretkey.AbstractCommonSecretKeyCryptography;
 
-public class AesCryptography extends AbstractSecretKeyCryptography {
-    
+public class AesCryptography extends AbstractCommonSecretKeyCryptography {
     
     public AesCryptography(
             final SecretKey secretKey) {

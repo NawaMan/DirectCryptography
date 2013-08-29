@@ -7,12 +7,12 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import dssb.cryptography.common.secretkey.AbstractSecretKeyCryptographyBuilder;
+import dssb.cryptography.common.secretkey.AbstractCommonSecretKeyCryptographyBuilder;
 
-public class PasswordCryptographyBuilder extends AbstractSecretKeyCryptographyBuilder {
+public class PasswordCryptographyBuilder extends AbstractCommonSecretKeyCryptographyBuilder {
     
-    private byte[] salt = new byte[] { (byte)0x70, (byte)0x61, (byte)0x73, (byte)0x73, (byte)0x77, (byte)0x6f,
-        (byte)0x72, (byte)0x64 };
+    private byte[] salt = new byte[] { (byte) 0x70, (byte) 0x61, (byte) 0x73, (byte) 0x73, (byte) 0x77, (byte) 0x6f,
+        (byte) 0x72, (byte) 0x64 };
     
     public void setPassword(
             final String password) {

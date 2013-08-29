@@ -6,9 +6,9 @@ import java.security.NoSuchProviderException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
-import dssb.cryptography.common.secretkey.AbstractSecretKeyCryptographyBuilder;
+import dssb.cryptography.common.secretkey.AbstractCommonSecretKeyCryptographyBuilder;
 
-public class AesCryptographyBuilder extends AbstractSecretKeyCryptographyBuilder {
+public class AesCryptographyBuilder extends AbstractCommonSecretKeyCryptographyBuilder {
     
     static public enum KeySize {
         
@@ -16,7 +16,8 @@ public class AesCryptographyBuilder extends AbstractSecretKeyCryptographyBuilder
         
         private final int keySize;
         
-        private KeySize(final int keySize) {
+        private KeySize(
+                final int keySize) {
             this.keySize = keySize;
         }
         
@@ -33,25 +34,30 @@ public class AesCryptographyBuilder extends AbstractSecretKeyCryptographyBuilder
     }
     
     public static SecretKey generateSecretKey(
-            final int keysize) throws NoSuchAlgorithmException {
+            final int keysize)
+            throws NoSuchAlgorithmException {
         final KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
         keyGenerator.init(keysize);
         final SecretKey secretKey = keyGenerator.generateKey();
         return secretKey;
     }
     
-    
     static public final KeySize DEFAULT_KEYSIZE = KeySize._256;
     
-    public void useNewKey() throws NoSuchAlgorithmException, NoSuchProviderException{
+    public void useNewKey()
+            throws NoSuchAlgorithmException,
+                NoSuchProviderException {
         this.setSecretKey(generateSecretKey());
     }
     
-    public void useNewKey(final int keysize) throws NoSuchAlgorithmException{
+    public void useNewKey(
+            final int keysize)
+            throws NoSuchAlgorithmException {
         this.setSecretKey(generateSecretKey(keysize));
     }
     
-    public void setSecretKey(final SecretKey secretKey) {
+    public void setSecretKey(
+            final SecretKey secretKey) {
         super.setSecretKey(secretKey);
     }
     

@@ -28,12 +28,13 @@ public class TestUBytes {
     /**
      * Convert bytes from an integer.
      * 
-     * @throws IOException PROBLEM!!!
+     * @throws IOException
+     *             PROBLEM!!!
      **/
     @Test
     public void testBytesToInteger()
             throws IOException {
-        final byte[] bytes = {0, 1, -30, 64};
+        final byte[] bytes = { 0, 1, -30, 64 };
         final int i = UBytes._.bytesToInt(bytes);
         final int iExpected = 123456;
         Assert.assertEquals(iExpected, i);
@@ -42,7 +43,8 @@ public class TestUBytes {
     /**
      * Convert to and from an integer.
      * 
-     * @throws IOException PROBLEM!!!
+     * @throws IOException
+     *             PROBLEM!!!
      **/
     @Test
     public void testInteger()
@@ -69,7 +71,7 @@ public class TestUBytes {
     /** Convert bytes from bytes array. */
     @Test
     public void testFromBytesArray() {
-        final byte[] bytes = {0, 0, 0, 2, 0, 0, 0, 1, 65, 0, 0, 0, 1, 66};
+        final byte[] bytes = { 0, 0, 0, 2, 0, 0, 0, 1, 65, 0, 0, 0, 1, 66 };
         final byte[][] datas = UBytes._.bytesToBytesArray(bytes);
         final char a = new String(datas[0]).charAt(0);
         final char b = new String(datas[1]).charAt(0);
@@ -105,7 +107,7 @@ public class TestUBytes {
     /** Convert bytes from a serializable. */
     @Test
     public void testBytesToSerializable() {
-        final byte[] bytes = {-84, -19, 0, 5, 116, 0, 6, 83, 116, 114, 105, 110, 103};
+        final byte[] bytes = { -84, -19, 0, 5, 116, 0, 6, 83, 116, 114, 105, 110, 103 };
         final String str = UBytes._.bytesToSerializable(bytes, String.class);
         Assert.assertEquals("String", str);
     }
@@ -138,14 +140,14 @@ public class TestUBytes {
     /** Convert bytes from a serializables. */
     @Test
     public void testBytesToSerializables() {
-        final byte[] bytes = {(byte) -84, (byte) -19, (byte) 0, (byte) 5, (byte) 117, (byte) 114, (byte) 0, (byte) 23,
-                (byte) 91, (byte) 76, (byte) 106, (byte) 97, (byte) 118, (byte) 97, (byte) 46, (byte) 105, (byte) 111,
-                (byte) 46, (byte) 83, (byte) 101, (byte) 114, (byte) 105, (byte) 97, (byte) 108, (byte) 105, (byte) 122,
-                (byte) 97, (byte) 98, (byte) 108, (byte) 101, (byte) 59, (byte) -82, (byte) -48, (byte) 9, (byte) -84,
-                (byte) 83, (byte) -41, (byte) -19, (byte) 73, (byte) 2, (byte) 0, (byte) 0, (byte) 120, (byte) 112,
-                (byte) 0, (byte) 0, (byte) 0, (byte) 2, (byte) 116, (byte) 0, (byte) 7, (byte) 83, (byte) 116,
-                (byte) 114, (byte) 105, (byte) 110, (byte) 103, (byte) 49, (byte) 116, (byte) 0, (byte) 7, (byte) 83,
-                (byte) 116, (byte) 114, (byte) 105, (byte) 110, (byte) 103, (byte) 50};
+        final byte[] bytes = { (byte) -84, (byte) -19, (byte) 0, (byte) 5, (byte) 117, (byte) 114, (byte) 0, (byte) 23,
+            (byte) 91, (byte) 76, (byte) 106, (byte) 97, (byte) 118, (byte) 97, (byte) 46, (byte) 105, (byte) 111,
+            (byte) 46, (byte) 83, (byte) 101, (byte) 114, (byte) 105, (byte) 97, (byte) 108, (byte) 105, (byte) 122,
+            (byte) 97, (byte) 98, (byte) 108, (byte) 101, (byte) 59, (byte) -82, (byte) -48, (byte) 9, (byte) -84,
+            (byte) 83, (byte) -41, (byte) -19, (byte) 73, (byte) 2, (byte) 0, (byte) 0, (byte) 120, (byte) 112,
+            (byte) 0, (byte) 0, (byte) 0, (byte) 2, (byte) 116, (byte) 0, (byte) 7, (byte) 83, (byte) 116,
+            (byte) 114, (byte) 105, (byte) 110, (byte) 103, (byte) 49, (byte) 116, (byte) 0, (byte) 7, (byte) 83,
+            (byte) 116, (byte) 114, (byte) 105, (byte) 110, (byte) 103, (byte) 50 };
         final String[] strs = UBytes._.bytesToSerializables(bytes, String.class);
         Assert.assertEquals("String1", strs[0]);
         Assert.assertEquals("String2", strs[1]);

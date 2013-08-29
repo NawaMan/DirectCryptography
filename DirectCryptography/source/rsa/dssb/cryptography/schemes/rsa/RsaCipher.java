@@ -45,10 +45,12 @@ public class RsaCipher extends Cipher.Simple {
             return super.newDecryptor();
         }
     }
-    // TODOD - bytes limits.
+    
+    // TODO - bytes limits.
     @Override
     public byte[] encrypt(
-            final byte[] bytes) throws EncyptionException {
+            final byte[] bytes)
+            throws EncyptionException {
         try {
             final PublicKey publicKey = RsaCipher.this.publicKey;
             final javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance("RSA");
@@ -67,6 +69,7 @@ public class RsaCipher extends Cipher.Simple {
             throw new EncyptionException(problem);
         }
     }
+    
     @Override
     public byte[] decrypt(
             final byte[] bytes) {

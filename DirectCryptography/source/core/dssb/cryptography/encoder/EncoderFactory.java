@@ -33,7 +33,8 @@ public interface EncoderFactory extends Feature<EncoderFactory> {
          * @param <_Cryptography_>
          *            the cryptography.
          **/
-        abstract public static class Encoder<_Cryptography_ extends Cryptography> extends dssb.cryptography.encoder.Encoder.Simple {
+        abstract public static class Encoder<_Cryptography_ extends Cryptography> extends
+                dssb.cryptography.encoder.Encoder.Simple {
             
             /**
              * Constructs an encryptor for the given {@code HasherFactory}.
@@ -102,6 +103,7 @@ public interface EncoderFactory extends Feature<EncoderFactory> {
                     final String encStr = EncoderFactory.Simple.this.encode(data);
                     return encStr;
                 }
+                
                 @Override
                 public byte[] decode(
                         final String encodedString)

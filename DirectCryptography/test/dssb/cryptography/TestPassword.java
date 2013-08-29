@@ -39,7 +39,8 @@ public class TestPassword {
         final Decryptor decryptor2 = cipher2.getDecryptor();
         
         try {
-            System.out.println(decryptor2.decrypt(encryptor1.encrypt(new TextType.Data("Some text here.")), TextType.TYPE));
+            System.out.println(decryptor2.decrypt(encryptor1.encrypt(new TextType.Data("Some text here.")),
+                    TextType.TYPE));
         } catch (final EncyptionException problem) {
             problem.printStackTrace();
         }

@@ -15,7 +15,8 @@ import dssb.cryptography.schemes.rsa.RsaScheme;
 public class TestRsa {
     
     @Test
-    public void test() throws Exception {
+    public void test()
+            throws Exception {
         final RsaCryptographyBuilder cryptBuilder = RsaScheme.INSTANCE.createCryptographyBuilder();
         cryptBuilder.useNewKeyPair();
         

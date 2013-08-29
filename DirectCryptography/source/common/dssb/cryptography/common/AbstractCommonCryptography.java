@@ -12,20 +12,34 @@ import dssb.cryptography.encoder.EncoderFactory;
 import dssb.cryptography.hasher.HasherFactory;
 import dssb.cryptography.signature.Signature;
 
-abstract public class AbstractCryptography implements Cryptography {
+/**
+ * Common implementation for {@code Cryptography}.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
+abstract public class AbstractCommonCryptography implements Cryptography {
     
+    /** The scheme. */
     private final Scheme scheme;
     
-    protected AbstractCryptography(
+    /**
+     * Constructor.
+     * 
+     * @param scheme
+     *            the scheme.
+     **/
+    protected AbstractCommonCryptography(
             final Scheme scheme) {
         this.scheme = scheme;
     }
     
+    /** {@inheritDoc} */
     @Override
     public Scheme getScheme() {
         return this.scheme;
     }
     
+    /** {@inheritDoc} */
     @Override
     public Collection<Feature<?>> getFeatures() {
         final List<Feature<?>> list = new ArrayList<Feature<?>>();
@@ -47,9 +61,11 @@ abstract public class AbstractCryptography implements Cryptography {
             list.add(encoderFactory);
         }
         
-        return Collections.unmodifiableList(list);
+        final List<Feature<?>> outList = Collections.unmodifiableList(list);
+        return outList;
     }
     
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public <_Feature_ extends Feature<_Feature_>> _Feature_ getFeature(
@@ -57,22 +73,51 @@ abstract public class AbstractCryptography implements Cryptography {
         if (Cipher.class.isAssignableFrom(featureClass)) {
             return (_Feature_) this.newCipher();
         }
+        if (Signature.class.isAssignableFrom(featureClass)) {
+            return (_Feature_) this.newSignature();
+        }
+        if (HasherFactory.class.isAssignableFrom(featureClass)) {
+            return (_Feature_) this.newHasherFactory();
+        }
+        if (EncoderFactory.class.isAssignableFrom(featureClass)) {
+            return (_Feature_) this.newEncoderFactory();
+        }
         
         return null;
     }
     
+    /**
+     * Create and return a {@link Cipher} from this {@code Cryptography}.
+     * 
+     * @return a new {@link Cipher}.
+     **/
     protected Cipher newCipher() {
         return null;
     }
     
+    /**
+     * Create and return a {@link Signature} from this {@code Cryptography}.
+     * 
+     * @return a new {@link Signature}.
+     **/
     protected Signature newSignature() {
         return null;
     }
     
+    /**
+     * Create and return a {@link HasherFactory} from this {@code Cryptography}.
+     * 
+     * @return a new {@link HasherFactory}.
+     **/
     protected HasherFactory newHasherFactory() {
         return null;
     }
     
+    /**
+     * Create and return a {@link EncoderFactory} from this {@code Cryptography}.
+     * 
+     * @return a new {@link EncoderFactory}.
+     **/
     protected EncoderFactory newEncoderFactory() {
         return null;
     }

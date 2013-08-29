@@ -10,5 +10,5 @@ public class Sha1RsaCryptographyBuilder extends RsaCryptographyBuilder {
         final RsaCryptography rsaCryptography = super.newCryptography();
         return new Sha1RsaCryptography(rsaCryptography, this.getPrivateKey(), this.getPublicKey());
     }
-
+    
 }

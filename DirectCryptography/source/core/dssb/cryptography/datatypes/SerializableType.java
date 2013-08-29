@@ -16,7 +16,6 @@ import dssb.cryptography.util.UBytes;
  */
 public class SerializableType<_Type_ extends Serializable> extends Type.Simple<_Type_> {
     
-    
     /** The data class. */
     private final Class<_Type_> type;
     

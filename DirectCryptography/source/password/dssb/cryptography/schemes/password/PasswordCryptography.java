@@ -2,9 +2,9 @@ package dssb.cryptography.schemes.password;
 
 import javax.crypto.SecretKey;
 
-import dssb.cryptography.common.secretkey.AbstractSecretKeyCryptography;
+import dssb.cryptography.common.secretkey.AbstractCommonSecretKeyCryptography;
 
-public class PasswordCryptography extends AbstractSecretKeyCryptography {
+public class PasswordCryptography extends AbstractCommonSecretKeyCryptography {
     
     public PasswordCryptography(
             final SecretKey secretKey) {

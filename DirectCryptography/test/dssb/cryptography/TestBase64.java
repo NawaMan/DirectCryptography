@@ -32,7 +32,8 @@ public class TestBase64 {
     @Test
     public void testWithBytes() {
         final byte[] bytes = "Hello world. Hello world. Hello world. Hello world. ".getBytes();
-        Assert.assertEquals("SGVsbG8gd29ybGQuIEhlbGxvIHdvcmxkLiBIZWxsbyB3b3JsZC4gSGVsbG8gd29ybGQuIA==", encoder.encode(bytes));
+        Assert.assertEquals("SGVsbG8gd29ybGQuIEhlbGxvIHdvcmxkLiBIZWxsbyB3b3JsZC4gSGVsbG8gd29ybGQuIA==",
+                encoder.encode(bytes));
     }
     
     /** Test encoding from data. */
@@ -43,7 +44,7 @@ public class TestBase64 {
         final Data<String> data = type.toData(str);
         Assert.assertEquals(
                 "rO0ABXQANEhlbGxvIHdvcmxkLiBIZWxsbyB3b3JsZC4gSGVsbG8gd29ybGQuIEhlbGxvIHdvcmxk\n"
-              + "LiA=", encoder.encode(data));
+                        + "LiA=", encoder.encode(data));
     }
     
     /** Test decoding to bytes. */

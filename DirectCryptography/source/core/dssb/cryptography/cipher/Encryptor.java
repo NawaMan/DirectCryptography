@@ -85,7 +85,9 @@ public interface Encryptor {
         
         /**
          * Create a new secret data from the secret bytes.
-         * @param secretBytes the secret data in bytes.
+         * 
+         * @param secretBytes
+         *            the secret data in bytes.
          * @return the {@code SecretData}.
          **/
         protected SecretData newSecretData(

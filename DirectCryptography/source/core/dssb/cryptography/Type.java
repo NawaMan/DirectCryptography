@@ -84,9 +84,10 @@ public interface Type<_Type_> {
      */
     public Data<_Type_> toDataFromByte(
             final byte[] bytes)
-                    throws ConvertFromBytesException;
+            throws ConvertFromBytesException;
     
-    //== Sub classes ===================================================================================================
+    // == Sub classes
+    // ===================================================================================================
     
     /**
      * Simple implementation for {@link Type}.

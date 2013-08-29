@@ -4,10 +4,11 @@ import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
+import dssb.cryptography.Scheme;
 import dssb.cryptography.cipher.Cipher;
-import dssb.cryptography.common.keypair.AbstractKeyPairCryptography;
+import dssb.cryptography.common.keypair.AbstractCommonKeyPairCryptography;
 
-public class RsaCryptography extends AbstractKeyPairCryptography {
+public class RsaCryptography extends AbstractCommonKeyPairCryptography {
     
     public RsaCryptography(
             final KeyPair keyPair) {
@@ -18,6 +19,13 @@ public class RsaCryptography extends AbstractKeyPairCryptography {
             final PrivateKey privateKey,
             final PublicKey publicKey) {
         super(RsaScheme.INSTANCE, privateKey, publicKey);
+    }
+    
+    protected RsaCryptography(
+            final Scheme scheme,
+            final PrivateKey privateKey,
+            final PublicKey publicKey) {
+        super(scheme, privateKey, publicKey);
     }
     
     /**

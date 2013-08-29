@@ -64,7 +64,7 @@ public class TestSerializableType {
         final byte[] bytes = type.toBytes(data1, data2);
         System.out.println(Arrays.toString(bytes));
         System.out.println(Arrays.toString(type.fromBytes(bytes)));
-        Assert.assertEquals(Arrays.toString(new Integer[] {data1, data2}), Arrays.toString(type.fromBytes(bytes)));
+        Assert.assertEquals(Arrays.toString(new Integer[] { data1, data2 }), Arrays.toString(type.fromBytes(bytes)));
     }
     
 }

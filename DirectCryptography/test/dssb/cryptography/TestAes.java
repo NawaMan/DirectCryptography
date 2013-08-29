@@ -15,7 +15,8 @@ import dssb.cryptography.schemes.aes.AesScheme;
 public class TestAes {
     
     @Test
-    public void test() throws Exception {
+    public void test()
+            throws Exception {
         final AesCryptographyBuilder cryptBuilder = AesScheme.INSTANCE.createCryptographyBuilder();
         cryptBuilder.useNewKey();
         

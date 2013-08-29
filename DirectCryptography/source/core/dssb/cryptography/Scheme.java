@@ -1,6 +1,5 @@
 package dssb.cryptography;
 
-
 /**
  * Cryptography scheme.
  * 

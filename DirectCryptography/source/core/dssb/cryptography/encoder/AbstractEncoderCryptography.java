@@ -12,7 +12,8 @@ import dssb.cryptography.Scheme;
  * 
  * NOTE: For now it contains functionality for providing features.
  * 
- * @param <_Scheme_> the cryptography scheme.
+ * @param <_Scheme_>
+ *            the cryptography scheme.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */

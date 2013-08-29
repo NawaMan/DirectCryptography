@@ -17,17 +17,11 @@ import dssb.cryptography.schemes.rsa.RsaCipher;
 
 public class RsaAesCipher extends RsaCipher {
     
-    private final PrivateKey privateKey;
-    
-    private final PublicKey publicKey;
-    
     public RsaAesCipher(
             final Cryptography cryptography,
             final PrivateKey privateKey,
             final PublicKey publicKey) {
         super(cryptography, privateKey, publicKey);
-        this.privateKey = privateKey;
-        this.publicKey = publicKey;
     }
     
     @Override

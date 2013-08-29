@@ -25,7 +25,7 @@ public interface KeyPairGenerator {
         public Simple(
                 final String algorithm,
                 final int keysize) {
-            this(algorithm, keysize, (SecureRandom)null);
+            this(algorithm, keysize, (SecureRandom) null);
         }
         
         public Simple(
@@ -81,19 +81,27 @@ public interface KeyPairGenerator {
             }
         }
         
-        protected void setRandomeAlgorithm(final String randomAlgorithm) {
+        protected void setRandomeAlgorithm(
+                final String randomAlgorithm) {
             this.randomAlgorithm = randomAlgorithm;
         }
         
-        protected void setRandomProvider(final String randomProvider) {
+        protected void setRandomProvider(
+                final String randomProvider) {
             this.randomProvider = randomProvider;
         }
         
         protected SecureRandom prepareSecureRandom() {
             try {
-                final byte[] seed = ((this.seed != null) ? this.seed : DEFAULT_SEED.getBytes()).clone();
-                final String randomAlgorithm = (this.randomAlgorithm != null) ? this.randomAlgorithm : DEFAULT_RANDOM_ALGORITHM;
-                final String randomProvider = (this.randomProvider != null) ? this.randomProvider : DEFAULT_RANDOM_PROVIDER;
+                final byte[] seed = ((this.seed != null)
+                        ? this.seed
+                        : DEFAULT_SEED.getBytes()).clone();
+                final String randomAlgorithm = (this.randomAlgorithm != null)
+                        ? this.randomAlgorithm
+                        : DEFAULT_RANDOM_ALGORITHM;
+                final String randomProvider = (this.randomProvider != null)
+                        ? this.randomProvider
+                        : DEFAULT_RANDOM_PROVIDER;
                 final SecureRandom random = SecureRandom.getInstance(randomAlgorithm, randomProvider);
                 random.setSeed(seed);
                 return random;

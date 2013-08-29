@@ -4,7 +4,6 @@ import dssb.cryptography.Data;
 import dssb.cryptography.util.DataConversionException;
 import dssb.cryptography.util.UBytes;
 
-
 /**
  * Type for array of byte array.
  * 

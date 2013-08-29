@@ -69,17 +69,17 @@ public class PasswordCipher extends Cipher.Simple {
             cipher.init(javax.crypto.Cipher.DECRYPT_MODE, this.secretKey, ivSpec);
             final byte[] decryptedBytes = cipher.doFinal(dataBytes);
             return decryptedBytes;
-        } catch (final NoSuchAlgorithmException  problem) {
+        } catch (final NoSuchAlgorithmException problem) {
             throw new EncyptionException(problem);
-        } catch (final NoSuchPaddingException  problem) {
+        } catch (final NoSuchPaddingException problem) {
             throw new EncyptionException(problem);
-        } catch (final InvalidKeyException  problem) {
+        } catch (final InvalidKeyException problem) {
             throw new EncyptionException(problem);
-        } catch (final InvalidAlgorithmParameterException  problem) {
+        } catch (final InvalidAlgorithmParameterException problem) {
             throw new EncyptionException(problem);
-        } catch (final IllegalBlockSizeException  problem) {
+        } catch (final IllegalBlockSizeException problem) {
             throw new EncyptionException(problem);
-        } catch (final BadPaddingException  problem) {
+        } catch (final BadPaddingException problem) {
             throw new EncyptionException(problem);
         }
     }

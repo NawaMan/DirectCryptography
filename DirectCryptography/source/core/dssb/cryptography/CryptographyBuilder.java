@@ -13,7 +13,8 @@ public interface CryptographyBuilder {
      * Returns a newly created {@link Cryptography}.
      * 
      * @return a newly created {@link Cryptography}.
-     * @throws CryptographyBuildFailException when there is a problem building a {@link Cryptography}.
+     * @throws CryptographyBuildFailException
+     *             when there is a problem building a {@link Cryptography}.
      */
     public Cryptography newCryptography()
             throws CryptographyBuildFailException;

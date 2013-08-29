@@ -9,7 +9,7 @@ public class EncodeException extends RuntimeException {
     
     /** The version unique ID for serialization. */
     private static final long serialVersionUID = 4255163902582381360L;
-
+    
     /**
      * Constructs the exception.
      * 

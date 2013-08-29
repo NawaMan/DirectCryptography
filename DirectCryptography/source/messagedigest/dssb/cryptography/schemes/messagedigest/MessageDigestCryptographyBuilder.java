@@ -24,9 +24,11 @@ public class MessageDigestCryptographyBuilder implements CryptographyBuilder {
     /**
      * Set the algorithm.
      * 
-     * @param algorithm the algorithm.
+     * @param algorithm
+     *            the algorithm.
      */
-    public void setAlgorithm(final String algorithm) {
+    public void setAlgorithm(
+            final String algorithm) {
         try {
             MessageDigest.getInstance(algorithm);
         } catch (final NoSuchAlgorithmException problem) {
@@ -61,5 +63,5 @@ public class MessageDigestCryptographyBuilder implements CryptographyBuilder {
     public MessageDigestCryptography newCryptography() {
         return new MessageDigestCryptography(this.algorithm);
     }
-
+    
 }

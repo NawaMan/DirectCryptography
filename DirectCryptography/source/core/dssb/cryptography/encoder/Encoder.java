@@ -75,7 +75,7 @@ public interface Encoder {
             String encodedString,
             Type<_Type_> dataType)
             throws DecodeException;
-
+    
     // == Sub classes ==================================================================================================
     
     /** This class provide a simple implementation common to most {@code Encoder}. */

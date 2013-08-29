@@ -38,7 +38,8 @@ public interface Data<_Type_> {
     public byte[] toBytes()
             throws ConvertToBytesException;
     
-    //== Sub classes ===================================================================================================
+    // == Sub classes
+    // ===================================================================================================
     
     /**
      * Simple implementation of {@link Data}.
@@ -111,7 +112,7 @@ public interface Data<_Type_> {
                 return false;
             }
             @SuppressWarnings("rawtypes")
-            final Data thatData = (Data)obj;
+            final Data thatData = (Data) obj;
             @SuppressWarnings("rawtypes")
             final Type thatType = thatData.getType();
             if (!thatType.equals(this.getType())) {

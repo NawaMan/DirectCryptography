@@ -14,7 +14,8 @@ import dssb.cryptography.signature.Verifier;
 public class TestSha1Rsa {
     
     @Test
-    public void test() throws Exception {
+    public void test()
+            throws Exception {
         final Sha1RsaCryptographyBuilder cryptBuilder = Sha1RsaScheme.INSTANCE.createCryptographyBuilder();
         cryptBuilder.useNewKeyPair();
         

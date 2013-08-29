@@ -45,7 +45,8 @@ public enum Base64 implements Scheme {
     /**
      * Encode the given byte[] with BASE64 ENCODING String
      * 
-     * @param data the data in byte.
+     * @param data
+     *            the data in byte.
      * @return the encoded string.
      **/
     public String encode(

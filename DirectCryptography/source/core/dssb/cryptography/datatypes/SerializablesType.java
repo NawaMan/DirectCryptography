@@ -44,7 +44,8 @@ public class SerializablesType<_Type_ extends Serializable> extends dssb.cryptog
      * @param clazz
      *            the serializable class.
      * @return the type.
-     * @param <T> the class.
+     * @param <T>
+     *            the class.
      */
     public static <T extends Serializable> SerializablesType<T> forClazz(
             final Class<T> clazz) {

@@ -9,7 +9,7 @@ public class CryptographyBuildFailException extends RuntimeException {
     
     /** The version unique ID for serialization. */
     private static final long serialVersionUID = -8027255610734911015L;
-
+    
     /**
      * Constructs the exception.
      * 
