@@ -11,7 +11,7 @@ import dssb.cryptography.CryptographyBuilder;
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-abstract public class AbstractCommonKeyPairCryptographyBuilder implements CryptographyBuilder {
+public abstract class AbstractCommonKeyPairCryptographyBuilder implements CryptographyBuilder {
     
     /** The private key. */
     private PrivateKey privateKey = null;
@@ -20,7 +20,7 @@ abstract public class AbstractCommonKeyPairCryptographyBuilder implements Crypto
     private PublicKey publicKey = null;
     
     /** The key pair generator. */
-    volatile private CryptographyKeyPairGenerator keyPairGenerator;
+    private volatile CryptographyKeyPairGenerator keyPairGenerator;
     
     /**
      * Change the key pair.

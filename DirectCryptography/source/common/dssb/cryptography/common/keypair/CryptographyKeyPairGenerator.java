@@ -2,13 +2,28 @@ package dssb.cryptography.common.keypair;
 
 import java.security.KeyPair;
 
-abstract public class CryptographyKeyPairGenerator {
+/**
+ * Keypair generator for a cryptography.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
+public abstract class CryptographyKeyPairGenerator {
     
+    /** The cryptography builder. */
     private final AbstractCommonKeyPairCryptographyBuilder cryptographyBuilder;
     
+    /** They key generator. */
     private final KeyPairGenerator keyPairGenerator;
     
-    public CryptographyKeyPairGenerator(
+    /**
+     * Constructor.
+     * 
+     * @param cryptographyBuilder
+     *            the cryptography builder.
+     * @param keyPairGenerator
+     *            the key pair generator.
+     */
+    protected CryptographyKeyPairGenerator(
             final AbstractCommonKeyPairCryptographyBuilder cryptographyBuilder,
             final KeyPairGenerator keyPairGenerator) {
         if (cryptographyBuilder == null) {
@@ -22,6 +37,9 @@ abstract public class CryptographyKeyPairGenerator {
         this.keyPairGenerator = keyPairGenerator;
     }
     
+    /**
+     * Generate a new key pair.
+     */
     public void useNewKeyPair() {
         final KeyPair keyPair = this.keyPairGenerator.generate();
         this.cryptographyBuilder.setKeyPair(keyPair);

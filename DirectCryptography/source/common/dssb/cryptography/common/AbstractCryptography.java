@@ -12,20 +12,34 @@ import dssb.cryptography.encoder.EncoderFactory;
 import dssb.cryptography.hasher.HasherFactory;
 import dssb.cryptography.signature.Signature;
 
-abstract public class AbstractCryptography implements Cryptography {
+/**
+ * Abstract implementation cryptography.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
+public abstract class AbstractCryptography implements Cryptography {
     
+    /** The cryptography scheme. */
     private final Scheme scheme;
     
+    /**
+     * Constructor.
+     * 
+     * @param scheme
+     *            the cryptography scheme.
+     */
     protected AbstractCryptography(
             final Scheme scheme) {
         this.scheme = scheme;
     }
     
+    /** {@inheritDoc} */
     @Override
     public Scheme getScheme() {
         return this.scheme;
     }
     
+    /** {@inheritDoc} */
     @Override
     public Collection<Feature<?>> getFeatures() {
         final List<Feature<?>> list = new ArrayList<Feature<?>>();
@@ -50,6 +64,7 @@ abstract public class AbstractCryptography implements Cryptography {
         return Collections.unmodifiableList(list);
     }
     
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public <_Feature_ extends Feature<_Feature_>> _Feature_ getFeature(
@@ -61,18 +76,38 @@ abstract public class AbstractCryptography implements Cryptography {
         return null;
     }
     
+    /**
+     * Create and return a cipher.
+     * 
+     * @return a newly created cipher.
+     **/
     protected Cipher newCipher() {
         return null;
     }
     
+    /**
+     * Create and return a signature.
+     * 
+     * @return a newly created signature.
+     **/
     protected Signature newSignature() {
         return null;
     }
     
+    /**
+     * Create and return a hasher factory.
+     * 
+     * @return a newly created hasher factory.
+     **/
     protected HasherFactory newHasherFactory() {
         return null;
     }
     
+    /**
+     * Create and return a encoder factory.
+     * 
+     * @return a newly created encoder factory.
+     **/
     protected EncoderFactory newEncoderFactory() {
         return null;
     }

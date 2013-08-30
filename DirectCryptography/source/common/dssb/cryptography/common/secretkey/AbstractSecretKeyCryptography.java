@@ -5,10 +5,24 @@ import javax.crypto.SecretKey;
 import dssb.cryptography.Scheme;
 import dssb.cryptography.common.AbstractCryptography;
 
+/**
+ * Abstract implementation for cryptography with secret key.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
 public class AbstractSecretKeyCryptography extends AbstractCryptography {
     
+    /** The secret key. */
     private final SecretKey secretKey;
     
+    /**
+     * Constructor.
+     * 
+     * @param scheme
+     *            the cryptography scheme.
+     * @param secretKey
+     *            the secret key.
+     */
     public AbstractSecretKeyCryptography(
             final Scheme scheme,
             final SecretKey secretKey) {
@@ -16,6 +30,11 @@ public class AbstractSecretKeyCryptography extends AbstractCryptography {
         this.secretKey = secretKey;
     }
     
+    /**
+     * Returns the secret key.
+     * 
+     * @return the secret key.
+     **/
     protected SecretKey getSecretKey() {
         return this.secretKey;
     }

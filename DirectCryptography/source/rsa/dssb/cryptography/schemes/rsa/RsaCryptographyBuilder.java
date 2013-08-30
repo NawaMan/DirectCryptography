@@ -29,7 +29,7 @@ public class RsaCryptographyBuilder extends AbstractCommonKeyPairCryptographyBui
     public void useNewKeyPair(
             final String algorithm,
             final int keysize) {
-        final KeyPairGenerator generator = new KeyPairGenerator.Simple(algorithm, keysize);
+        final KeyPairGenerator generator = new KeyPairGenerator.JavaCrypto(algorithm, keysize);
         this.useNewKeyPair(generator);
     }
     

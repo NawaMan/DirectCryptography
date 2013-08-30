@@ -5,44 +5,107 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 
+/**
+ * Classes implements this interface can create a key pair.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ **/
 public interface KeyPairGenerator {
     
+    /**
+     * Generate a key pair.
+     * 
+     * @return a newly created key pair.
+     **/
     public KeyPair generate();
     
-    static public class Simple implements KeyPairGenerator {
+    // == Sub classes ==================================================================================================
+    
+    /** This implementation for {@link KeyPairGenerator} use Java Cryptography to generate a key pair. **/
+    public static class JavaCrypto implements KeyPairGenerator {
         
-        private static final String DEFAULT_RANDOM_ALGORITHM = "SHA1PRNG";
-        private static final String DEFAULT_RANDOM_PROVIDER = "SUN";
-        private static final String DEFAULT_SEED = "seed";
+        /** The default random algorithm name. */
+        public static final String DEFAULT_RANDOM_ALGORITHM = "SHA1PRNG";
+        /** The default random algorithm provider. */
+        public static final String DEFAULT_RANDOM_PROVIDER = "SUN";
+        /** The default seed. */
+        public static final String DEFAULT_SEED = "seed";
         
+        /** The algorithm name. */
         private String algorithm;
+        /** The key size. */
         private int keysize;
+        /** The randomizer. */
         private SecureRandom random;
+        /** The seed value. */
         private byte[] seed;
+        /** The random algorithm. */
         private String randomAlgorithm = null;
+        /** The random algorithm provider. */
         private String randomProvider = null;
         
-        public Simple(
+        /**
+         * Constructor.
+         * 
+         * @param algorithm
+         *            the algorithm name.
+         * @param keysize
+         *            the key size.
+         * 
+         **/
+        public JavaCrypto(
                 final String algorithm,
                 final int keysize) {
             this(algorithm, keysize, (SecureRandom) null);
         }
         
-        public Simple(
+        /**
+         * Constructor.
+         * 
+         * @param algorithm
+         *            the algorithm name.
+         * @param keysize
+         *            the key size.
+         * @param seed
+         *            the seed value.
+         */
+        public JavaCrypto(
                 final String algorithm,
                 final int keysize,
                 final byte[] seed) {
             this(algorithm, keysize, null, seed);
         }
         
-        public Simple(
+        /**
+         * Constructor.
+         * 
+         * @param algorithm
+         *            the algorithm name.
+         * @param keysize
+         *            the key size.
+         * @param random
+         *            the randomizer.
+         */
+        public JavaCrypto(
                 final String algorithm,
                 final int keysize,
                 final SecureRandom random) {
             this(algorithm, keysize, random, null);
         }
         
-        protected Simple(
+        /**
+         * Constructor.
+         * 
+         * @param algorithm
+         *            the algorithm name.
+         * @param keysize
+         *            the key size.
+         * @param random
+         *            the randomizer.
+         * @param seed
+         *            the seed value.
+         */
+        protected JavaCrypto(
                 final String algorithm,
                 final int keysize,
                 final SecureRandom random,
@@ -58,15 +121,28 @@ public interface KeyPairGenerator {
                     : DEFAULT_SEED.getBytes().clone();
         }
         
+        /** {@inheritDoc} */
         @Override
         public KeyPair generate() {
-            final SecureRandom random = (this.random != null)
+            final SecureRandom randomizer = (this.random != null)
                     ? this.random
                     : this.prepareSecureRandom();
-            final KeyPair keyPair = generateKeyPair(this.algorithm, this.keysize, random);
+            final KeyPair keyPair = generateKeyPair(this.algorithm, this.keysize, randomizer);
             return keyPair;
         }
         
+        /**
+         * Generate a key pair from parameters.
+         * 
+         * @param algorithm
+         *            the algorithm name.
+         * @param keysize
+         *            the key size.
+         * @param random
+         *            the randomizer.
+         * @return the generated key pair.
+         * 
+         **/
         protected KeyPair generateKeyPair(
                 final String algorithm,
                 final int keysize,
@@ -81,30 +157,47 @@ public interface KeyPairGenerator {
             }
         }
         
-        protected void setRandomeAlgorithm(
+        /**
+         * Change the random algorithm name.
+         * 
+         * @param randomAlgorithm
+         *            the random algorithm name.
+         **/
+        protected void setRandomAlgorithm(
                 final String randomAlgorithm) {
             this.randomAlgorithm = randomAlgorithm;
         }
         
+        /**
+         * Change the random algorithm provider.
+         * 
+         * @param randomProvider
+         *            the random algorithm provider.
+         **/
         protected void setRandomProvider(
                 final String randomProvider) {
             this.randomProvider = randomProvider;
         }
         
+        /**
+         * Prepare the secure randomizer.
+         * 
+         * @return the secure randomizer.
+         **/
         protected SecureRandom prepareSecureRandom() {
             try {
-                final byte[] seed = ((this.seed != null)
+                final byte[] seedValue = ((this.seed != null)
                         ? this.seed
                         : DEFAULT_SEED.getBytes()).clone();
-                final String randomAlgorithm = (this.randomAlgorithm != null)
+                final String randomAlgorithmNAme = (this.randomAlgorithm != null)
                         ? this.randomAlgorithm
                         : DEFAULT_RANDOM_ALGORITHM;
-                final String randomProvider = (this.randomProvider != null)
+                final String randomAlgorithmProvider = (this.randomProvider != null)
                         ? this.randomProvider
                         : DEFAULT_RANDOM_PROVIDER;
-                final SecureRandom random = SecureRandom.getInstance(randomAlgorithm, randomProvider);
-                random.setSeed(seed);
-                return random;
+                final SecureRandom randomizer = SecureRandom.getInstance(randomAlgorithmNAme, randomAlgorithmProvider);
+                randomizer.setSeed(seedValue);
+                return randomizer;
             } catch (final NoSuchProviderException problem) {
                 throw new RuntimeException(problem);
             } catch (final NoSuchAlgorithmException problem) {

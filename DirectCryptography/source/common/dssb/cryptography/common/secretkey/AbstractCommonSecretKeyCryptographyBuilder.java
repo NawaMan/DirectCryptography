@@ -5,11 +5,11 @@ import javax.crypto.SecretKey;
 import dssb.cryptography.CryptographyBuilder;
 
 /**
- * Common implementation for {@link CryptographyBuilder} with a secret key.
+ * Common implementation for cryptography builder with a secret key.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-abstract public class AbstractCommonSecretKeyCryptographyBuilder implements CryptographyBuilder {
+public abstract class AbstractCommonSecretKeyCryptographyBuilder implements CryptographyBuilder {
     
     /** The secret key. */
     private SecretKey secretKey;

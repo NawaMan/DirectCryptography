@@ -1,15 +1,13 @@
 package dssb.cryptography.common.keypair;
 
-import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
-import dssb.cryptography.Cryptography;
 import dssb.cryptography.Scheme;
 import dssb.cryptography.common.AbstractCommonCryptography;
 
 /**
- * Common implementation for {@link Cryptography} with {@link KeyPair}.
+ * Common implementation for cryptography with keypair.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
