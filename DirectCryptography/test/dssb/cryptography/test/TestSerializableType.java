@@ -1,4 +1,4 @@
-package dssb.cryptography;
+package dssb.cryptography.test;
 
 import java.util.Arrays;
 
@@ -52,7 +52,7 @@ public class TestSerializableType {
         final byte[] data2 = ("" + b).getBytes();
         final byte[] data = ArrayOfBytesType.TYPE.toBytes(data1, data2);
         final byte[][] datas = ArrayOfBytesType.TYPE.fromBytes(data);
-        Assert.assertArrayEquals(datas, new byte[][] { data1, data2 });
+        Assert.assertArrayEquals(datas, new byte[][] {data1, data2 });
     }
     
     /** Try to used it to store a serializable array. */
@@ -64,7 +64,7 @@ public class TestSerializableType {
         final byte[] bytes = type.toBytes(data1, data2);
         System.out.println(Arrays.toString(bytes));
         System.out.println(Arrays.toString(type.fromBytes(bytes)));
-        Assert.assertEquals(Arrays.toString(new Integer[] { data1, data2 }), Arrays.toString(type.fromBytes(bytes)));
+        Assert.assertEquals(Arrays.toString(new Integer[] {data1, data2 }), Arrays.toString(type.fromBytes(bytes)));
     }
     
 }

@@ -107,7 +107,7 @@ public interface Data<_Type_> {
         /** {@inheritDoc} */
         @Override
         public boolean equals(
-                Object obj) {
+                final Object obj) {
             if (!(obj instanceof Data)) {
                 return false;
             }

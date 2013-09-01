@@ -17,9 +17,14 @@ import dssb.cryptography.Scheme;
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-abstract public class AbstractEncoderCryptography<_Scheme_ extends Scheme> implements Cryptography {
+public abstract class AbstractEncoderCryptography<_Scheme_ extends Scheme> implements Cryptography {
     
-    abstract public _Scheme_ getScheme();
+    /**
+     * Returns the cryptography scheme.
+     * 
+     * @return the cryptography scheme.
+     */
+    public abstract _Scheme_ getScheme();
     
     /** {@inheritDoc} */
     @Override
@@ -44,6 +49,11 @@ abstract public class AbstractEncoderCryptography<_Scheme_ extends Scheme> imple
         return null;
     }
     
-    abstract protected EncoderFactory newEncoderFactory();
+    /**
+     * Returns the encoder factory.
+     * 
+     * @return the encoder factory.
+     **/
+    protected abstract EncoderFactory newEncoderFactory();
     
 }

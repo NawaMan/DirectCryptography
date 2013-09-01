@@ -33,7 +33,7 @@ public interface EncoderFactory extends Feature<EncoderFactory> {
          * @param <_Cryptography_>
          *            the cryptography.
          **/
-        abstract public static class Encoder<_Cryptography_ extends Cryptography> extends
+        public abstract static class Encoder<_Cryptography_ extends Cryptography> extends
                 dssb.cryptography.encoder.Encoder.Simple {
             
             /**

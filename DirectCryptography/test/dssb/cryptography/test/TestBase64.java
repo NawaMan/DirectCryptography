@@ -1,9 +1,12 @@
-package dssb.cryptography;
+package dssb.cryptography.test;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import dssb.cryptography.Cryptography;
+import dssb.cryptography.CryptographyBuilder;
+import dssb.cryptography.Data;
 import dssb.cryptography.datatypes.SerializableType;
 import dssb.cryptography.encoder.Encoder;
 import dssb.cryptography.encoder.EncoderFactory;

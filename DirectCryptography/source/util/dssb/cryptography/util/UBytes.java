@@ -29,6 +29,53 @@ public enum UBytes {
     /** The number of bytes to contains an interger. */
     public static final int BYTES_FOR_INT = 4;
     
+    // == Integer array ================================================================================================
+    
+    /**
+     * Convert array of integers to array of bytes.
+     * 
+     * @param intsStr
+     *            the string of the array of integers.
+     * @return the array integers.
+     */
+    public int[] stringToInts(
+            final String intsStr) {
+        final String stripped = intsStr.substring(1, intsStr.length() - 1);     // 2 for '[' and ']'
+        final String[] eachs = stripped.split("[ \t\r\n]?,[ \t\r\n]?");
+        final int length = eachs.length;
+        final int[] ints = new int[length];
+        for (int i = 0; i < length; i++) {
+            final String each = eachs[i];
+            ints[i] = Integer.parseInt(each);
+        }
+        return ints;
+    }
+    
+    /**
+     * Convert array of integers to array of bytes.
+     * 
+     * @param ints
+     *            the array of integers.
+     * @return the array bytes.
+     */
+    public byte[] intsToBytes(
+            final int[] ints) {
+        if (ints == null) {
+            return null;
+        }
+        
+        final byte[] bytes = new byte[ints.length];
+        for (int i = 0, length = ints.length; i < length; i++) {
+            final int oldI = ints[i];
+            final byte b = (byte) oldI;
+            bytes[i] = b;
+            if ((int) b != oldI) {
+                throw new IllegalArgumentException();
+            }
+        }
+        return bytes;
+    }
+    
     // == Integer ======================================================================================================
     
     /**
