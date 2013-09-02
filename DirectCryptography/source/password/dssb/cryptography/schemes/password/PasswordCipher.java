@@ -12,22 +12,36 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 
-import dssb.cryptography.Cryptography;
 import dssb.cryptography.cipher.Cipher;
 import dssb.cryptography.cipher.EncyptionException;
 import dssb.cryptography.datatypes.ArrayOfBytesType;
 
+/**
+ * Cipher for password cryptography.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
 public class PasswordCipher extends Cipher.Simple {
     
+    /** The secret key. */
     private SecretKey secretKey;
     
+    /**
+     * Constructor.
+     * 
+     * @param passwordCryptography
+     *            the password cryptography.
+     * @param secretKey
+     *            the secret key.
+     **/
     public PasswordCipher(
-            final Cryptography cryptography,
+            final PasswordCryptography passwordCryptography,
             final SecretKey secretKey) {
-        super(cryptography);
+        super(passwordCryptography);
         this.secretKey = secretKey;
     }
     
+    /** {@inheritDoc} */
     @Override
     public byte[] encrypt(
             final byte[] bytes)
@@ -56,6 +70,7 @@ public class PasswordCipher extends Cipher.Simple {
         }
     }
     
+    /** {@inheritDoc} */
     @Override
     public byte[] decrypt(
             final byte[] bytes) {
