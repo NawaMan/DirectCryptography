@@ -9,25 +9,41 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import dssb.cryptography.Cryptography;
 import dssb.cryptography.cipher.Cipher;
 import dssb.cryptography.cipher.EncyptionException;
 
+/**
+ * @author dssb
+ *
+ */
 public class RsaCipher extends Cipher.Simple {
     
+    /** The private key. */
     private final PrivateKey privateKey;
     
+    /** The public key. */
     private final PublicKey publicKey;
     
+    /**
+     * Constructor.
+     * 
+     * @param rsaCryptography
+     *            the RSA cryptography.
+     * @param privateKey
+     *            the private key.
+     * @param publicKey
+     *            the public key.
+     */
     public RsaCipher(
-            final Cryptography cryptography,
+            final RsaCryptography rsaCryptography,
             final PrivateKey privateKey,
             final PublicKey publicKey) {
-        super(cryptography);
+        super(rsaCryptography);
         this.privateKey = privateKey;
         this.publicKey = publicKey;
     }
     
+    /** {@inheritDoc} */
     @Override
     public Encryptor newEncryptor() {
         if (this.publicKey == null) {
@@ -37,6 +53,7 @@ public class RsaCipher extends Cipher.Simple {
         }
     }
     
+    /** {@inheritDoc} */
     @Override
     public Decryptor newDecryptor() {
         if (this.privateKey == null) {
@@ -47,6 +64,7 @@ public class RsaCipher extends Cipher.Simple {
     }
     
     // TODO - bytes limits.
+    /** {@inheritDoc} */
     @Override
     public byte[] encrypt(
             final byte[] bytes)
@@ -70,6 +88,7 @@ public class RsaCipher extends Cipher.Simple {
         }
     }
     
+    /** {@inheritDoc} */
     @Override
     public byte[] decrypt(
             final byte[] bytes) {

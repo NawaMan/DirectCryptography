@@ -3,7 +3,7 @@ package dssb.cryptography.hasher;
 import dssb.cryptography.Data;
 
 /**
- * Classes implementing this interface can calculate a hash value from the given data..
+ * Classes implementing this interface can calculate a hash value from the given data.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */

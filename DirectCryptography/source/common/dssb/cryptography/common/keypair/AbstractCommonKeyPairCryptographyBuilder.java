@@ -28,7 +28,7 @@ public abstract class AbstractCommonKeyPairCryptographyBuilder implements Crypto
      * @param keyPair
      *            the key pair.
      */
-    public void setKeyPair(
+    protected void setKeyPair(
             final KeyPair keyPair) {
         this.publicKey = (keyPair == null)
                 ? null
@@ -36,24 +36,6 @@ public abstract class AbstractCommonKeyPairCryptographyBuilder implements Crypto
         this.privateKey = (keyPair == null)
                 ? null
                 : keyPair.getPrivate();
-    }
-    
-    /**
-     * Returns the private key.
-     * 
-     * @return the private key.
-     **/
-    public PrivateKey getPrivateKey() {
-        return this.privateKey;
-    }
-    
-    /**
-     * Returns the public key.
-     * 
-     * @return the public key.
-     **/
-    public PublicKey getPublicKey() {
-        return this.publicKey;
     }
     
     /**
@@ -66,11 +48,77 @@ public abstract class AbstractCommonKeyPairCryptographyBuilder implements Crypto
     }
     
     /**
+     * 
+     * Change the private key.
+     * 
+     * @param privateKey
+     *            the private key.
+     */
+    protected void setPrivateKey(
+            final PrivateKey privateKey) {
+        this.privateKey = privateKey;
+    }
+    
+    /**
+     * Returns the private key.
+     * 
+     * @return the private key.
+     **/
+    public PrivateKey getPrivateKey() {
+        return this.privateKey;
+    }
+    
+    /**
+     * 
+     * Change the public key.
+     * 
+     * @param publicKey
+     *            the public key.
+     */
+    protected void setPublicKey(
+            final PublicKey publicKey) {
+        this.publicKey = publicKey;
+    }
+    
+    /**
+     * Returns the public key.
+     * 
+     * @return the public key.
+     **/
+    public PublicKey getPublicKey() {
+        return this.publicKey;
+    }
+    
+    /**
+     * User a newly generated key pair.
+     **/
+    protected void useNewKeyPair() {
+        final CryptographyKeyPairGenerator generator = this.getKeyPairGenerator();
+        if (generator == null) {
+            return;
+        }
+        
+        generator.useNewKeyPair();
+    }
+    
+    /**
+     * User a newly generated keypair.
+     * 
+     * @param generator
+     *            the keypair generator.
+     **/
+    protected void useNewKeyPair(
+            final KeyPairGenerator generator) {
+        final KeyPair keyPair = generator.generate();
+        this.setKeyPair(keyPair);
+    }
+    
+    /**
      * Returns the key pair generator for cryptography.
      * 
      * @return the key pair generator for cryptography.
      **/
-    protected CryptographyKeyPairGenerator getKeyPairGenerator() {
+    protected final CryptographyKeyPairGenerator getKeyPairGenerator() {
         if (this.keyPairGenerator != null) {
             return this.keyPairGenerator;
         }
@@ -82,8 +130,7 @@ public abstract class AbstractCommonKeyPairCryptographyBuilder implements Crypto
             
             this.keyPairGenerator = this.newKeyPairGenerator();
             if (this.keyPairGenerator == null) {
-                // TODO - Throw appropriate exception.
-                throw new NullPointerException();
+                throw new UnsupportedOperationException();
             }
             
             return this.keyPairGenerator;

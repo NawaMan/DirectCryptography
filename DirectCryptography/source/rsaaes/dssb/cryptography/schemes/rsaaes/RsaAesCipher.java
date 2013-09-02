@@ -8,7 +8,6 @@ import java.security.PublicKey;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import dssb.cryptography.Cryptography;
 import dssb.cryptography.cipher.Cipher;
 import dssb.cryptography.cipher.EncyptionException;
 import dssb.cryptography.datatypes.ArrayOfBytesType;
@@ -18,10 +17,10 @@ import dssb.cryptography.schemes.rsa.RsaCipher;
 public class RsaAesCipher extends RsaCipher {
     
     public RsaAesCipher(
-            final Cryptography cryptography,
+            final RsaAesCryptography rsaAesCryptography,
             final PrivateKey privateKey,
             final PublicKey publicKey) {
-        super(cryptography, privateKey, publicKey);
+        super(rsaAesCryptography, privateKey, publicKey);
     }
     
     @Override
