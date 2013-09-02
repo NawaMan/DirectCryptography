@@ -83,11 +83,12 @@ public enum Base64 implements Scheme {
         final int int2 = 2;
         final int int4 = 4;
         final int int6 = 6;
-        final int int0xFC = 0xFC;
         final int int0x03 = 0x03;
         final int int0x0F = 0x0F;
         final int int0x3F = 0x3F;
         final int int0xC0 = 0xC0;
+        final int int0xF0 = 0xF0;
+        final int int0xFC = 0xFC;
         
         int c = 0;
         // Process 3 bytes at a time, churning out 4 output bytes
@@ -104,7 +105,7 @@ public enum Base64 implements Scheme {
             final int i2 = bytes[i + 2];
             
             final int b0 = ((i0 & int0xFC) >> int2);
-            final int b1 = ((i0 & int0x03) << int4) | ((i1 & int0x0F) >> int4);
+            final int b1 = ((i0 & int0x03) << int4) | ((i1 & int0xF0) >> int4);
             final int b2 = ((i1 & int0x0F) << int2) | ((i2 & int0xC0) >> int6);
             final int b3 = ((i2 & int0x3F));
             

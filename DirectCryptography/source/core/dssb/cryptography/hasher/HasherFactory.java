@@ -36,8 +36,9 @@ public interface HasherFactory extends Feature<HasherFactory> {
                 super(hasherFactory);
             }
             
+            /** {@inheritDoc} */
             @Override
-            public <_Type_> byte[] hash(
+            public byte[] hash(
                     final byte[] data) {
                 final byte[] hash = ((HasherFactory.Simple) this.getHasherFactory()).hash(data);
                 return hash;
@@ -97,13 +98,11 @@ public interface HasherFactory extends Feature<HasherFactory> {
         /**
          * Calculate the hash value.
          * 
-         * @param <_Type_>
-         *            the data type.
          * @param data
          *            the data in bytes.
          * @return the hash value.
          */
-        public abstract <_Type_> byte[] hash(
+        public abstract byte[] hash(
                 final byte[] data);
         
     }

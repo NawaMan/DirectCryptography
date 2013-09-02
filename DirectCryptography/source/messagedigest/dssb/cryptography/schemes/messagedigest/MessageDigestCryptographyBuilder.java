@@ -3,7 +3,6 @@ package dssb.cryptography.schemes.messagedigest;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import dssb.cryptography.Cryptography;
 import dssb.cryptography.CryptographyBuilder;
 
 /**
@@ -15,7 +14,22 @@ import dssb.cryptography.CryptographyBuilder;
  */
 public class MessageDigestCryptographyBuilder implements CryptographyBuilder {
     
-    /** SHA-512 algorithm */
+    /** MD2 algorithm. */
+    public static final String MD2 = "MD2";
+    
+    /** MD5 algorithm. */
+    public static final String MD5 = "MD5";
+    
+    /** SHA-1 algorithm. */
+    public static final String SHA1 = "SHA-1";
+    
+    /** SHA-256 algorithm. */
+    public static final String SHA256 = "SHA-256";
+    
+    /** SHA-384 algorithm. */
+    public static final String SHA384 = "SHA-384";
+    
+    /** SHA-512 algorithm. */
     public static final String SHA512 = "SHA-512";
     
     /** The algorithm. */
@@ -50,7 +64,7 @@ public class MessageDigestCryptographyBuilder implements CryptographyBuilder {
     /**
      * Use SHA512 algorithm.
      * 
-     * @return the {@link Cryptography} for SHA512 algorithm.
+     * @return the Cryptography for SHA512 algorithm.
      */
     public MessageDigestCryptography sha512() {
         this.setAlgorithm(SHA512);

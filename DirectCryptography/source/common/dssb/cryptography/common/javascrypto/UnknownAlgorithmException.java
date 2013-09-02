@@ -1,13 +1,13 @@
-package dssb.cryptography.schemes.messagedigest;
+package dssb.cryptography.common.javascrypto;
 
-import dssb.cryptography.common.javascrypto.UnknownAlgorithmException;
+import dssb.cryptography.CryptographyConfigurationException;
 
 /**
- * This exception is thrown the algorithm for a message digest is not known.
+ * This exception is thrown the algorithm is not known.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public class UnknownMessageDigestAlgorithmException extends UnknownAlgorithmException {
+public class UnknownAlgorithmException extends CryptographyConfigurationException {
     
     /** The version unique ID for serialization. */
     private static final long serialVersionUID = -6041527887172720074L;
@@ -20,7 +20,7 @@ public class UnknownMessageDigestAlgorithmException extends UnknownAlgorithmExce
      * @param cause
      *            the cause.
      */
-    public UnknownMessageDigestAlgorithmException(
+    public UnknownAlgorithmException(
             final String message,
             final Throwable cause) {
         super(message, cause);
@@ -32,7 +32,7 @@ public class UnknownMessageDigestAlgorithmException extends UnknownAlgorithmExce
      * @param message
      *            the detail message.
      */
-    public UnknownMessageDigestAlgorithmException(
+    public UnknownAlgorithmException(
             final String message) {
         super(message, null);
     }
@@ -43,7 +43,7 @@ public class UnknownMessageDigestAlgorithmException extends UnknownAlgorithmExce
      * @param cause
      *            the cause.
      */
-    public UnknownMessageDigestAlgorithmException(
+    public UnknownAlgorithmException(
             final Throwable cause) {
         super(null, cause);
     }
@@ -51,7 +51,7 @@ public class UnknownMessageDigestAlgorithmException extends UnknownAlgorithmExce
     /**
      * Constructs the exception.
      */
-    public UnknownMessageDigestAlgorithmException() {
+    public UnknownAlgorithmException() {
         super(null, null);
     }
     

@@ -31,13 +31,11 @@ public interface Hasher {
     /**
      * Calculate the hash value.
      * 
-     * @param <_Type_>
-     *            the data type.
      * @param data
      *            the data in bytes.
      * @return the byte value of the hash.
      */
-    public <_Type_> byte[] hash(
+    public byte[] hash(
             byte[] data);
     
     // == Sub classes ==================================================================================================

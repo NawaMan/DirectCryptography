@@ -46,8 +46,8 @@ public class TestBase64 {
         final String str = "Hello world. Hello world. Hello world. Hello world. ";
         final Data<String> data = type.toData(str);
         Assert.assertEquals(
-                "rO0ABXQANEhlbGxvIHdvcmxkLiBIZWxsbyB3b3JsZC4gSGVsbG8gd29ybGQuIEhlbGxvIHdvcmxk\n"
-                        + "LiA=", encoder.encode(data));
+                "rO0ABXQANEhlbGxvIHdvcmxkLiBIZWxsbyB3b3JsZC4gSGVsbG8gd29ybGQuIEhlbGxvIHdvcmxkLiAA=",
+                encoder.encode(data));
     }
     
     /** Test decoding to bytes. */
@@ -61,7 +61,7 @@ public class TestBase64 {
     /** Test decoding to data. */
     @Test
     public void testToData() {
-        final String encStr = "rO0ABXQANEhlbGxvIHdvcmxkLiBIZWxsbyB3b3JsZC4gSGVsbG8gd29ybGQuIEhlbGxvIHdvcmxk\nLiA=";
+        final String encStr = "rO0ABXQANEhlbGxvIHdvcmxkLiBIZWxsbyB3b3JsZC4gSGVsbG8gd29ybGQuIEhlbGxvIHdvcmxkLiAA=";
         final String str = "Hello world. Hello world. Hello world. Hello world. ";
         final SerializableType<String> type = new SerializableType<String>(String.class);
         final Data<String> data = type.toData(str);

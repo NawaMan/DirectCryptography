@@ -2,13 +2,10 @@ package dssb.cryptography.schemes.messagedigest;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
-import dssb.cryptography.Cryptography;
 import dssb.cryptography.CryptographyBuildFailException;
 import dssb.cryptography.Scheme;
+import dssb.cryptography.common.AbstractCommonCryptography;
 import dssb.cryptography.hasher.HasherFactory;
 
 /**
@@ -16,7 +13,7 @@ import dssb.cryptography.hasher.HasherFactory;
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public class MessageDigestCryptography implements Cryptography {
+public class MessageDigestCryptography extends AbstractCommonCryptography {
     
     /** The algorithm. */
     private final String algorithm;
@@ -29,6 +26,22 @@ public class MessageDigestCryptography implements Cryptography {
      */
     public MessageDigestCryptography(
             final String algorithm) {
+        this(MessageDigestScheme.INSTANCE, algorithm);
+    }
+    /**
+     * Constructor.
+     * 
+     * NOTE: This overload constructor allows this class to be inherited.
+     * 
+     * @param scheme 
+     *            the scheme.
+     * @param algorithm
+     *            the algorithm.
+     */
+    protected MessageDigestCryptography(
+            final Scheme scheme,
+            final String algorithm) {
+        super(scheme);
         this.algorithm = algorithm;
         try {
             MessageDigest.getInstance(algorithm);
@@ -36,35 +49,6 @@ public class MessageDigestCryptography implements Cryptography {
             final Exception configurationProblem = new UnknownMessageDigestAlgorithmException(algorithm, problem);
             throw new CryptographyBuildFailException(configurationProblem);
         }
-    }
-    
-    /** {@inheritDoc} */
-    @Override
-    public Scheme getScheme() {
-        return MessageDigestScheme.INSTANCE;
-    }
-    
-    /** {@inheritDoc} */
-    @Override
-    public Collection<Feature<?>> getFeatures() {
-        final List<Feature<?>> list = new ArrayList<Feature<?>>();
-        final HasherFactory hasherFactory = this.newHasherFactory();
-        list.add((hasherFactory != null)
-                ? hasherFactory
-                : null);
-        return list;
-    }
-    
-    /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
-    @Override
-    public <_Feature_ extends Feature<_Feature_>> _Feature_ getFeature(
-            final Class<_Feature_> featureClass) {
-        if (HasherFactory.class.isAssignableFrom(featureClass)) {
-            return (_Feature_) this.newHasherFactory();
-        }
-        
-        return null;
     }
     
     /**
@@ -76,11 +60,8 @@ public class MessageDigestCryptography implements Cryptography {
         return this.algorithm;
     }
     
-    /**
-     * Creates a new {@link HasherFactory}.
-     * 
-     * @return a newly created {@link HasherFactory}.
-     */
+    /** {@inheritDoc} */
+    @Override
     protected HasherFactory newHasherFactory() {
         final HasherFactory hasherFactory = new MessageDigestHasherFactory(this);
         return hasherFactory;
