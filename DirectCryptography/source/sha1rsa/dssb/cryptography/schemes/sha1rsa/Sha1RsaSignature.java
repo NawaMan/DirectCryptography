@@ -6,26 +6,43 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SignatureException;
 
-import dssb.cryptography.Cryptography;
 import dssb.cryptography.signature.SignException;
 import dssb.cryptography.signature.Signature;
 import dssb.cryptography.signature.VerifyException;
 
+/**
+ * Signature using SHA+RSA algorithm.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
 public class Sha1RsaSignature extends Signature.Simple {
     
+    /** The private key. */
     private PrivateKey privateKey = null;
     
+    /** The public key. */
     private PublicKey publicKey = null;
     
+    /**
+     * Constructor.
+     * 
+     * @param sha1RsaCryptography
+     *            the cryptography.
+     * @param privateKey
+     *            the private key.
+     * @param publicKey
+     *            the public key.
+     */
     public Sha1RsaSignature(
-            final Cryptography cryptography,
+            final Sha1RsaCryptography sha1RsaCryptography,
             final PrivateKey privateKey,
             final PublicKey publicKey) {
-        super(cryptography);
+        super(sha1RsaCryptography);
         this.privateKey = privateKey;
         this.publicKey = publicKey;
     }
     
+    /** {@inheritDoc} */
     @Override
     public Signer newSigner() {
         if (this.privateKey == null) {
@@ -35,6 +52,7 @@ public class Sha1RsaSignature extends Signature.Simple {
         }
     }
     
+    /** {@inheritDoc} */
     @Override
     public Verifier newVerifier() {
         if (this.publicKey == null) {
@@ -44,6 +62,7 @@ public class Sha1RsaSignature extends Signature.Simple {
         }
     }
     
+    /** {@inheritDoc} */
     @Override
     public byte[] sign(
             final byte[] data)
@@ -64,6 +83,7 @@ public class Sha1RsaSignature extends Signature.Simple {
         }
     }
     
+    /** {@inheritDoc} */
     @Override
     public boolean verify(
             final byte[] data,

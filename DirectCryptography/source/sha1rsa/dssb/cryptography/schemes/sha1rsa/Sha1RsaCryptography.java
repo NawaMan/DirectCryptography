@@ -2,30 +2,27 @@ package dssb.cryptography.schemes.sha1rsa;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import dssb.cryptography.schemes.rsa.RsaCryptography;
-import dssb.cryptography.signature.Signature;
+import dssb.cryptography.schemes.rsa.RsaCryptographyBuilder;
 
+/**
+ * Cryptography for digital signature with SHA1+RSA.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
 public class Sha1RsaCryptography extends RsaCryptography {
     
-    private final RsaCryptography rsaCryptography;
-    
+    /**
+     * @param rsaCryptographyBuilder the 
+     */
     public Sha1RsaCryptography(
-            final RsaCryptography rsaCryptography,
-            final PrivateKey privateKey,
-            final PublicKey publicKey) {
-        super(privateKey, publicKey);
-        this.rsaCryptography = rsaCryptography;
+            final RsaCryptographyBuilder rsaCryptographyBuilder) {
+        super(Sha1RsaScheme.INSTANCE, rsaCryptographyBuilder.getPrivateKey(), rsaCryptographyBuilder.getPublicKey());
     }
     
-    /**
-     * Creates a new cipher.
-     * 
-     * @return a newly created {@link Signature}.
-     */
+    /** {@inheritDoc} */
+    @Override
     protected Sha1RsaSignature newSignature() {
         final PrivateKey privateKey = this.getPrivateKey();
         final PublicKey publicKey = this.getPublicKey();

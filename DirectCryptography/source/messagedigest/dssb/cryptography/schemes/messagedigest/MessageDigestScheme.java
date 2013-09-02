@@ -19,6 +19,9 @@ public enum MessageDigestScheme implements Scheme {
     /** Static import instance. */
     MessageDigestScheme,
     
+    /** Semantic instance. */
+    Scheme,
+    
     /** Conventional instance. */
     INSTANCE;
     
