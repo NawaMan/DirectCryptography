@@ -6,16 +6,25 @@ import java.security.PublicKey;
 import dssb.cryptography.schemes.aes.AesScheme;
 import dssb.cryptography.schemes.rsa.RsaCryptography;
 
+/**
+ * Cryptography for RSA+AES.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
 public class RsaAesCryptography extends RsaCryptography {
     
-    private final RsaCryptography rsaCryptography;
-    
+    /**
+     * Constructor.
+     * 
+     * @param privateKey
+     *            the private key.
+     * @param publicKey
+     *            the public key.
+     */
     public RsaAesCryptography(
-            final RsaCryptography rsaCryptography,
             final PrivateKey privateKey,
             final PublicKey publicKey) {
         super(AesScheme.INSTANCE, privateKey, publicKey);
-        this.rsaCryptography = rsaCryptography;
     }
     
     /** {@inheritDoc} */

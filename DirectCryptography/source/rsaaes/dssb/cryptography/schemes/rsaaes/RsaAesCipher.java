@@ -14,8 +14,23 @@ import dssb.cryptography.datatypes.ArrayOfBytesType;
 import dssb.cryptography.schemes.aes.AesCryptographyBuilder;
 import dssb.cryptography.schemes.rsa.RsaCipher;
 
+/**
+ * Cipher for RSA+AES.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
 public class RsaAesCipher extends RsaCipher {
     
+    /**
+     * Constructor.
+     * 
+     * @param rsaAesCryptography
+     *            the cryptography.
+     * @param privateKey
+     *            the private key.
+     * @param publicKey
+     *            the public key.
+     */
     public RsaAesCipher(
             final RsaAesCryptography rsaAesCryptography,
             final PrivateKey privateKey,
@@ -23,6 +38,7 @@ public class RsaAesCipher extends RsaCipher {
         super(rsaAesCryptography, privateKey, publicKey);
     }
     
+    /** {@inheritDoc} */
     @Override
     public byte[] encrypt(
             final byte[] bytes)
@@ -41,6 +57,7 @@ public class RsaAesCipher extends RsaCipher {
         return secret;
     }
     
+    /** {@inheritDoc} */
     @Override
     public byte[] decrypt(
             final byte[] bytes) {
@@ -58,6 +75,11 @@ public class RsaAesCipher extends RsaCipher {
         return clearDataBytes;
     }
     
+    /**
+     * Create a new AES cryptography builder.
+     * 
+     * @return the newly created AES cryptography builder.
+     **/
     protected AesCryptographyBuilder newAesCryptBuilder() {
         final AesCryptographyBuilder aesCryptBuilder = new AesCryptographyBuilder();
         try {
