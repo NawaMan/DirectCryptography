@@ -1,8 +1,6 @@
 /**
+ * Classes in this package involve around RSA.
  * 
- */
-/**
- * @author dssb
- *
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
 package dssb.cryptography.schemes.rsa;

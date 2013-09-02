@@ -10,22 +10,36 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import dssb.cryptography.Cryptography;
 import dssb.cryptography.cipher.Cipher;
 import dssb.cryptography.cipher.DecyptionException;
 import dssb.cryptography.cipher.EncyptionException;
 
+/**
+ * Cipher for AES.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
+ */
 public class AesCipher extends Cipher.Simple {
     
+    /** The secret key. */
     private SecretKey secretKey;
     
+    /**
+     * Constructor.
+     * 
+     * @param aesCryptography
+     *            the cryptography.
+     * @param secretKey
+     *            the secret key.
+     */
     public AesCipher(
-            final Cryptography cryptography,
+            final AesCryptography aesCryptography,
             final SecretKey secretKey) {
-        super(cryptography);
+        super(aesCryptography);
         this.secretKey = secretKey;
     }
     
+    /** {@inheritDoc} */
     @Override
     public byte[] encrypt(
             final byte[] bytes)
@@ -50,6 +64,7 @@ public class AesCipher extends Cipher.Simple {
         }
     }
     
+    /** {@inheritDoc} */
     @Override
     public byte[] decrypt(
             final byte[] bytes) {

@@ -5,7 +5,6 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 import dssb.cryptography.Scheme;
-import dssb.cryptography.cipher.Cipher;
 import dssb.cryptography.common.keypair.AbstractCommonKeyPairCryptography;
 
 /**
@@ -60,7 +59,7 @@ public class RsaCryptography extends AbstractCommonKeyPairCryptography {
     /**
      * Creates a new cipher.
      * 
-     * @return a newly created {@link Cipher}.
+     * @return a newly created cipher.
      */
     protected RsaCipher newCipher() {
         final PrivateKey privateKey = this.getPrivateKey();

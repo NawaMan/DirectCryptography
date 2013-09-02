@@ -69,8 +69,7 @@ public class Sha1RsaSignature extends Signature.Simple {
             throws SignException {
         try {
             final java.security.Signature signature = java.security.Signature.getInstance("SHA1withRSA");
-            final PrivateKey privateKey = Sha1RsaSignature.this.privateKey;
-            signature.initSign(privateKey);
+            signature.initSign(this.privateKey);
             signature.update(data);
             final byte[] fingerprint = signature.sign();
             return fingerprint;

@@ -33,7 +33,7 @@ public class MessageDigestCryptography extends AbstractCommonCryptography {
      * 
      * NOTE: This overload constructor allows this class to be inherited.
      * 
-     * @param scheme 
+     * @param scheme
      *            the scheme.
      * @param algorithm
      *            the algorithm.

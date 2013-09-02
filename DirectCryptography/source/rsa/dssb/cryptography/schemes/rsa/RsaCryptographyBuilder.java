@@ -63,8 +63,12 @@ public class RsaCryptographyBuilder extends AbstractCommonKeyPairCryptographyBui
     }
     
     /**
+     * Generate and use a new keypair.
+     * 
      * @param algorithm
+     *            the algorithm name.
      * @param keysize
+     *            the key size.
      */
     public void useNewKeyPair(
             final String algorithm,

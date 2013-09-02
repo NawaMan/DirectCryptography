@@ -14,7 +14,10 @@ import dssb.cryptography.schemes.rsa.RsaCryptographyBuilder;
 public class Sha1RsaCryptography extends RsaCryptography {
     
     /**
-     * @param rsaCryptographyBuilder the 
+     * Constructor.
+     * 
+     * @param rsaCryptographyBuilder
+     *            the cryptography builder for RSA.
      */
     public Sha1RsaCryptography(
             final RsaCryptographyBuilder rsaCryptographyBuilder) {

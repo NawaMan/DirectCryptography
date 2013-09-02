@@ -13,8 +13,9 @@ import dssb.cryptography.cipher.Cipher;
 import dssb.cryptography.cipher.EncyptionException;
 
 /**
- * @author dssb
- *
+ * The cipher of RSA.
+ * 
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
 public class RsaCipher extends Cipher.Simple {
     
@@ -70,9 +71,8 @@ public class RsaCipher extends Cipher.Simple {
             final byte[] bytes)
             throws EncyptionException {
         try {
-            final PublicKey publicKey = RsaCipher.this.publicKey;
             final javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance("RSA");
-            cipher.init(javax.crypto.Cipher.ENCRYPT_MODE, publicKey);
+            cipher.init(javax.crypto.Cipher.ENCRYPT_MODE, this.publicKey);
             final byte[] secret = cipher.doFinal(bytes);
             return secret;
         } catch (final NoSuchAlgorithmException problem) {
@@ -93,9 +93,8 @@ public class RsaCipher extends Cipher.Simple {
     public byte[] decrypt(
             final byte[] bytes) {
         try {
-            final PrivateKey privateKey = RsaCipher.this.privateKey;
             final javax.crypto.Cipher desCipher = javax.crypto.Cipher.getInstance("RSA");
-            desCipher.init(javax.crypto.Cipher.DECRYPT_MODE, privateKey);
+            desCipher.init(javax.crypto.Cipher.DECRYPT_MODE, this.privateKey);
             final byte[] clearBytes = desCipher.doFinal(bytes);
             return clearBytes;
         } catch (final NoSuchAlgorithmException problem) {
