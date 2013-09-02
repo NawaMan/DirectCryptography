@@ -6,7 +6,6 @@ import dssb.cryptography.CryptographyBuilder;
 import dssb.cryptography.Scheme;
 import dssb.cryptography.encoder.AbstractEncoderCryptography;
 import dssb.cryptography.encoder.EncoderFactory;
-import dssb.cryptography.hasher.HasherFactory;
 
 /**
  * Cryptography scheme for message digest.
@@ -37,13 +36,13 @@ public enum Base64 implements Scheme {
     // The decoding is all my code (reverse from the one taken, anyway)
     
     /** The included BASE64. */
-    public static String BASE64CODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    private static final String BASE64CODE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     
-    /** The splite lines */
-    public static int SPLITE_LINES_AT = 19 - 1; // 76/4 - 1;
+    /** The splite lines. */
+    private static final int SPLITE_LINES_AT = 19; // 76/4 - 1;
     
     /**
-     * Encode the given byte[] with BASE64 ENCODING String
+     * Encode the given byte[] with BASE64 ENCODING String.
      * 
      * @param data
      *            the data in byte.
@@ -51,14 +50,16 @@ public enum Base64 implements Scheme {
      **/
     public String encode(
             final byte[] data) {
-        if (data == null)
+        if (data == null) {
             return "";
+        }
         
         byte[] bytes = data;
         final StringBuilder encoded = new StringBuilder();
         
         // Determine how many padding bytes to add to the output
-        final int paddingCount = (3 - (bytes.length % 3)) % 3;
+        final int three = 3;
+        final int paddingCount = (three - (bytes.length % three)) % three;
         
         try {
             final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -66,19 +67,32 @@ public enum Base64 implements Scheme {
             // Write the original data
             outStream.write(bytes);
             // Write the padding-zero
-            for (int i = paddingCount; --i >= 0;)
+            for (int i = paddingCount; --i >= 0;) {
                 outStream.write(0);
+            }
             
             // Move to the working array
             bytes = outStream.toByteArray();
             outStream.close();
-        } catch (Exception E) {
+        } catch (Exception problem) {
+            // TODO Do something.
+            assert (problem != null);
         }
+        
+        // Here is a gift for you, CheckStyle, hope you happy.
+        final int int2 = 2;
+        final int int4 = 4;
+        final int int6 = 6;
+        final int int0xFC = 0xFC;
+        final int int0x03 = 0x03;
+        final int int0x0F = 0x0F;
+        final int int0x3F = 0x3F;
+        final int int0xC0 = 0xC0;
         
         int c = 0;
         // Process 3 bytes at a time, churning out 4 output bytes
         // worry about CRLF insertions later
-        for (int i = 0; i < bytes.length; i += 3) {
+        for (int i = 0; i < bytes.length; i += three) {
             // I0 I1 I2
             // 0101 01 - 01 0101-0101 01-01 0101
             // F C 3 F F C 3 F
@@ -89,10 +103,10 @@ public enum Base64 implements Scheme {
             final int i1 = bytes[i + 1];
             final int i2 = bytes[i + 2];
             
-            final int b0 = ((i0 & 0xFC) >> 2);
-            final int b1 = ((i0 & 0x03) << 4) | ((i1 & 0xF0) >> 4);
-            final int b2 = ((i1 & 0x0F) << 2) | ((i2 & 0xC0) >> 6);
-            final int b3 = (i2 & 0x3F);
+            final int b0 = ((i0 & int0xFC) >> int2);
+            final int b1 = ((i0 & int0x03) << int4) | ((i1 & int0x0F) >> int4);
+            final int b2 = ((i1 & int0x0F) << int2) | ((i2 & int0xC0) >> int6);
+            final int b3 = ((i2 & int0x3F));
             
             encoded.append(BASE64CODE.charAt(b0))
                     .append(BASE64CODE.charAt(b1))
@@ -102,8 +116,9 @@ public enum Base64 implements Scheme {
             if (c == SPLITE_LINES_AT) {
                 encoded.append("\n");
                 c = 0;
-            } else
+            } else {
                 c++;
+            }
         }
         
         // replace encoded padding nulls with "="
@@ -121,70 +136,85 @@ public enum Base64 implements Scheme {
      **/
     public byte[] decode(
             final String base64String) {
-        if ((base64String == null) || (base64String.length() == 0))
+        if ((base64String == null) || (base64String.length() == 0)) {
             return new byte[0];
+        }
         
         String base64 = base64String.trim();
         
         // Remove padding
-        int PaddingCount = 0;
-        if (base64.charAt(base64.length() - 2) == '=')
-            PaddingCount = 2;
-        else if (base64.charAt(base64.length() - 1) == '=')
-            PaddingCount = 1;
-        base64 = base64.substring(0, base64.length() - PaddingCount) + "\0\0".substring(2 - PaddingCount);
+        int paddingCount = 0;
+        if (base64.charAt(base64.length() - 2) == '=') {
+            paddingCount = 2;
+        } else if (base64.charAt(base64.length() - 1) == '=') {
+            paddingCount = 1;
+        }
+        base64 = base64.substring(0, base64.length() - paddingCount) + "\0\0".substring(2 - paddingCount);
         
-        byte[] Bs = null;
+        // Here is a gift for you, CheckStyle, hope you happy.
+        final int int1 = 1;
+        final int int2 = 2;
+        final int int3 = 3;
+        final int int4 = 4;
+        final int int6 = 6;
+        final int int0x03 = 0x03;
+        final int int0x0F = 0x0F;
+        final int int0x3F = 0x3F;
+        final int int0x3C = 0x3C;
+        final int int0x30 = 0x30;
+        
+        byte[] bs = null;
         try {
-            ByteArrayOutputStream BAOS = new ByteArrayOutputStream();
+            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
             
+            final int four = 4;
             int c = 0;
-            for (int i = 0; i < base64.length(); i += 4) {
+            for (int i = 0; i < base64.length(); i += four) {
                 // B0 B1 B2 B3
                 // 010101 + 01 0101 0101 01 01 0101
                 // 3 F 3 F 3 C 3 3 F
                 // 010101 + 01 0101-0101 01-01 0101
                 // I0 I1 I2
+                final int b0 = BASE64CODE.indexOf(base64.charAt(i));
+                final int b1 = BASE64CODE.indexOf(base64.charAt(i + int1));
+                final int b2 = BASE64CODE.indexOf(base64.charAt(i + int2));
+                final int b3 = BASE64CODE.indexOf(base64.charAt(i + int3));
                 
-                final int B0 = BASE64CODE.indexOf(base64.charAt(i));
-                final int B1 = BASE64CODE.indexOf(base64.charAt(i + 1));
-                int B2 = BASE64CODE.indexOf(base64.charAt(i + 2));
-                int B3 = BASE64CODE.indexOf(base64.charAt(i + 3));
+                final int i0 = ((b0 & int0x3F) << int2) | ((b1 & int0x30) >> int4);
+                final int i1 = ((b1 & int0x0F) << int4) | ((b2 & int0x3C) >> int2);
+                final int i2 = ((b2 & int0x03) << int6) | ((b3 & int0x3F));
                 
-                int I0 = ((B0 & 0x3F) << 2) | ((B1 & 0x30) >> 4);
-                int I1 = ((B1 & 0x0F) << 4) | ((B2 & 0x3C) >> 2);
-                int I2 = ((B2 & 0x03) << 6) | ((B3 & 0x3F));
-                
-                BAOS.write(I0);
-                BAOS.write(I1);
-                BAOS.write(I2);
+                baos.write(i0);
+                baos.write(i1);
+                baos.write(i2);
                 
                 if (c == SPLITE_LINES_AT) {
                     i += 1;
                     c = 0;
-                } else
+                } else {
                     c++;
+                }
             }
             
-            Bs = BAOS.toByteArray();
-            BAOS.close();
+            bs = baos.toByteArray();
+            baos.close();
             
-        } catch (RuntimeException E) {
-            throw E;
-        } catch (Exception E) {
-            throw new RuntimeException(E);
+        } catch (RuntimeException problem) {
+            throw problem;
+        } catch (Exception problem) {
+            throw new RuntimeException(problem);
         }
         
-        if (Bs == null)
-            Bs = new byte[0];
-        else if (PaddingCount != 0) {
+        if (bs == null) {
+            bs = new byte[0];
+        } else if (paddingCount != 0) {
             // Cut the padding
-            byte[] NBs = new byte[Bs.length - PaddingCount];
-            System.arraycopy(Bs, 0, NBs, 0, NBs.length);
-            Bs = NBs;
+            byte[] nBs = new byte[bs.length - paddingCount];
+            System.arraycopy(bs, 0, nBs, 0, nBs.length);
+            bs = nBs;
         }
         
-        return Bs;
+        return bs;
     }
     
     // == Cryptography =================================================================================================
@@ -199,9 +229,9 @@ public enum Base64 implements Scheme {
         }
         
         /**
-         * Creates a new {@link HasherFactory}.
+         * Creates a new {@link EncoderFactory}.
          * 
-         * @return a newly created {@link HasherFactory}.
+         * @return a newly created {@link EncoderFactory}.
          */
         protected EncoderFactory newEncoderFactory() {
             final EncoderFactory encoderFactory = new Factory(this);

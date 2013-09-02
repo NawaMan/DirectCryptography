@@ -49,8 +49,9 @@ public enum Hex implements Scheme {
         for (byte b : data) {
             formatter.format("%02x", b);
             if (byteForColumn > 1) {
-                if ((i % byteForColumn) == devider)
+                if ((i % byteForColumn) == devider) {
                     formatter.format(" ");
+                }
                 i++;
             }
         }
@@ -70,7 +71,7 @@ public enum Hex implements Scheme {
      **/
     public byte[] decode(
             final int byteForColumn,
-            String encodedString) {
+            final String encodedString) {
         throw new UnsupportedOperationException("Later");
     }
     

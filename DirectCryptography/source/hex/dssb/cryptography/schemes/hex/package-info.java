@@ -1,8 +1,6 @@
 /**
+ * Classes in this package are for Hex encoder.
  * 
- */
-/**
- * @author dssb
- *
+ * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
 package dssb.cryptography.schemes.hex;
