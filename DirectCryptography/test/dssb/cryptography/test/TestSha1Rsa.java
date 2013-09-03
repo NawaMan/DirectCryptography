@@ -7,8 +7,7 @@ import org.junit.Test;
 import dssb.cryptography.Data;
 import dssb.cryptography.datatypes.SerializableType;
 import dssb.cryptography.datatypes.TextType;
-import dssb.cryptography.schemes.sha1rsa.Sha1RsaCryptographyBuilder;
-import dssb.cryptography.schemes.sha1rsa.Sha1RsaScheme;
+import dssb.cryptography.schemes.sha1rsa.Sha1Rsa;
 import dssb.cryptography.signature.Fingerprint;
 import dssb.cryptography.signature.Signature;
 import dssb.cryptography.signature.Signer;
@@ -24,7 +23,7 @@ public class TestSha1Rsa {
     /** Test. */
     @Test
     public void test() {
-        final Sha1RsaCryptographyBuilder cryptBuilder = Sha1RsaScheme.INSTANCE.createCryptographyBuilder();
+        final Sha1Rsa.CryptographyBuilder cryptBuilder = Sha1Rsa.Scheme.createCryptographyBuilder();
         cryptBuilder.useNewKeyPair();
         
         final Signature signature = cryptBuilder.newCryptography().getFeature(Signature.class);

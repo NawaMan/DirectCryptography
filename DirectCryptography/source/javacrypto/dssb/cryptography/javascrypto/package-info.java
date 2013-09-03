@@ -3,4 +3,4 @@
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-package dssb.cryptography.common.javascrypto;
+package dssb.cryptography.javascrypto;

@@ -2,6 +2,7 @@ package dssb.cryptography.signature;
 
 import dssb.cryptography.Cryptography;
 import dssb.cryptography.Cryptography.Feature;
+import dssb.cryptography.signature.Signature.Simple.Signer;
 
 /**
  * Classes implementing this interface can create a signer and associated verifier.
@@ -157,14 +158,18 @@ public interface Signature extends Feature<Signature> {
          * 
          * @return a new {@link Signer}.
          */
-        public abstract Signer newSigner();
+        public Signer newSigner() {
+            return new Signer(this);
+        }
         
         /**
          * Create a new {@link Verifier}.
          * 
          * @return a new {@link Verifier}.
          */
-        public abstract Verifier newVerifier();
+        public Verifier newVerifier() {
+            return new Verifier(this);
+        }
         
         /**
          * Sign the given data.

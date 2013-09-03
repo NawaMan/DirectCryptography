@@ -1,107 +1,36 @@
 package dssb.cryptography.schemes.rsa;
 
-import java.security.KeyPair;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-
-import dssb.cryptography.common.keypair.AbstractCommonKeyPairCryptographyBuilder;
-import dssb.cryptography.common.keypair.CryptographyKeyPairGenerator;
 import dssb.cryptography.common.keypair.KeyPairGenerator;
+import dssb.cryptography.javascrypto.JavaCryptoKeyPairScheme;
+import dssb.cryptography.javascrypto.JavaCryptoKeyPairScheme.Cryptography;
 
 /**
- * Cryptography builder for RSA.
+ * The builder for RSA cryptography.
+ * 
+ * @param <_Scheme_>
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public class RsaCryptographyBuilder extends AbstractCommonKeyPairCryptographyBuilder {
-    
-    /** The default value for key size. */
-    public static final int DEFAULT_KEYSIZE = 1024;
-    /** The default value for algorithm name. */
-    public static final String DEFAULT_ALGORITHM = "RSA";
-    
-    @Override
-    public RsaCryptography newCryptography() {
-        final PrivateKey privateKey = this.getPrivateKey();
-        final PublicKey publicKey = this.getPublicKey();
-        final RsaCryptography cryptography = new RsaCryptography(privateKey, publicKey);
-        return cryptography;
-    }
-    
-    /** {@inheritDoc} */
-    @Override
-    public void setKeyPair(
-            final KeyPair keyPair) {
-        super.setKeyPair(keyPair);
-    }
-    
-    /** {@inheritDoc} */
-    @Override
-    protected void setPrivateKey(
-            final PrivateKey privateKey) {
-        super.setPrivateKey(privateKey);
-    }
-    
-    /** {@inheritDoc} */
-    @Override
-    protected void setPublicKey(
-            final PublicKey publicKey) {
-        super.setPublicKey(publicKey);
-    }
-    
-    /** {@inheritDoc} */
-    @Override
-    public void useNewKeyPair() {
-        super.useNewKeyPair();
-    }
-    
-    /** {@inheritDoc} */
-    @Override
-    public void useNewKeyPair(
-            final KeyPairGenerator generator) {
-        super.useNewKeyPair(generator);
-    }
+public class RsaCryptographyBuilder<_Scheme_ extends JavaCryptoKeyPairScheme<_Scheme_>> extends
+        Cryptography.Builder.Public<_Scheme_> {
     
     /**
-     * Generate and use a new keypair.
+     * Constructor.
      * 
-     * @param algorithm
-     *            the algorithm name.
-     * @param keysize
-     *            the key size.
+     * @param scheme
+     *            the scheme.
      */
-    public void useNewKeyPair(
-            final String algorithm,
-            final int keysize) {
-        final KeyPairGenerator generator = new KeyPairGenerator.JavaCrypto(algorithm, keysize);
-        this.useNewKeyPair(generator);
+    public RsaCryptographyBuilder(
+            final _Scheme_ scheme) {
+        super(scheme);
     }
     
-    /**
-     * Returns the default key size.
-     * 
-     * @return the default key size.
-     **/
-    protected int getDefaultKeySize() {
-        return DEFAULT_KEYSIZE;
-    }
-    
-    /**
-     * Returns the default algorithm.
-     * 
-     * @return the default algorithm.
-     **/
-    protected String getDefaultAlgorithm() {
-        return DEFAULT_ALGORITHM;
-    }
-    
-    /** {@inheritDoc} */
     @Override
-    protected CryptographyKeyPairGenerator newKeyPairGenerator() {
-        final String algorithm = this.getDefaultAlgorithm();
-        final int keysize = this.getDefaultKeySize();
+    protected KeyPairGenerator newKeyPairGenerator() {
+        // TODO - These parameter should be settable.
+        final String algorithm = "RSA";
+        final int keysize = 1024;
         final KeyPairGenerator generator = new KeyPairGenerator.JavaCrypto(algorithm, keysize);
-        return new CryptographyKeyPairGenerator(this, generator) {
-        };
+        return generator;
     }
 }

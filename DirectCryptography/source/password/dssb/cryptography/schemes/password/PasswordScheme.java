@@ -19,7 +19,9 @@ public enum PasswordScheme implements Scheme {
     /** Conventional instance. */
     INSTANCE;
     
+    /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("unchecked")
     public PasswordCryptographyBuilder createCryptographyBuilder() {
         return new PasswordCryptographyBuilder();
     }

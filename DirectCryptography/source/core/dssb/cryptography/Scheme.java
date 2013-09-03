@@ -10,8 +10,11 @@ public interface Scheme {
     /**
      * Creates and return a new cryptography builder.
      * 
+     * @param <_Builder_>
+     *            the cryptography builder.
+     * 
      * @return the builder.
      */
-    public CryptographyBuilder createCryptographyBuilder();
+    public <_Builder_ extends CryptographyBuilder> _Builder_ createCryptographyBuilder();
     
 }

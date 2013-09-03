@@ -9,71 +9,60 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import dssb.cryptography.cipher.Cipher;
+import dssb.cryptography.cipher.DecyptionException;
 import dssb.cryptography.cipher.EncyptionException;
+import dssb.cryptography.javascrypto.JavaCryptoKeyPairScheme;
 
 /**
- * The cipher of RSA.
+ * RSA cryptography scheme.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public class RsaCipher extends Cipher.Simple {
+public class Rsa extends JavaCryptoKeyPairScheme.Simple<Rsa> {
     
-    /** The private key. */
-    private final PrivateKey privateKey;
+    /** The RSA algorithm name. */
+    private static final String RSA_ALGORITHM_NAME = "RSA";
     
-    /** The public key. */
-    private final PublicKey publicKey;
+    /** Static import instance. */
+    public static final Rsa Rsa = new Rsa();
+    
+    /** Shorthand instance. */
+    public static final Rsa _ = Rsa;
+    
+    /** Semantic instance. */
+    public static final Rsa Scheme = Rsa;
+    
+    /** Conventional instance. */
+    public static final Rsa INSTANCE = Rsa;
     
     /**
-     * Constructor.
-     * 
-     * @param rsaCryptography
-     *            the RSA cryptography.
-     * @param privateKey
-     *            the private key.
-     * @param publicKey
-     *            the public key.
+     * The builder for RSA cryptography.
      */
-    public RsaCipher(
-            final RsaCryptography rsaCryptography,
-            final PrivateKey privateKey,
-            final PublicKey publicKey) {
-        super(rsaCryptography);
-        this.privateKey = privateKey;
-        this.publicKey = publicKey;
-    }
-    
-    /** {@inheritDoc} */
-    @Override
-    public Encryptor newEncryptor() {
-        if (this.publicKey == null) {
-            return null;
-        } else {
-            return super.newEncryptor();
+    public static class CryptographyBuilder extends RsaCryptographyBuilder<Rsa> {
+        /** Constructor. */
+        CryptographyBuilder() {
+            super(Rsa);
         }
     }
     
     /** {@inheritDoc} */
+    @SuppressWarnings("unchecked")
     @Override
-    public Decryptor newDecryptor() {
-        if (this.privateKey == null) {
-            return null;
-        } else {
-            return super.newDecryptor();
-        }
+    public CryptographyBuilder createCryptographyBuilder() {
+        final CryptographyBuilder builder = new CryptographyBuilder();
+        return builder;
     }
     
-    // TODO - bytes limits.
     /** {@inheritDoc} */
     @Override
     public byte[] encrypt(
-            final byte[] bytes)
+            final PublicKey publicKey,
+            final byte[] clearData)
             throws EncyptionException {
         try {
-            final javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance("RSA");
-            cipher.init(javax.crypto.Cipher.ENCRYPT_MODE, this.publicKey);
-            final byte[] secret = cipher.doFinal(bytes);
+            final javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance(RSA_ALGORITHM_NAME);
+            cipher.init(javax.crypto.Cipher.ENCRYPT_MODE, publicKey);
+            final byte[] secret = cipher.doFinal(clearData);
             return secret;
         } catch (final NoSuchAlgorithmException problem) {
             throw new EncyptionException(problem);
@@ -91,11 +80,13 @@ public class RsaCipher extends Cipher.Simple {
     /** {@inheritDoc} */
     @Override
     public byte[] decrypt(
-            final byte[] bytes) {
+            final PrivateKey privateKey,
+            final byte[] encryptedData)
+            throws DecyptionException {
         try {
-            final javax.crypto.Cipher desCipher = javax.crypto.Cipher.getInstance("RSA");
-            desCipher.init(javax.crypto.Cipher.DECRYPT_MODE, this.privateKey);
-            final byte[] clearBytes = desCipher.doFinal(bytes);
+            final javax.crypto.Cipher desCipher = javax.crypto.Cipher.getInstance(RSA_ALGORITHM_NAME);
+            desCipher.init(javax.crypto.Cipher.DECRYPT_MODE, privateKey);
+            final byte[] clearBytes = desCipher.doFinal(encryptedData);
             return clearBytes;
         } catch (final NoSuchAlgorithmException problem) {
             throw new EncyptionException(problem);

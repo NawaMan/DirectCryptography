@@ -25,10 +25,13 @@ public abstract class AbstractCommonKeyPairCryptographyBuilder implements Crypto
     /**
      * Change the key pair.
      * 
+     * @param <_Builder_>
+     *            the cryptography builder.
      * @param keyPair
      *            the key pair.
+     * @return the builder.
      */
-    protected void setKeyPair(
+    protected <_Builder_ extends AbstractCommonKeyPairCryptographyBuilder> _Builder_ setKeyPair(
             final KeyPair keyPair) {
         this.publicKey = (keyPair == null)
                 ? null
@@ -36,6 +39,9 @@ public abstract class AbstractCommonKeyPairCryptographyBuilder implements Crypto
         this.privateKey = (keyPair == null)
                 ? null
                 : keyPair.getPrivate();
+        @SuppressWarnings("unchecked")
+        final _Builder_ builder = (_Builder_) this;
+        return builder;
     }
     
     /**
@@ -51,12 +57,18 @@ public abstract class AbstractCommonKeyPairCryptographyBuilder implements Crypto
      * 
      * Change the private key.
      * 
+     * @param <_Builder_>
+     *            the cryptography builder.
      * @param privateKey
      *            the private key.
+     * @return the builder.
      */
-    protected void setPrivateKey(
+    protected <_Builder_ extends AbstractCommonKeyPairCryptographyBuilder> _Builder_ setPrivateKey(
             final PrivateKey privateKey) {
         this.privateKey = privateKey;
+        @SuppressWarnings("unchecked")
+        final _Builder_ builder = (_Builder_) this;
+        return builder;
     }
     
     /**
@@ -72,12 +84,18 @@ public abstract class AbstractCommonKeyPairCryptographyBuilder implements Crypto
      * 
      * Change the public key.
      * 
+     * @param <_Builder_>
+     *            the cryptography builder.
      * @param publicKey
      *            the public key.
+     * @return the builder.
      */
-    protected void setPublicKey(
+    protected <_Builder_ extends AbstractCommonKeyPairCryptographyBuilder> _Builder_ setPublicKey(
             final PublicKey publicKey) {
         this.publicKey = publicKey;
+        @SuppressWarnings("unchecked")
+        final _Builder_ builder = (_Builder_) this;
+        return builder;
     }
     
     /**
@@ -128,7 +146,7 @@ public abstract class AbstractCommonKeyPairCryptographyBuilder implements Crypto
                 return this.keyPairGenerator;
             }
             
-            this.keyPairGenerator = this.newKeyPairGenerator();
+            this.keyPairGenerator = this.newCryptographyKeyPairGenerator();
             if (this.keyPairGenerator == null) {
                 throw new UnsupportedOperationException();
             }
@@ -142,7 +160,7 @@ public abstract class AbstractCommonKeyPairCryptographyBuilder implements Crypto
      * 
      * @return a newly created key pair generator for cryptography.
      **/
-    protected CryptographyKeyPairGenerator newKeyPairGenerator() {
+    protected CryptographyKeyPairGenerator newCryptographyKeyPairGenerator() {
         return null;
     }
     

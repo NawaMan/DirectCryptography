@@ -3,8 +3,7 @@ package dssb.cryptography.test;
 import org.junit.Before;
 
 import dssb.cryptography.cipher.Cipher;
-import dssb.cryptography.schemes.rsa.RsaCryptographyBuilder;
-import dssb.cryptography.schemes.rsa.RsaScheme;
+import dssb.cryptography.schemes.rsa.Rsa;
 
 /**
  * Test for RSA cryptography.
@@ -16,7 +15,7 @@ public class TestRsa extends AbstractCipherTest {
     /** Prepare the encryptor. */
     @Before
     public void init() {
-        final RsaCryptographyBuilder cryptBuilder = RsaScheme.INSTANCE.createCryptographyBuilder();
+        final Rsa.CryptographyBuilder cryptBuilder = Rsa.Scheme.createCryptographyBuilder();
         cryptBuilder.useNewKeyPair();
         
         final Cipher cipher = cryptBuilder.newCryptography().getFeature(Cipher.class);

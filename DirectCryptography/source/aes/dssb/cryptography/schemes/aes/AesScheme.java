@@ -21,7 +21,9 @@ public enum AesScheme implements Scheme {
     /** Conventional instance. */
     INSTANCE;
     
+    /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("unchecked")
     public AesCryptographyBuilder createCryptographyBuilder() {
         return new AesCryptographyBuilder();
     }

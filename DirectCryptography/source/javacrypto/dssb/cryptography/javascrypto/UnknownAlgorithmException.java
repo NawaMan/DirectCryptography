@@ -1,4 +1,4 @@
-package dssb.cryptography.common.javascrypto;
+package dssb.cryptography.javascrypto;
 
 import dssb.cryptography.CryptographyConfigurationException;
 

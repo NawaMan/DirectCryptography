@@ -26,7 +26,9 @@ public enum Base64 implements Scheme {
     /** Conventional instance. */
     INSTANCE;
     
+    /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("unchecked")
     public Cryptography.Builder createCryptographyBuilder() {
         return new Cryptography.Builder();
     }

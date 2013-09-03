@@ -5,8 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dssb.cryptography.cipher.Cipher;
-import dssb.cryptography.schemes.rsaaes.RsaAesCryptographyBuilder;
-import dssb.cryptography.schemes.rsaaes.RsaAesScheme;
+import dssb.cryptography.schemes.rsaaes.RsaAes;
 
 
 /**
@@ -19,7 +18,7 @@ public class TestRsaAes extends AbstractCipherTest {
     /** Prepare the encryptor. */
     @Before
     public void init() {
-        final RsaAesCryptographyBuilder cryptBuilder = RsaAesScheme.INSTANCE.createCryptographyBuilder();
+        final RsaAes.CryptographyBuilder cryptBuilder = RsaAes.Scheme.createCryptographyBuilder();
         cryptBuilder.useNewKeyPair();
         
         final Cipher cipher = cryptBuilder.newCryptography().getFeature(Cipher.class);

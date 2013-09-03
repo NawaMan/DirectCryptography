@@ -1,6 +1,6 @@
 package dssb.cryptography.schemes.messagedigest;
 
-import dssb.cryptography.common.javascrypto.UnknownAlgorithmException;
+import dssb.cryptography.javascrypto.UnknownAlgorithmException;
 
 /**
  * This exception is thrown the algorithm for a message digest is not known.

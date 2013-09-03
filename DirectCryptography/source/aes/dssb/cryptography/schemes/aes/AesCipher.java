@@ -10,6 +10,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import dssb.cryptography.Cryptography.Feature;
 import dssb.cryptography.cipher.Cipher;
 import dssb.cryptography.cipher.DecyptionException;
 import dssb.cryptography.cipher.EncyptionException;
@@ -19,7 +20,7 @@ import dssb.cryptography.cipher.EncyptionException;
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public class AesCipher extends Cipher.Simple {
+public class AesCipher extends Cipher.Simple implements Feature<dssb.cryptography.cipher.Cipher> {
     
     /** The secret key. */
     private SecretKey secretKey;

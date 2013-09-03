@@ -25,7 +25,9 @@ public enum MessageDigestScheme implements Scheme {
     /** Conventional instance. */
     INSTANCE;
     
+    /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("unchecked")
     public MessageDigestCryptographyBuilder createCryptographyBuilder() {
         return new MessageDigestCryptographyBuilder();
     }
