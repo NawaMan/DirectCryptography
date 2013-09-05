@@ -2,14 +2,14 @@ package dssb.cryptography.schemes.password;
 
 import javax.crypto.SecretKey;
 
-import dssb.cryptography.common.secretkey.AbstractCommonSecretKeyCryptography;
+import dssb.cryptography.common.secretkey.SecretKeyCryptography;
 
 /**
  * Password-base cryptography.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public class PasswordCryptography extends AbstractCommonSecretKeyCryptography {
+public class PasswordCryptography extends SecretKeyCryptography {
     
     /**
      * Constructor.

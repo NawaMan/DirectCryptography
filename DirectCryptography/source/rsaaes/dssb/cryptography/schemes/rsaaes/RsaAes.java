@@ -1,7 +1,5 @@
 package dssb.cryptography.schemes.rsaaes;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
@@ -12,10 +10,9 @@ import dssb.cryptography.cipher.DecyptionException;
 import dssb.cryptography.cipher.EncyptionException;
 import dssb.cryptography.datatypes.ArrayOfBytesType;
 import dssb.cryptography.javascrypto.JavaCryptoKeyPairScheme;
-import dssb.cryptography.schemes.aes.AesCipher;
-import dssb.cryptography.schemes.aes.AesCryptographyBuilder;
+import dssb.cryptography.schemes.aes.Aes;
 import dssb.cryptography.schemes.rsa.Rsa;
-import dssb.cryptography.schemes.rsa.RsaCryptographyBuilder;
+import dssb.cryptography.schemes.rsa.AbstractRsaCryptographyBuilder;
 
 /**
  * RSA+AES cryptography scheme.
@@ -52,7 +49,7 @@ public class RsaAes extends JavaCryptoKeyPairScheme.Simple<RsaAes> {
     /**
      * The builder for RSA cryptography.
      */
-    public static class CryptographyBuilder extends RsaCryptographyBuilder<RsaAes> {
+    public static class CryptographyBuilder extends AbstractRsaCryptographyBuilder<RsaAes> {
         /** Constructor. */
         CryptographyBuilder() {
             super(RsaAes);
@@ -74,16 +71,19 @@ public class RsaAes extends JavaCryptoKeyPairScheme.Simple<RsaAes> {
             final byte[] clearData)
             throws EncyptionException {
         
-        final AesCryptographyBuilder aesCryptBuilder = this.newAesCryptBuilder();
+        final Aes.CryptographyBuilder aesCryptBuilder = Aes.Scheme.createCryptographyBuilder();
+        aesCryptBuilder.useNewKey();
+        
         final SecretKey dataKey = aesCryptBuilder.getSecretKey();
         final byte[] dataKeyBytes = dataKey.getEncoded();
         
-        final Rsa.Cipher<Rsa> rsaCipher = this.getRsaCipher(null, publicKey);
-        final byte[] keyBytes = rsaCipher.encrypt(dataKeyBytes);
+        final dssb.cryptography.cipher.Cipher rsaCipher = this.getRsaCipher(null, publicKey);
+        final dssb.cryptography.cipher.Encryptor rsaEncryptor = rsaCipher.getEncryptor();
+        final byte[] keyBytes = rsaEncryptor.encrypt(dataKeyBytes);
         
-        final AesCipher cipher = (AesCipher) aesCryptBuilder.newCryptography().getFeature(CIPHER_CLASS);
-        final dssb.cryptography.cipher.Encryptor encryptor = cipher.getEncryptor();
-        final byte[] dataBytes = encryptor.encrypt(clearData);
+        final dssb.cryptography.cipher.Cipher aesCipher = aesCryptBuilder.newCryptography().getFeature(CIPHER_CLASS);
+        final dssb.cryptography.cipher.Encryptor aesEncryptor = aesCipher.getEncryptor();
+        final byte[] dataBytes = aesEncryptor.encrypt(clearData);
         
         final byte[] secret = ArrayOfBytesType.TYPE.toBytes(keyBytes, dataBytes);
         return secret;
@@ -99,14 +99,17 @@ public class RsaAes extends JavaCryptoKeyPairScheme.Simple<RsaAes> {
         final byte[] keyBytes = allBytes[0];
         final byte[] dataBytes = allBytes[1];
         
-        final Rsa.Cipher<Rsa> rsaCipher = this.getRsaCipher(privateKey, null);
-        final byte[] dataKeyBytes = rsaCipher.decrypt(keyBytes);
+        final dssb.cryptography.cipher.Cipher rsaCipher = this.getRsaCipher(privateKey, null);
+        final byte[] dataKeyBytes = rsaCipher.getDecryptor().decrypt(keyBytes);
         final SecretKey dataKey = new SecretKeySpec(dataKeyBytes, AES_ALGORITHM_NAME);
         
-        final AesCryptographyBuilder aesCryptBuilder = newAesCryptBuilder();
+        final Aes.CryptographyBuilder aesCryptBuilder = Aes.Scheme.createCryptographyBuilder();
         aesCryptBuilder.setSecretKey(dataKey);
-        final AesCipher cipher = (AesCipher) aesCryptBuilder.newCryptography().getFeature(CIPHER_CLASS);
-        final byte[] clearDataBytes = cipher.getDecryptor().decrypt(dataBytes);
+        
+        final dssb.cryptography.Cryptography cryptography = aesCryptBuilder.newCryptography();
+        final dssb.cryptography.cipher.Cipher aesCipher = cryptography.getFeature(CIPHER_CLASS);
+        final dssb.cryptography.cipher.Decryptor aesDecryptor = aesCipher.getDecryptor();
+        final byte[] clearDataBytes = aesDecryptor.decrypt(dataBytes);
         return clearDataBytes;
     }
     
@@ -119,33 +122,15 @@ public class RsaAes extends JavaCryptoKeyPairScheme.Simple<RsaAes> {
      *            the public key.
      * @return the RSA cipher.
      */
-    private Rsa.Cipher<Rsa> getRsaCipher(
+    private final dssb.cryptography.cipher.Cipher getRsaCipher(
             final PrivateKey privateKey,
             final PublicKey publicKey) {
         final Rsa.CryptographyBuilder rsaCryptBuilder = Rsa.Scheme.createCryptographyBuilder();
         rsaCryptBuilder.setPublicKey(publicKey);
         rsaCryptBuilder.setPrivateKey(privateKey);
         final Rsa.Cryptography<Rsa> rsaCryptography = rsaCryptBuilder.newCryptography();
-        @SuppressWarnings("unchecked")
-        final Rsa.Cipher<Rsa> rsaCipher = rsaCryptography.getFeature(Rsa.Cipher.class);
-        return rsaCipher;
-    }
-    
-    /**
-     * Create a new AES cryptography builder.
-     * 
-     * @return the newly created AES cryptography builder.
-     **/
-    private AesCryptographyBuilder newAesCryptBuilder() {
-        final AesCryptographyBuilder aesCryptBuilder = new AesCryptographyBuilder();
-        try {
-            aesCryptBuilder.useNewKey();
-        } catch (final NoSuchAlgorithmException problem) {
-            throw new EncyptionException(problem);
-        } catch (final NoSuchProviderException problem) {
-            throw new EncyptionException(problem);
-        }
-        return aesCryptBuilder;
+        final dssb.cryptography.cipher.Cipher cipher = rsaCryptography.getFeature(CIPHER_CLASS);
+        return cipher;
     }
     
 }

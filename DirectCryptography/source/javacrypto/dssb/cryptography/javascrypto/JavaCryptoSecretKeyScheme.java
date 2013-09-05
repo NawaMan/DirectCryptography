@@ -1,17 +1,16 @@
 package dssb.cryptography.javascrypto;
 
-import java.security.KeyPair;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 
 import dssb.cryptography.Cryptography.Feature;
 import dssb.cryptography.cipher.DecyptionException;
 import dssb.cryptography.cipher.EncyptionException;
-import dssb.cryptography.common.keypair.KeyPairCryptography;
-import dssb.cryptography.common.keypair.KeyPairCryptographyBuilder;
-import dssb.cryptography.common.keypair.CryptographyKeyPairGenerator;
-import dssb.cryptography.common.keypair.KeyPairGenerator;
-import dssb.cryptography.javascrypto.JavaCryptoKeyPairScheme.Cryptography.Builder;
+import dssb.cryptography.common.secretkey.CryptographySecretKeyGenerator;
+import dssb.cryptography.common.secretkey.SecretKeyCryptography;
+import dssb.cryptography.common.secretkey.SecretKeyCryptographyBuilder;
+import dssb.cryptography.common.secretkey.SecretKeyGenerator;
+import dssb.cryptography.javascrypto.JavaCryptoSecretKeyScheme.Cryptography.Builder;
 
 /**
  * Scheme for JavaCrypto's key pair cryptography.
@@ -21,7 +20,8 @@ import dssb.cryptography.javascrypto.JavaCryptoKeyPairScheme.Cryptography.Builde
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairScheme<_Scheme_>> extends JavaCryptoScheme {
+public interface JavaCryptoSecretKeyScheme<_Scheme_ extends JavaCryptoSecretKeyScheme<_Scheme_>>
+    extends JavaCryptoScheme {
     
     /**
      * Creates and return a new cryptography.
@@ -51,8 +51,8 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
     /**
      * Perform encryption.
      * 
-     * @param publicKey
-     *            the public key.
+     * @param secretKey
+     *            the secret key.
      * @param clearData
      *            the input data.
      * @return the encrypted data.
@@ -61,15 +61,15 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
      * 
      **/
     public byte[] encrypt(
-            final PublicKey publicKey,
+            final SecretKey secretKey,
             final byte[] clearData)
             throws EncyptionException;
     
     /**
      * Perform decryption.
      * 
-     * @param privateKey
-     *            the private key.
+     * @param secretKey
+     *            the secret key.
      * @param encryptedData
      *            the input encrypted data.
      * @return the clear decrypted data.
@@ -77,7 +77,7 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
      *             when there is a problem decrypting the data.
      */
     public byte[] decrypt(
-            final PrivateKey privateKey,
+            final SecretKey secretKey,
             final byte[] encryptedData)
             throws DecyptionException;
     
@@ -89,9 +89,10 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
      * @param <_Scheme_>
      *            the scheme.
      */
-    public abstract static class Simple<_Scheme_ extends JavaCryptoKeyPairScheme<_Scheme_>> implements
-            JavaCryptoKeyPairScheme<_Scheme_> {
+    public abstract static class Simple<_Scheme_ extends JavaCryptoSecretKeyScheme<_Scheme_>> implements
+            JavaCryptoSecretKeyScheme<_Scheme_> {
         
+        /** {@inheritDoc} */
         @Override
         public <_Cryptography_ extends Cryptography<_Scheme_>> _Cryptography_ newCryptography(
                 final Builder<_Scheme_> builder) {
@@ -100,6 +101,7 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
             return cryptography;
         }
         
+        /** {@inheritDoc} */
         @Override
         public <_Cipher_ extends Cipher<_Scheme_>> _Cipher_ newCipher(
                 final Cryptography<_Scheme_> cryptography) {
@@ -118,8 +120,8 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
      * @param <_Scheme_>
      *            the scheme.
      */
-    public static class Cryptography<_Scheme_ extends JavaCryptoKeyPairScheme<_Scheme_>> extends
-            KeyPairCryptography {
+    public static class Cryptography<_Scheme_ extends JavaCryptoSecretKeyScheme<_Scheme_>> extends
+            SecretKeyCryptography {
         
         /**
          * Constructor.
@@ -129,19 +131,13 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
          */
         public Cryptography(
                 final Builder<_Scheme_> builder) {
-            super(builder.getScheme(), builder.getPrivateKey(), builder.getPublicKey());
+            super(builder.getScheme(), builder.getSecretKey());
         }
         
         /** {@inheritDoc} **/
         @Override
-        protected PrivateKey getPrivateKey() {
-            return super.getPrivateKey();
-        }
-        
-        /** {@inheritDoc} **/
-        @Override
-        protected PublicKey getPublicKey() {
-            return super.getPublicKey();
+        protected SecretKey getSecretKey() {
+            return super.getSecretKey();
         }
         
         /** {@inheritDoc} */
@@ -167,8 +163,8 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
          * @param <_Scheme_>
          *            the scheme.
          */
-        public abstract static class Builder<_Scheme_ extends JavaCryptoKeyPairScheme<_Scheme_>> extends
-                KeyPairCryptographyBuilder {
+        public abstract static class Builder<_Scheme_ extends JavaCryptoSecretKeyScheme<_Scheme_>> extends
+                SecretKeyCryptographyBuilder {
             
             /** The scheme. */
             private final _Scheme_ scheme;
@@ -203,52 +199,36 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
             /** {@inheritDoc} */
             @Override
             @SuppressWarnings("unchecked")
-            public Builder<_Scheme_> setKeyPair(
-                    final KeyPair keyPair) {
-                return super.setKeyPair(keyPair);
+            public Builder<_Scheme_> setSecretKey(
+                    final SecretKey secretKey) {
+                return super.setSecretKey(secretKey);
             }
             
             /** {@inheritDoc} */
             @Override
-            @SuppressWarnings("unchecked")
-            public Builder<_Scheme_> setPrivateKey(
-                    final PrivateKey privateKey) {
-                return super.setPrivateKey(privateKey);
+            public void useNewKey() {
+                super.useNewKey();
             }
             
             /** {@inheritDoc} */
             @Override
-            @SuppressWarnings("unchecked")
-            public Builder<_Scheme_> setPublicKey(
-                    final PublicKey publicKey) {
-                return super.setPublicKey(publicKey);
-            }
-            
-            /** {@inheritDoc} */
-            @Override
-            public void useNewKeyPair() {
-                super.useNewKeyPair();
-            }
-            
-            /** {@inheritDoc} */
-            @Override
-            public void useNewKeyPair(
-                    final KeyPairGenerator generator) {
-                super.useNewKeyPair(generator);
+            public void useNewKey(
+                    final KeyGenerator generator) {
+                super.useNewKey(generator);
             }
             
             /**
-             * Creates and return a new key pair generator.
+             * Creates and return a new secret key generator.
              * 
-             * @return a new key pair generator.
+             * @return a new sSecret key generator.
              **/
-            protected abstract KeyPairGenerator newKeyPairGenerator();
+            protected abstract SecretKeyGenerator newKeyGenerator();
             
             /** {@inheritDoc} */
             @Override
-            protected CryptographyKeyPairGenerator newCryptographyKeyPairGenerator() {
-                final KeyPairGenerator generator = this.newKeyPairGenerator();
-                return new CryptographyKeyPairGenerator(this, generator) {
+            protected CryptographySecretKeyGenerator newCryptographySecretKeyGenerator() {
+                final SecretKeyGenerator generator = this.newKeyGenerator();
+                return new CryptographySecretKeyGenerator(this, generator) {
                 };
             }
             
@@ -260,7 +240,7 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
              * @param <_Scheme_>
              *            the scheme.
              */
-            public abstract static class Public<_Scheme_ extends JavaCryptoKeyPairScheme<_Scheme_>> extends
+            public abstract static class Public<_Scheme_ extends JavaCryptoSecretKeyScheme<_Scheme_>> extends
                     Builder<_Scheme_> {
                 
                 /**
@@ -276,36 +256,22 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
                 
                 /** {@inheritDoc} */
                 @Override
-                public Public<_Scheme_> setKeyPair(
-                        final KeyPair keyPair) {
-                    return (Public<_Scheme_>) super.setKeyPair(keyPair);
+                public Public<_Scheme_> setSecretKey(
+                        final SecretKey secretKey) {
+                    return (Public<_Scheme_>) super.setSecretKey(secretKey);
                 }
                 
                 /** {@inheritDoc} **/
                 @Override
-                public Public<_Scheme_> setPrivateKey(
-                        final PrivateKey privateKey) {
-                    return (Public<_Scheme_>) super.setPrivateKey(privateKey);
+                public void useNewKey() {
+                    super.useNewKey();
                 }
                 
                 /** {@inheritDoc} **/
                 @Override
-                public Public<_Scheme_> setPublicKey(
-                        final PublicKey publicKey) {
-                    return (Public<_Scheme_>) super.setPublicKey(publicKey);
-                }
-                
-                /** {@inheritDoc} **/
-                @Override
-                public void useNewKeyPair() {
-                    super.useNewKeyPair();
-                }
-                
-                /** {@inheritDoc} **/
-                @Override
-                public void useNewKeyPair(
-                        final KeyPairGenerator generator) {
-                    super.useNewKeyPair(generator);
+                public void useNewKey(
+                        final KeyGenerator generator) {
+                    super.useNewKey(generator);
                 }
             }
         }
@@ -319,7 +285,7 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
      * @param <_Scheme_>
      *            the scheme.
      */
-    public static class Cipher<_Scheme_ extends JavaCryptoKeyPairScheme<_Scheme_>> extends
+    public static class Cipher<_Scheme_ extends JavaCryptoSecretKeyScheme<_Scheme_>> extends
             dssb.cryptography.cipher.Cipher.Simple implements Feature<dssb.cryptography.cipher.Cipher> {
         
         /**
@@ -342,37 +308,13 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
         
         /** {@inheritDoc} */
         @Override
-        public Encryptor newEncryptor() {
-            final Cryptography<_Scheme_> cryptography = this.getCryptography();
-            final PublicKey publicKey = cryptography.getPublicKey();
-            if (publicKey == null) {
-                return null;
-            } else {
-                return super.newEncryptor();
-            }
-        }
-        
-        /** {@inheritDoc} */
-        @Override
-        public Decryptor newDecryptor() {
-            final Cryptography<_Scheme_> cryptography = this.getCryptography();
-            final PrivateKey privateKey = cryptography.getPrivateKey();
-            if (privateKey == null) {
-                return null;
-            } else {
-                return super.newDecryptor();
-            }
-        }
-        
-        /** {@inheritDoc} */
-        @Override
         public byte[] encrypt(
                 final byte[] clearData)
                 throws EncyptionException {
             final Cryptography<_Scheme_> cryptography = this.getCryptography();
             final _Scheme_ scheme = cryptography.getScheme();
-            final PublicKey publicKey = cryptography.getPublicKey();
-            final byte[] bytes = scheme.encrypt(publicKey, clearData);
+            final SecretKey secretKey = cryptography.getSecretKey();
+            final byte[] bytes = scheme.encrypt(secretKey, clearData);
             return bytes;
         }
         
@@ -382,8 +324,8 @@ public interface JavaCryptoKeyPairScheme<_Scheme_ extends JavaCryptoKeyPairSchem
                 final byte[] encryptedData) {
             final Cryptography<_Scheme_> cryptography = this.getCryptography();
             final _Scheme_ scheme = cryptography.getScheme();
-            final PrivateKey privateKey = cryptography.getPrivateKey();
-            final byte[] bytes = scheme.decrypt(privateKey, encryptedData);
+            final SecretKey secretKey = cryptography.getSecretKey();
+            final byte[] bytes = scheme.decrypt(secretKey, encryptedData);
             return bytes;
         }
         

@@ -10,7 +10,7 @@ import dssb.cryptography.common.AbstractCommonCryptography;
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public abstract class AbstractCommonSecretKeyCryptography extends AbstractCommonCryptography {
+public abstract class SecretKeyCryptography extends AbstractCommonCryptography {
     
     /** The secret key. */
     private final SecretKey secretKey;
@@ -23,7 +23,7 @@ public abstract class AbstractCommonSecretKeyCryptography extends AbstractCommon
      * @param secretKey
      *            the secret key.
      */
-    protected AbstractCommonSecretKeyCryptography(
+    protected SecretKeyCryptography(
             final Scheme scheme,
             final SecretKey secretKey) {
         super(scheme);

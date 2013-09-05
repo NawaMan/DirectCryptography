@@ -7,14 +7,14 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import dssb.cryptography.common.secretkey.AbstractCommonSecretKeyCryptographyBuilder;
+import dssb.cryptography.common.secretkey.SecretKeyCryptographyBuilder;
 
 /**
  * Password-base cryptography builder.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public class PasswordCryptographyBuilder extends AbstractCommonSecretKeyCryptographyBuilder {
+public class PasswordCryptographyBuilder extends SecretKeyCryptographyBuilder {
     
     // These constants are here to make CheckStyle happy.
     

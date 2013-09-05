@@ -11,7 +11,7 @@ import dssb.cryptography.CryptographyBuilder;
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public abstract class AbstractCommonKeyPairCryptographyBuilder implements CryptographyBuilder {
+public abstract class KeyPairCryptographyBuilder implements CryptographyBuilder {
     
     /** The private key. */
     private PrivateKey privateKey = null;
@@ -31,7 +31,7 @@ public abstract class AbstractCommonKeyPairCryptographyBuilder implements Crypto
      *            the key pair.
      * @return the builder.
      */
-    protected <_Builder_ extends AbstractCommonKeyPairCryptographyBuilder> _Builder_ setKeyPair(
+    protected <_Builder_ extends KeyPairCryptographyBuilder> _Builder_ setKeyPair(
             final KeyPair keyPair) {
         this.publicKey = (keyPair == null)
                 ? null
@@ -63,7 +63,7 @@ public abstract class AbstractCommonKeyPairCryptographyBuilder implements Crypto
      *            the private key.
      * @return the builder.
      */
-    protected <_Builder_ extends AbstractCommonKeyPairCryptographyBuilder> _Builder_ setPrivateKey(
+    protected <_Builder_ extends KeyPairCryptographyBuilder> _Builder_ setPrivateKey(
             final PrivateKey privateKey) {
         this.privateKey = privateKey;
         @SuppressWarnings("unchecked")
@@ -90,7 +90,7 @@ public abstract class AbstractCommonKeyPairCryptographyBuilder implements Crypto
      *            the public key.
      * @return the builder.
      */
-    protected <_Builder_ extends AbstractCommonKeyPairCryptographyBuilder> _Builder_ setPublicKey(
+    protected <_Builder_ extends KeyPairCryptographyBuilder> _Builder_ setPublicKey(
             final PublicKey publicKey) {
         this.publicKey = publicKey;
         @SuppressWarnings("unchecked")

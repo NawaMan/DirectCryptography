@@ -10,7 +10,7 @@ import java.security.KeyPair;
 public abstract class CryptographyKeyPairGenerator {
     
     /** The cryptography builder. */
-    private final AbstractCommonKeyPairCryptographyBuilder cryptographyBuilder;
+    private final KeyPairCryptographyBuilder cryptographyBuilder;
     
     /** They key generator. */
     private final KeyPairGenerator keyPairGenerator;
@@ -24,7 +24,7 @@ public abstract class CryptographyKeyPairGenerator {
      *            the key pair generator.
      */
     protected CryptographyKeyPairGenerator(
-            final AbstractCommonKeyPairCryptographyBuilder cryptographyBuilder,
+            final KeyPairCryptographyBuilder cryptographyBuilder,
             final KeyPairGenerator keyPairGenerator) {
         if (cryptographyBuilder == null) {
             throw new NullPointerException();

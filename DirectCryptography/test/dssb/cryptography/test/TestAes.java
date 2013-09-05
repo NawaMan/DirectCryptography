@@ -3,8 +3,7 @@ package dssb.cryptography.test;
 import org.junit.Before;
 
 import dssb.cryptography.cipher.Cipher;
-import dssb.cryptography.schemes.aes.AesCryptographyBuilder;
-import dssb.cryptography.schemes.aes.AesScheme;
+import dssb.cryptography.schemes.aes.Aes;
 
 /**
  * Test for AES.
@@ -22,7 +21,7 @@ public class TestAes extends AbstractCipherTest {
     @Before
     public void init()
             throws Exception {
-        final AesCryptographyBuilder cryptBuilder = AesScheme.INSTANCE.createCryptographyBuilder();
+        final Aes.CryptographyBuilder cryptBuilder = Aes.Scheme.createCryptographyBuilder();
         cryptBuilder.useNewKey();
         
         final Cipher cipher = cryptBuilder.newCryptography().getFeature(Cipher.class);

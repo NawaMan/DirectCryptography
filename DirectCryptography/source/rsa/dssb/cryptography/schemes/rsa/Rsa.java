@@ -21,7 +21,7 @@ import dssb.cryptography.javascrypto.JavaCryptoKeyPairScheme;
 public class Rsa extends JavaCryptoKeyPairScheme.Simple<Rsa> {
     
     /** The RSA algorithm name. */
-    private static final String RSA_ALGORITHM_NAME = "RSA";
+    public static final String RSA_ALGORITHM_NAME = "RSA";
     
     /** Static import instance. */
     public static final Rsa Rsa = new Rsa();
@@ -35,10 +35,13 @@ public class Rsa extends JavaCryptoKeyPairScheme.Simple<Rsa> {
     /** Conventional instance. */
     public static final Rsa INSTANCE = Rsa;
     
+    /** The default key size. */
+    public static final int DEFAULT_KEYSIZE = 1024;
+    
     /**
      * The builder for RSA cryptography.
      */
-    public static class CryptographyBuilder extends RsaCryptographyBuilder<Rsa> {
+    public static class CryptographyBuilder extends AbstractRsaCryptographyBuilder<Rsa> {
         /** Constructor. */
         CryptographyBuilder() {
             super(Rsa);

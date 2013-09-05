@@ -10,7 +10,7 @@ import dssb.cryptography.cipher.DecyptionException;
 import dssb.cryptography.cipher.EncyptionException;
 import dssb.cryptography.javascrypto.JavaCryptoKeyPairScheme;
 import dssb.cryptography.schemes.rsa.Rsa;
-import dssb.cryptography.schemes.rsa.RsaCryptographyBuilder;
+import dssb.cryptography.schemes.rsa.AbstractRsaCryptographyBuilder;
 import dssb.cryptography.signature.SignException;
 import dssb.cryptography.signature.Signature;
 import dssb.cryptography.signature.VerifyException;
@@ -40,7 +40,7 @@ public class Sha1Rsa extends JavaCryptoKeyPairScheme.Simple<Sha1Rsa> {
     /**
      * The builder for RSA cryptography.
      */
-    public static class CryptographyBuilder extends RsaCryptographyBuilder<Sha1Rsa> {
+    public static class CryptographyBuilder extends AbstractRsaCryptographyBuilder<Sha1Rsa> {
         /** Constructor. */
         CryptographyBuilder() {
             super(Sha1Rsa);

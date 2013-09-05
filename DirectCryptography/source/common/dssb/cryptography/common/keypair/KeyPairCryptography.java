@@ -7,11 +7,11 @@ import dssb.cryptography.Scheme;
 import dssb.cryptography.common.AbstractCommonCryptography;
 
 /**
- * Common implementation for cryptography with keypair.
+ * Abstract key pair cryptography.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public class AbstractCommonKeyPairCryptography extends AbstractCommonCryptography {
+public class KeyPairCryptography extends AbstractCommonCryptography {
     
     /** The private key. */
     private final PrivateKey privateKey;
@@ -23,13 +23,13 @@ public class AbstractCommonKeyPairCryptography extends AbstractCommonCryptograph
      * Constructor.
      * 
      * @param scheme
-     *            the scheme.
+     *            the cryptography scheme.
      * @param privateKey
      *            the private key.
      * @param publicKey
      *            the public key.
-     **/
-    protected AbstractCommonKeyPairCryptography(
+     */
+    protected KeyPairCryptography(
             final Scheme scheme,
             final PrivateKey privateKey,
             final PublicKey publicKey) {
@@ -42,7 +42,7 @@ public class AbstractCommonKeyPairCryptography extends AbstractCommonCryptograph
      * Returns the private key.
      * 
      * @return the private key.
-     **/
+     */
     protected PrivateKey getPrivateKey() {
         return this.privateKey;
     }
@@ -51,7 +51,7 @@ public class AbstractCommonKeyPairCryptography extends AbstractCommonCryptograph
      * Returns the public key.
      * 
      * @return the public key.
-     **/
+     */
     protected PublicKey getPublicKey() {
         return this.publicKey;
     }
