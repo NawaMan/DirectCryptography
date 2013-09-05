@@ -1,6 +1,7 @@
 package dssb.cryptography.schemes.rsa;
 
 import dssb.cryptography.common.keypair.KeyPairGenerator;
+import dssb.cryptography.javascrypto.JavaCryptoKeyPairGenerator;
 import dssb.cryptography.javascrypto.JavaCryptoKeyPairScheme;
 
 /**
@@ -14,7 +15,7 @@ public class AbstractRsaCryptographyBuilder<_Scheme_ extends JavaCryptoKeyPairSc
         JavaCryptoKeyPairScheme.Cryptography.Builder.Public<_Scheme_> {
     
     /** The key pair generator. */
-    private KeyPairGenerator.JavaCrypto.Public keyPairGenerator = new KeyPairGenerator.JavaCrypto.Public(
+    private JavaCryptoKeyPairGenerator.Public keyPairGenerator = new JavaCryptoKeyPairGenerator.Public(
             Rsa.RSA_ALGORITHM_NAME, Rsa.DEFAULT_KEYSIZE);
     
     /**

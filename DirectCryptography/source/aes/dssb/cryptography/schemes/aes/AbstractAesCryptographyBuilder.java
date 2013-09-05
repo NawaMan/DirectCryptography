@@ -1,6 +1,7 @@
 package dssb.cryptography.schemes.aes;
 
 import dssb.cryptography.common.secretkey.SecretKeyGenerator;
+import dssb.cryptography.javascrypto.JavaCryptoSecretKeyGenerator;
 import dssb.cryptography.javascrypto.JavaCryptoSecretKeyScheme;
 import dssb.cryptography.schemes.aes.Aes.KeySize;
 
@@ -16,7 +17,7 @@ public class AbstractAesCryptographyBuilder<_Scheme_ extends Aes> extends
         JavaCryptoSecretKeyScheme.Cryptography.Builder.Public<Aes> {
     
     /** The key generator. */
-    private SecretKeyGenerator.JavaCrypto.Public keyGenerator = new SecretKeyGenerator.JavaCrypto.Public(
+    private JavaCryptoSecretKeyGenerator.Public keyGenerator = new JavaCryptoSecretKeyGenerator.Public(
             Aes.AES_ALGORITHM_NAME, Aes.DEFAULT_KEYSIZE.getKeySize());
     
     /**

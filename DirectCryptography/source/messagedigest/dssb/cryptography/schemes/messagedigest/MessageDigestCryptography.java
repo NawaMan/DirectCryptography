@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 import dssb.cryptography.CryptographyBuildFailException;
 import dssb.cryptography.Scheme;
-import dssb.cryptography.common.AbstractCommonCryptography;
+import dssb.cryptography.common.AbstractCryptography;
 import dssb.cryptography.hasher.HasherFactory;
 
 /**
@@ -13,7 +13,7 @@ import dssb.cryptography.hasher.HasherFactory;
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public class MessageDigestCryptography extends AbstractCommonCryptography {
+public class MessageDigestCryptography extends AbstractCryptography {
     
     /** The algorithm. */
     private final String algorithm;

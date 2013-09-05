@@ -4,14 +4,14 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 import dssb.cryptography.Scheme;
-import dssb.cryptography.common.AbstractCommonCryptography;
+import dssb.cryptography.common.AbstractCryptography;
 
 /**
  * Abstract key pair cryptography.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public class KeyPairCryptography extends AbstractCommonCryptography {
+public class KeyPairCryptography extends AbstractCryptography {
     
     /** The private key. */
     private final PrivateKey privateKey;

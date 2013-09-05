@@ -35,7 +35,7 @@ public interface Cryptography {
     public <_Feature_ extends Feature<_Feature_>> _Feature_ getFeature(
             Class<_Feature_> featureClass);
     
-    // == Sub classes ==================================================================================================
+    // == Aux classes ==================================================================================================
     
     /**
      * Feature for {@link Cryptography}.

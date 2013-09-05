@@ -3,14 +3,14 @@ package dssb.cryptography.common.secretkey;
 import javax.crypto.SecretKey;
 
 import dssb.cryptography.Scheme;
-import dssb.cryptography.common.AbstractCommonCryptography;
+import dssb.cryptography.common.AbstractCryptography;
 
 /**
  * Common implementation for cryptography with a secret key.
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public abstract class SecretKeyCryptography extends AbstractCommonCryptography {
+public abstract class SecretKeyCryptography extends AbstractCryptography {
     
     /** The secret key. */
     private final SecretKey secretKey;

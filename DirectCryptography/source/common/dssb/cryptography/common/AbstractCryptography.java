@@ -17,7 +17,7 @@ import dssb.cryptography.signature.Signature;
  * 
  * @author Nawapunth Manusitthipol <nawa@dssbsoft.com>
  */
-public abstract class AbstractCommonCryptography implements Cryptography {
+public abstract class AbstractCryptography implements Cryptography {
     
     /** The scheme. */
     private final Scheme scheme;
@@ -28,7 +28,7 @@ public abstract class AbstractCommonCryptography implements Cryptography {
      * @param scheme
      *            the scheme.
      **/
-    protected AbstractCommonCryptography(
+    protected AbstractCryptography(
             final Scheme scheme) {
         this.scheme = scheme;
     }
